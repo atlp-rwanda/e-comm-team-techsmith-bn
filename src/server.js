@@ -1,26 +1,23 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import dotenv from 'dotenv'
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
-dotenv.config()
+// CONFIGURE DOTENV
+dotenv.config();
 
-const app =express()
+const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-const {PORT,HOST}=process.env
-
+const { PORT } = process.env;
 
 try {
-    app.listen(PORT,()=>{
-        console.log(`Server listening on port ${PORT}`)
-    })
+  app.listen(PORT, () => {
+    console.log(`Server listening on PORT ${PORT}`);
+  });
 } catch (error) {
-    console.log(error.message)
+  console.log(error);
 }
-
-
-
-
-
