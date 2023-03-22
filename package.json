@@ -5,8 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "make-model":"npx sequelize-cli model:generate --name User --attributes Name:string,email:string",
+    "migrate":"npx sequelize-cli db:migrate",
     "dev": "nodemon src/server.js",
-    "start":"node src/server.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -31,9 +33,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "passport": "^0.6.0",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.29.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "sequelize-cli": "^6.6.0"
   }
 }
