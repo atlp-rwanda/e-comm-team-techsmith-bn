@@ -53,7 +53,8 @@ To run the app in [Docker](https://www.docker.com) You should first install dock
 ### Pre-Requisites <a name="pre-requisites"></a>
 
 * Nodejs version 18.x
-
+* Docker
+* ``` others will be mentioned later ```
 
 ### File Structure <a name="structure"> </a>
 
@@ -73,6 +74,8 @@ In case you wish to contribute, raise a discussion first about what you would li
 
 * main
 * develop
+* before making any change, create a sub-branch on of develop and push on that specific branch.
+* follow the instructions in the [engineering playbook](https://github.com/atlp-rwanda/engineering-playbook/wiki/)
 
 ## License
 
