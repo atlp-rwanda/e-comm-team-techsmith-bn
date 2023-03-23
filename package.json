@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "make-model":"npx sequelize-cli model:generate --name User --attributes Name:string,email:string",
-    "migrate":"npx sequelize-cli db:migrate",
+    "make-model": "npx sequelize-cli model:generate --name User --attributes Name:string,email:string",
+    "migrate": "npx sequelize-cli db:migrate",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
