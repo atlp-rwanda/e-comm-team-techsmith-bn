@@ -142,10 +142,12 @@ const paths = {
   '/users/{id}': {
     put: updatedUser,
   },
-  // ENABLE AND DISABLE USER
+
+  // ENABLE USER
   '/users/enable/{id}': {
     put: enableUser,
   },
+  // DISABLE USER
   '/users/disable/{id}': {
     put: disableUser,
   },

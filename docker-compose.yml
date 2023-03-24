@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: ecommerce_backend_techsmith_postgressDB
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  server:
+    container_name: ecommerce_backend_techsmith
+    image: ecom-techsmith:0.1
+    build:
+      context: .
+    ports:
+      - '$PORT:$PORT'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://$DB_USER:$DB_PASSWORD@db:5432/$DB_NAME?ssl=true
+    volumes:
+      - ./src:/app/src
+      # - /Users/andelarwanda/Documents/Ecom/e-comm-team-techsmith-bn/src:/app/src
+volumes:
+  db-data:
+  

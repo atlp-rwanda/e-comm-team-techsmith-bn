@@ -119,8 +119,9 @@ const dbCon = async () => {
   }
 };
 
+
 Promise.all([dbCon(), server]).then(() => {
-  console.log(`Server listening on port:${PORT}`);
+  console.log(`Server  listening on port:${PORT}`);
   console.log('DB connection successful');
 });
 
