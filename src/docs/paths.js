@@ -1,4 +1,4 @@
-import getProducts from './Product/getProducts';
+import getProducts from './Product/getProducts.js';
 
 const paths = {
 

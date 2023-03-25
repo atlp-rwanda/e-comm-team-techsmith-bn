@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "make-model": "npx sequelize-cli model:generate --name User --attributes Name:string,email:string",
+
     "migrate": "npx sequelize-cli db:migrate",
     "lint:fix": "eslint --fix \"**/*.js\"",
     "dev": "npm run lint:fix && nodemon --experimental-specifier-resolution=node src/server.js",

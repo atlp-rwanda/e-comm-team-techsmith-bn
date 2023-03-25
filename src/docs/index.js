@@ -1,7 +1,7 @@
-import servers from './servers';
-import tags from './tags';
-import paths from './paths';
-import components from './components';
+import servers from './servers.js';
+import tags from './tags.js';
+import paths from './paths.js';
+import components from './components.js';
 
 const options = {
   definition: {

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import Sequelize from 'sequelize';
-import allRoutes from './routes/allRoutes';
+import allRoutes from './routes/allRoutes.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -18,9 +18,7 @@ app.use('/api', allRoutes);
 const { PORT, HOST } = process.env;
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
+  process.env.DB_URL,
   {
     host: 'localhost',
     dialect: 'postgres',
@@ -30,16 +28,19 @@ const sequelize = new Sequelize(
 sequelize
   .authenticate()
   .then(() => {
+    /* eslint-disable */
     console.log('Connection has been established successfully.');
   })
   .catch((err) => {
+    /* eslint-disable */
     console.error('Unable to connect to the database:', err);
   });
-
 try {
   app.listen(PORT, () => {
+    /* eslint-disable */
     console.log(`Server listening on port ${HOST}:${PORT}`);
   });
 } catch (error) {
+  /* eslint-disable */
   console.log(error);
 }
