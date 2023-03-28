@@ -1,24 +1,23 @@
+'use strict';
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
-
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.cjs')[env];
-
-// [env];
+const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
-const User = require('./user.cjs');
-
-
 const sequelize = new Sequelize(
-  process.env.DB_URL, {
-    host: process.env.HOST,
-    dialect: "postgres" 
+  config.database,
+  config.username,
+  config.password,
+  {
+    dialect: config.dialect,
+    host: config.host
   }
-)
+);
 
 fs
   .readdirSync(__dirname)
@@ -31,11 +30,11 @@ fs
     );
   })
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
-Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
@@ -43,7 +42,5 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-db.users = User(sequelize, Sequelize);
 
 module.exports = db;

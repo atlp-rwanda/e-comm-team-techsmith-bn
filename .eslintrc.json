@@ -56,7 +56,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".cjs"]
+        "extensions": [".js",".cjs"]
       }
     }
   }
