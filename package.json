@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "rm -rf build && babel src --out-dir build",
+    "build": "mkdir -p build && chown -R $(id -u):$(id -g) build && babel src --out-dir build",
     "migrate": "npx sequelize-cli db:migrate",
     "down": "npx sequelize-cli db:migrate:undo",
     "down-all": "npx sequelize-cli db:migrate:undo:all",

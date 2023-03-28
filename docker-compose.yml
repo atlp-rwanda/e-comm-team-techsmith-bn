@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecom
+    ports:
+      - '5005:5005'
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - postgres_data:/var/lib/postgresql/data
+    user: "1000:1000" # set appropriate user and group for the volume
+
+volumes:
+  postgres_data:
