@@ -2,7 +2,7 @@
 
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080`:)
 
 
 ## Introduction
