@@ -9,7 +9,8 @@
     "migrate": "npx sequelize-cli db:migrate",
     "lint:fix": "eslint --fix \"**/*.js\"",
     "dev": "npm run lint:fix && nodemon --experimental-specifier-resolution=node src/server.js",
-    "start":  "node src/server.js"
+    "start": "node src/server.js",
+    "test":"mocha ./src/test/*.test.js --timeout 1000000 --exit "
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,8 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.21.0",
     "body-parser": "^1.20.2",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "eslint-plugin-jest": "^27.2.1",
@@ -46,6 +49,7 @@
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.21",
     "sequelize-cli": "^6.6.0"
   }
