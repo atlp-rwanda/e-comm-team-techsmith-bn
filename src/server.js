@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import Sequelize from 'sequelize';
-import allRoutes from './routes/allRoutes';
-
+import allRoutes from './routes/allRoutes.js';
+import db from '../database/models/index.js';
 // CONFIGURE DOTENV
 dotenv.config();
 
@@ -15,31 +15,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/api', allRoutes);
 
-const { PORT, HOST } = process.env;
+const { PORT } = process.env;
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
-  {
-    host: 'localhost',
-    dialect: 'postgres',
+const dbCon = async () => {
+  try {
+    await db.sequelize.authenticate();
+    console.log('DB connected successfully');
+  } catch (error) {
+    console.log(`db error: ${error.message}`);
   }
-);
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+};
 
 try {
   app.listen(PORT, () => {
-    console.log(`Server listening on port ${HOST}:${PORT}`);
+    /* eslint-disable */
+    dbCon()
+    console.log(`Server listening on port:${PORT}`);
   });
 } catch (error) {
+  /* eslint-disable */
   console.log(error);
 }

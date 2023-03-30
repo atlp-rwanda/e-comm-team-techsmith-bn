@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "make-model": "npx sequelize-cli model:generate --name User --attributes Name:string,email:string",
+    "build": "rm -rf build && babel src --out-dir build",
     "migrate": "npx sequelize-cli db:migrate",
+    "down": "npx sequelize-cli db:migrate:undo",
+    "make-seed":"npx sequelize-cli seed:generate --name demo-user",
+    "seed":"npx sequelize-cli db:seed:all",
+    "undo-seed":"npx sequelize-cli db:seed:undo",
     "lint:fix": "eslint --fix \"**/*.js\"",
-    "dev": "npm run lint:fix && nodemon --experimental-specifier-resolution=node src/server.js",
-    "start":  "node src/server.js"
+    "dev": "npm run lint:fix && nodemon --exec babel-node src/server.js",
+    "start":  "npm run build && node build/server.js"
   },
   "repository": {
     "type": "git",
