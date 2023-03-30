@@ -30,9 +30,13 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       },
-      password:{
+      password: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      roleId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -45,6 +49,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('user');
+    await queryInterface.dropTable('user', null, {});
   }
 };

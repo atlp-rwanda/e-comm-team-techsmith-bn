@@ -4,8 +4,8 @@
     "es2021": true,
     "node": true
   },
-  "extends": "airbnb-base",
-  "plugins": ["eslint-plugin-import"],
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["eslint-plugin-import", "prettier"],
   "overrides": [
     {
       "files": ["*-test.js", "*.spec.js"],
@@ -19,6 +19,13 @@
     "sourceType": "module"
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "parser": "babel"
+      }
+    ],
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "new-cap": 0,
@@ -51,12 +58,18 @@
         "requireParamDescription": false,
         "requireReturnDescription": true
       }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "allow": ["_"]
+      }
     ]
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js",".cjs"]
+        "extensions": [".js", ".cjs"]
       }
     }
   }

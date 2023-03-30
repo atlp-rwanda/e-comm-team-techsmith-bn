@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
    
@@ -10,13 +8,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   user.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
     name: DataTypes.STRING,
     email:{
     type: DataTypes.STRING,
     unique:true,
     allowNull:false
     },
-    role: DataTypes.STRING,
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     isActive:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
@@ -27,23 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'user',
     tableName: 'user',
   });
-  user.associate = function (models) {
-    user.belongsTo(models.role, {
-      foreignKey: "roleId",
-      as: "Role",
-    });
-    user.belongsTo(models.order,{
-      foreignKey: "userId",
-      as: "Order",
-    });
-    user.belongsToMany(models.product,{
-      through:"user_product"
-    })
-    user.hasOne(models.cart,{
-      foreignKey: "userId",
-      as: "Cart", 
-    })
-  };
 
   return user;
 };

@@ -10,9 +10,7 @@ const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
+  process.env.DB_URL || config.database_url,
   {
     dialect: config.dialect,
     host: config.host

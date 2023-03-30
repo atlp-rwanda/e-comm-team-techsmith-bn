@@ -19,7 +19,7 @@ const options = {
     servers, // Servers imported from src/docs/servers.js
     tags, // Tags imported from src/docs/tags.js
     components, // Components imported from src/docs/components.js,
-    paths
+    paths,
   },
   apis: ['../routes/*.js', '../docs/**/*.js'], // Path to the API docs
 };
