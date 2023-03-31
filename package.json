@@ -7,12 +7,14 @@
     "build": "rm -rf build && babel src --out-dir build",
     "migrate": "npx sequelize-cli db:migrate",
     "down": "npx sequelize-cli db:migrate:undo",
-    "make-seed":"npx sequelize-cli seed:generate --name demo-user",
-    "seed":"npx sequelize-cli db:seed:all",
-    "undo-seed":"npx sequelize-cli db:seed:undo",
+    "make-seed": "npx sequelize-cli seed:generate --name demo-user",
+    "seed": "npx sequelize-cli db:seed:all",
+    "undo-seed": "npx sequelize-cli db:seed:undo",
     "lint:fix": "eslint --fix \"**/*.js\"",
     "dev": "npm run lint:fix && nodemon --exec babel-node src/server.js",
-    "start":  "npm run build && node build/server.js"
+    "start": "npm run build && node build/server.js",
+    "test": " nyc --reporter=lcov --reporter=text mocha ./src/test/*.test.js --require @babel/register --timeout 1000000 --exit ",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -34,10 +36,13 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.21.0",
     "body-parser": "^1.20.2",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "eslint-plugin-jest": "^27.2.1",
     "express": "^4.18.2",
+    "mocha": "^10.2.0",
     "passport": "^0.6.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
@@ -50,6 +55,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.21",
+    "nyc": "^15.1.0",
     "sequelize-cli": "^6.6.0"
   }
 }

@@ -36,3 +36,5 @@ try {
   /* eslint-disable */
   console.log(error);
 }
+
+export default app;
