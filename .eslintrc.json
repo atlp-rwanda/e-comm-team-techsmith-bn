@@ -15,8 +15,8 @@
     }
   ],
   "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    "ecmaVersion": "latest"
+   
   },
   "rules": {
     "one-var": 0,
@@ -39,7 +39,7 @@
       "error",
       "ignorePackages",
       {
-        "js": "always"
+        "js": "false"
       }
     ],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
@@ -61,3 +61,6 @@
     }
   }
 }
+
+
+

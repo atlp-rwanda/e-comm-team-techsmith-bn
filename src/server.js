@@ -12,7 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use('/api', allRoutes);
 
 const { PORT } = process.env;
@@ -36,3 +36,5 @@ try {
   /* eslint-disable */
   console.log(error);
 }
+
+export default app;

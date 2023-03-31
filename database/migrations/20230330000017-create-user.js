@@ -9,16 +9,29 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      Name: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      password:{
+        allowNull:false,
+        type:Sequelize.STRING
       },
       email: {
         allowNull: false,
         type: Sequelize.STRING,
         unique:true
       },
-      Role: {
+      resetToken:{
+        type:Sequelize.STRING,
+        allowNull:true
+      },
+      resetTokenExpiresAt:{
+        type:Sequelize.STRING,
+        allowNull:true
+      },
+       
+      role: {
         allowNull: false,
         type: Sequelize.STRING
       },
