@@ -1,4 +1,4 @@
-# Library App By Techsmith
+# e-comm-team-techsmith-bn
 
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
@@ -39,6 +39,8 @@ This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith
 
 #### Run app in Docker <a name="docker"></a>
 To run the app in [Docker](https://www.docker.com) You should first install docker as instructed in the installations needed.
+
+* run npm run docker-compose up : To build and start app in Docker
 
 ``` Other instructions about docker will be mentioned soon ```
 
