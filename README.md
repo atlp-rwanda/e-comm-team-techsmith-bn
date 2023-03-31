@@ -3,6 +3,10 @@
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080`:)
+
+
+
 ## Introduction
 
 This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith. Some of the key features of this library will be the ability to add, edit, and delete books, as well as search for books by title, author, or genre, among others features
