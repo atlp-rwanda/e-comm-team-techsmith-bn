@@ -1,4 +1,4 @@
-# Library App By Techsmith
+# e-comm-team-techsmith-bn
 
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
@@ -40,6 +40,8 @@ This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith
 #### Run app in Docker <a name="docker"></a>
 To run the app in [Docker](https://www.docker.com) You should first install docker as instructed in the installations needed.
 
+* run npm run docker-compose up : To build and start app in Docker
+
 ``` Other instructions about docker will be mentioned soon ```
 
 ### Documentation <a name="documentation"></a>
@@ -53,7 +55,8 @@ To run the app in [Docker](https://www.docker.com) You should first install dock
 ### Pre-Requisites <a name="pre-requisites"></a>
 
 * Nodejs version 18.x
-
+* Docker
+* ``` others will be mentioned later ```
 
 ### File Structure <a name="structure"> </a>
 
@@ -73,6 +76,8 @@ In case you wish to contribute, raise a discussion first about what you would li
 
 * main
 * develop
+* before making any change, create a sub-branch on of develop and push on that specific branch.
+* follow the instructions in the [engineering playbook](https://github.com/atlp-rwanda/engineering-playbook/wiki/)
 
 ## License
 
