@@ -41,6 +41,19 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'product',
     tableName: 'product',
   });
-
+  // product.associate = function (models) {
+  //   product.belongsToMany(models.user,{
+  //     through:"user_product"
+  //   })
+  //   product.belongsTo(models.category,{
+  //     foreignKey: "categoryId",
+  //     as: "Category",
+  //   })
+  //   product.belongsToMany(models.order,{
+  //     through: "order_product"
+       
+      
+  //   })
+  // };
   return product;
 };
