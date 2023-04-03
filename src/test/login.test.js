@@ -9,21 +9,25 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Sample Test', () => {
-  it('No Login due to missing token', () => {
+  it('Login with Wrong Crediantials', () => {
     chai.request(app)
       .get('/api/login')
     // Dummy test #1
 
       .end((err, res) => {
         expect(res).to.have.status(404);
+
+        // done();
       });
+
   });
-  it('Login with token', () => {
+  it('Login and get a token', () => {
     chai.request(app)
       .get('/api/login')
     // Dummy test #2
       .end((err, res) => {
         expect(res).to.have.status(404);
+        // expect(res).to.have.property('message','Successfull Login!!')
       });
   });
   it('No Login due to missing Field', () => {

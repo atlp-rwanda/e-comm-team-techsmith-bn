@@ -20,10 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     unique:true,
     allowNull:false
     },
-    roleId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    roleId: DataTypes.STRING,
     isActive:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
@@ -34,6 +31,23 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'user',
     tableName: 'user',
   });
+  // user.associate = function (models) {
+  //   user.belongsTo(models.role, {
+  //     foreignKey: "roleId",
+  //     as: "Role",
+  //   });
+  //   user.belongsTo(models.order,{
+  //     foreignKey: "userId",
+  //     as: "Order",
+  //   });
+  //   user.belongsToMany(models.product,{
+  //     through:"user_product"
+  //   })
+  //   user.hasOne(models.cart,{
+  //     foreignKey: "userId",
+  //     as: "Cart", 
+  //   })
+  // };
 
   return user;
 };
