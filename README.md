@@ -2,11 +2,10 @@
 
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080`:)
  
 [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop)
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/ch-integrate_Circleci-184752080`:)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:)
 
 
 
