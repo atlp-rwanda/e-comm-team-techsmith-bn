@@ -43,7 +43,7 @@ const loginUser = {
 
 
 describe('User authentication', () => {
-  it('should return a response with status code 200', (done) => {
+  it('should return a response with status code 404', (done) => {
     chai.request(app)
       .post('/api/users/login').send(loginUser)
       .end((err, res) => {
@@ -52,6 +52,7 @@ describe('User authentication', () => {
       });
   });
 });
+
 
 
 describe('testing password reset', () => {
