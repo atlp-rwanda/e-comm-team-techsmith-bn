@@ -1,5 +1,10 @@
 node_modules/
 .env
 **/.DS_Store
+<<<<<<< HEAD
 build/
 .nyc_output/
+=======
+.nyc_output/
+coverage/
+>>>>>>> 35b8502 (feature(Updating):Updating user password)

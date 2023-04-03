@@ -1,6 +1,6 @@
 const registerUser = {
   // DEFINITION
-  tags: ['Users'], // REQUIRED
+  tags: ['User'], // REQUIRED
   description: 'Register a new user', // REQUIRED
   operationId: 'registerUser', // REQUIRED
 

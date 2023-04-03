@@ -41,19 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'order',
     tableName: 'order',
   });
-  // order.associate = function (models) {
-  //   order.hasMany(models.user, {
-  //     foreignKey: "userId",
-  //     as: "User",
-  //   });
-  //   order.hasOne(models.payment,{
-  //     foreignKey:"orderId",
-  //     as:"Payment",
-  //   });
-  //   order.belongsToMany(models.product,{
-  //     through: "order_product"
-     
-  //   })
-  // }
+ 
   return order;
 };

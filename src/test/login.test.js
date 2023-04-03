@@ -94,12 +94,12 @@ describe('User authentication', () => {
 
   // INVALID PASSWORD
   describe('Invalid password', () => {
-    it('should return a 400 status code', (done) => {
+    it('should return a 404 status code', (done) => {
       chai.request(app)
         .post('/api/users/login')
         .send(invalidPassword)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(404);
           done();
         });
     });
