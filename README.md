@@ -1,14 +1,6 @@
 # e-comm-team-techsmith-bn
 
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-
- 
-[![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop)
-
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:)
-
-
-
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:)
 ## Introduction
 
 This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith. Some of the key features of this library will be the ability to add, edit, and delete books, as well as search for books by title, author, or genre, among others features
