@@ -1,49 +1,37 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server.js';
-
-//const app = 'http://127.0.0.1:5005';
+import db from '../../database/models/index.js';
 
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Sample Test', () => {
-  it('Login with Wrong Crediantials', () => {
-    chai.request(app)
-      .get('/api/login')
-    // Dummy test #1
+// GOOD REQUEST
+const loginUser = {
+  email: 'gabby23@gmail.com',
+  password: 'Gabby123@@@',
+};
 
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+// UNKNOWN USER
+const invalidEmail = {
+  email: 'checkcehck@gmail.com',
+  password: '123456',
+};
 
-        // done();
-      });
+// INVALID PASSWORD
+const invalidPassword = {
+  email: 'ne12@gmail.com',
+  password: '123456',
+};
 
-  });
-  it('Login and get a token', () => {
+describe('User authentication', () => {
+  it('should return a response with status code 200', (done) => {
     chai.request(app)
-      .get('/api/login')
-    // Dummy test #2
+      .get('/api/sample_test')
       .end((err, res) => {
-        expect(res).to.have.status(404);
-        // expect(res).to.have.property('message','Successfull Login!!')
-      });
-  });
-  it('No Login due to missing Field', () => {
-    chai.request(app)
-      .get('/api/login')
-    // Dummy test #3
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-      });
-  });
-  it('No Login Wrong Email', () => {
-    chai.request(app)
-      .get('/api/login')
-    // Dummy test #3
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+        chai.expect(res).to.have.status(200);
+        done();
       });
   });
 });
