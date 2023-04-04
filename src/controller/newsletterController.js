@@ -27,7 +27,7 @@ class newsletterSubscribe {
       });
       /* eslint-disable no-console */
       console.log(subscriptionExists);
-      if (subscriptionExists?.isSubscribed) {
+      if (subscriptionExists) {
         return res.status(409).json({
           status: 'conflict',
           message: 'Your email is already subscribed to our newsletter',

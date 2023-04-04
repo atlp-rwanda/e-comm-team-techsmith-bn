@@ -18,11 +18,15 @@ module.exports = {
         type: Sequelize.STRING,
         unique:true
       },
+<<<<<<< HEAD
       password: {
         allowNull: false,
         type: Sequelize.STRING
       },
       roleID: {
+=======
+      roleId: {
+>>>>>>> 8ffa3d8 (184752090 Ft Login with Google auth)
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -61,6 +65,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      googleId:{
+        type: Sequelize.STRING,
       }
     });
   },

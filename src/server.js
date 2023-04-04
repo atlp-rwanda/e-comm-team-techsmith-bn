@@ -3,8 +3,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import passport from 'passport';
+import cookieSession from 'cookie-session';
 import allRoutes from './routes/allRoutes.js';
 import db from '../database/models/index.js';
+
 // CONFIGURE DOTENV
 dotenv.config();
 
@@ -12,9 +15,23 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+<<<<<<< HEAD
 app.use(cors());
 app.use('/api', allRoutes);
+=======
+>>>>>>> 8ffa3d8 (184752090 Ft Login with Google auth)
 
+app.use(cors({ origin: '*' }));
+
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.BEER],
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/api', allRoutes);
 const { PORT, NODE_ENV } = process.env;
 
 const dbCon = async () => {
