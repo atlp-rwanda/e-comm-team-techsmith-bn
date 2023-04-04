@@ -34,14 +34,13 @@ async function sendResetEmail(user) {
   await transporter.sendMail(mailOptions);
 }
 function verifyResetToken(token) {
- return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     console.log(token);
     jwt.verify(token, process.env.USER_SECRET, (err, decoded) => {
       if (err) {
         reject(err);
       } else {
         resolve(decoded.email);
-        
       }
     });
   });
@@ -83,7 +82,7 @@ async function processReset(req, res) {
         error: req.t('error'),
       });
     }
-   
+
     await resetPassword(email, password);
     return res.status(200).json({
       status: 'success',

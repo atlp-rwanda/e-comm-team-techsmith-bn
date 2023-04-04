@@ -6,7 +6,6 @@ import app from '../server.js';
 
 chai.should();
 chai.use(chaiHttp);
-const { expect } = chai;
 
 describe('Login  Test', () => {
   it('should return a response with status code 200', (done) => {

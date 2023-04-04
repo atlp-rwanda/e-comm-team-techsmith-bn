@@ -1,6 +1,7 @@
 import registerUser from './User/userSignup.js';
 import getProducts from './Product/getProducts.js';
 import { passwordReset, requestReset } from './resetPassword.js';
+import loginUser from './User/userLogin.js';
 
 const paths = {
   '/products': {
@@ -13,7 +14,12 @@ const paths = {
     post: passwordReset,
   },
   '/user/signup': {
-    post: registerUser,
+    '/users/signup': {
+      post: registerUser,
+    },
+    '/users/login': {
+      post: loginUser,
+    },
   },
 };
 
