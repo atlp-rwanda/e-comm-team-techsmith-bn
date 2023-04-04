@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT, DB_URL } = process.env;

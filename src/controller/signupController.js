@@ -13,17 +13,9 @@ const registerUser = async (req, res) => {
   // TOKEN
   let token = null;
   try {
-    const {
-      name: username,
-      email: userEmail,
-      password,
-      role,
-      gender: userGender,
-      birthDate: userBirthDate,
-      preferredLanguage: userPreferredLanguage,
-      preferredCurrency: userPreferredCurrency,
-      physicalAddress: userPhysicalAddress,
-    } = req.body;
+    const { name: username, email: userEmail, password, role } = req.body;
+
+    // console.log('I am called');
     /* es-lint-disable no-console */
     const hashedPassword = await bcrypt.hash(password, 10);
     // CHECK IF USER EXISTS
@@ -54,7 +46,9 @@ const registerUser = async (req, res) => {
         physicalAddress: userPhysicalAddress || 'Rwanda',
       });
       // CREATE TOKEN
-      token = jwt.sign({ id: userEmail }, secret, { expiresIn: 604800 });
+      token = jwt.sign({ id: userEmail, isActive: true }, secret, {
+        expiresIn: 604800,
+      });
       // SET TOKEN IN COOKIE
       res.cookie('Authorized', token, { httpOnly: true, maxAge: 604800 });
       // SEND EMAIL

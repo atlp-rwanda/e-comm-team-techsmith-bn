@@ -12,7 +12,10 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: '*' }));
+app.use(cors());
+app.get('/', (req, res) => {
+  res.send('welcome');
+});
 app.use('/api', allRoutes);
 
 const { PORT, NODE_ENV } = process.env;
