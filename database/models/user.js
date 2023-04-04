@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     gender: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'Unkwon'
     },
     birthDate: {
       type: DataTypes.DATE,
@@ -54,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Kigali, Rwanda'
     },
+    googleId:{
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'user',

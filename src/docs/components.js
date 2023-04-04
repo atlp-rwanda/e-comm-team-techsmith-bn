@@ -148,6 +148,11 @@ const components = {
         updatedAt: {
           $ref: '#/components/schemas/updatedAt',
         },
+        googleId: {
+          type: 'string',
+          description: 'Google ID of the user',
+          example: '123456789',
+        },
       },
     },
     // USER LOGIN RESPONSE
@@ -234,6 +239,11 @@ const components = {
         // ROLE
         role: {
           $ref: '#/components/schemas/id',
+        },
+        googleId: {
+          type: 'string',
+          description: 'Google ID of the user',
+          example: '123456789',
         },
       },
     },

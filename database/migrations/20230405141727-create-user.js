@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique:true
       },
-      roleID: {
+      roleId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -61,6 +61,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      googleId:{
+        type: Sequelize.STRING,
       }
     });
   },
