@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
 app.use('/api', allRoutes);
 
-const { PORT } = process.env;
+const { PORT, NODE_ENV } = process.env;
 
 const dbCon = async () => {
   try {
     await db.sequelize.authenticate();
-    console.log('DB connected successfully');
+    console.log(`DB connected successfully on ${NODE_ENV}`);
   } catch (error) {
     console.log(`db error: ${error.message}`);
   }

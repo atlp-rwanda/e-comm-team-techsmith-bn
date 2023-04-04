@@ -9,14 +9,15 @@ const requestReset = {
           properties: {
             email: {
               type: 'string',
-              description: 'The email of the user whose password needs to be reset',
-              example: 'example@example.com'
-            }
+              description:
+                'The email of the user whose password needs to be reset',
+              example: 'example@example.com',
+            },
           },
-          required: ['email']
-        }
-      }
-    }
+          required: ['email'],
+        },
+      },
+    },
   },
   responses: {
     200: {
@@ -29,12 +30,12 @@ const requestReset = {
               message: {
                 type: 'string',
                 description: 'Success message',
-                example: 'Password reset email sent successfully'
-              }
-            }
-          }
-        }
-      }
+                example: 'Password reset email sent successfully',
+              },
+            },
+          },
+        },
+      },
     },
     400: {
       description: 'Bad Request',
@@ -46,12 +47,12 @@ const requestReset = {
               message: {
                 type: 'string',
                 description: 'Error message',
-                example: 'Invalid email address'
-              }
-            }
-          }
-        }
-      }
+                example: 'Invalid email address',
+              },
+            },
+          },
+        },
+      },
     },
     500: {
       description: 'Internal Server Error',
@@ -63,14 +64,14 @@ const requestReset = {
               message: {
                 type: 'string',
                 description: 'Error message',
-                example: 'Server error occurred'
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+                example: 'Server error occurred',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 };
 
 const passwordReset = {
@@ -83,9 +84,9 @@ const passwordReset = {
       required: true,
       description: 'Reset password token received via email',
       schema: {
-        type: 'string'
-      }
-    }
+        type: 'string',
+      },
+    },
   ],
   requestBody: {
     required: true,
@@ -96,13 +97,13 @@ const passwordReset = {
           properties: {
             password: {
               type: 'string',
-              description: 'New password for the user'
-            }
+              description: 'New password for the user',
+            },
           },
-          required: ['password']
-        }
-      }
-    }
+          required: ['password'],
+        },
+      },
+    },
   },
   responses: {
     200: {
@@ -115,12 +116,12 @@ const passwordReset = {
               message: {
                 type: 'string',
                 description: 'Success message',
-                example: 'Password reset successful'
-              }
-            }
-          }
-        }
-      }
+                example: 'Password reset successful',
+              },
+            },
+          },
+        },
+      },
     },
 
     401: {
@@ -133,12 +134,12 @@ const passwordReset = {
               message: {
                 type: 'string',
                 description: 'Error message',
-                example: 'Invalid or expired token'
-              }
-            }
-          }
-        }
-      }
+                example: 'Invalid or expired token',
+              },
+            },
+          },
+        },
+      },
     },
     500: {
       description: 'Internal Server Error',
@@ -150,14 +151,14 @@ const passwordReset = {
               message: {
                 type: 'string',
                 description: 'Error message',
-                example: 'Server error occurred'
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+                example: 'Server error occurred',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 };
 
 module.exports = { requestReset, passwordReset };

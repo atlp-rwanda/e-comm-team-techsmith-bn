@@ -1,8 +1,11 @@
 'use strict';
+
+const { DataTypes } = require('sequelize');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('user', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,18 +25,14 @@ module.exports = {
         type: Sequelize.STRING,
         unique:true
       },
-      resetToken:{
-        type:Sequelize.STRING,
-        allowNull:true
-      },
-      resetTokenExpiresAt:{
-        type:Sequelize.STRING,
-        allowNull:true
-      },
-       
-      role: {
+      isActive: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      roleId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('user', null, {});
   }
 };

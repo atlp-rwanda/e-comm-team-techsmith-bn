@@ -7,9 +7,11 @@
     "build": "rm -rf build && babel src --out-dir build",
     "migrate": "npx sequelize-cli db:migrate",
     "down": "npx sequelize-cli db:migrate:undo",
+    "down-all": "npx sequelize-cli db:migrate:undo:all",
     "make-seed": "npx sequelize-cli seed:generate --name demo-user",
     "seed": "npx sequelize-cli db:seed:all",
     "undo-seed": "npx sequelize-cli db:seed:undo",
+    "undo-seed-all":"npx sequelize-cli db:seed:undo:all",
     "lint:fix": "eslint --fix \"**/*.js\"",
     "dev": "npm run lint:fix && nodemon --exec babel-node src/server.js",
     "start": "npm run build && node build/server.js",
@@ -36,6 +38,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.21.0",
     "@babel/runtime": "^7.21.0",
+    "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "chai": "^4.3.7",
@@ -51,8 +54,10 @@
     "passport": "^0.6.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.29.3",
     "supertest": "^6.3.3",
+    "nanoid": "^4.0.2",
+    "npm": "^9.6.2",
+    "sequelize": "^6.30.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
   },
@@ -66,6 +71,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.21",
     "nyc": "^15.1.0",
+    "prettier": "^2.8.7",
     "sequelize-cli": "^6.6.0"
   }
 }

@@ -1,14 +1,17 @@
-const servers = [
+import dotenv from 'dotenv';
 
+dotenv.config();
+
+const { PORT } = process.env;
+const servers = [
   {
-    url: 'http://localhost:4000/api',
+    url: `http://localhost:${PORT}/api`,
     description: 'Local server',
   },
   {
-    url: 'https://techsmiths-ecommerce.herokuapp.com/api',
+    url: 'https://e-comm-team-techsmith-bn-staging.onrender.com/api/',
     description: 'Production server',
-  }
-
+  },
 ];
 
 export default servers;

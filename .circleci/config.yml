@@ -26,16 +26,10 @@ jobs:
           command: npm install
           name: Install Dependencies
           environment: 
-            DB_USER:  postgres
-            DB_PASSWORD: Musanzeyacu
-            DB_NAME: postgres
-            DB_HOST: db.mlyoiqwupkrgbbazipqu.supabase.co
-            DB_PORT: 5432
-            EMAIL: mudakikwaaimable05@outlook.com
-            PASSWORD: Workhard
-            SERVICE: hotmail
-            JWT_SECRET: parfaite
-            APP_URL: http://localhost:4000
+            DB_NAME: $DB_NAME
+            DB_USERNAME: $DB_USERNAME
+            DB_PASSWORD: $DB_PASSWORD
+            DB_UR: $DB_UR
             COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN  
       - run:
           command: npm ci

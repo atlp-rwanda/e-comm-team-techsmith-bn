@@ -1,19 +1,19 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class user extends Model {
+   
     static associate(models) {
       // define association here
     }
   }
-  User.init({
+  user.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
     name:{
       type:DataTypes.STRING,
       allowNull:false
@@ -26,20 +26,33 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     }, 
-    role:{
-      type:DataTypes.STRING,
-    },
-    resetToken:{
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    resetTokenExpiresAt:{
-      type: DataTypes.DATE,
-      allowNull:true
+    roleId: DataTypes.STRING,
+    isActive:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
     },
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
+    tableName: 'user',
   });
-  return User;
+  // user.associate = function (models) {
+  //   user.belongsTo(models.role, {
+  //     foreignKey: "roleId",
+  //     as: "Role",
+  //   });
+  //   user.belongsTo(models.order,{
+  //     foreignKey: "userId",
+  //     as: "Order",
+  //   });
+  //   user.belongsToMany(models.product,{
+  //     through:"user_product"
+  //   })
+  //   user.hasOne(models.cart,{
+  //     foreignKey: "userId",
+  //     as: "Cart", 
+  //   })
+  // };
+
+  return user;
 };
