@@ -13,8 +13,8 @@ const validateEmail = (email) => {
 const validatePassword = (password) => {
   let response = null;
   // validate user password
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/g;
-  response = password.length >= 8;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
   response = passwordRegex.test(password);
 

@@ -140,9 +140,23 @@ const components = {
         roleId: {
           $ref: '#/components/schemas/id',
         },
+        // ISACTIVE
+        isActive: {
+          type: 'boolean',
+          description: 'Status of the user account',
+          example: true,
+        },
         // TOKEN
-        token: {
+        Authorization: {
           $ref: '#/components/schemas/token',
+        },
+        // CREATEDAT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATEDAT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
         },
       },
     },
@@ -167,6 +181,22 @@ const components = {
         // ROLE
         role: {
           $ref: '#/components/schemas/id',
+        },
+      },
+    },
+    // LOGIN USER
+    loginUser: {
+      type: 'object',
+      properties: {
+        // EMAIL
+        email: {
+          $ref: '#/components/schemas/email',
+        },
+        // PASSWORD
+        password: {
+          type: 'string',
+          description: 'Password of the user',
+          example: 'abc123456',
         },
       },
     },

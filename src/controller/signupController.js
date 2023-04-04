@@ -5,8 +5,6 @@ import { validateEmail, validatePassword } from '../utils/userValidation.js';
 import sendEmail from '../utils/emails.js';
 
 const { user } = db;
-/* eslint-disable no-console */
-console.log('user', user);
 
 const { USER_SECRET: secret } = process.env;
 
@@ -17,7 +15,6 @@ const registerUser = async (req, res) => {
   try {
     const { name: username, email: userEmail, password, role } = req.body;
     /* es-lint-disable no-console */
-    console.log(userEmail);
     const hashedPassword = await bcrypt.hash(password, 10);
     // CHECK IF USER EXISTS
     const userExists = await user.findOne({ where: { email: userEmail } });
@@ -32,7 +29,6 @@ const registerUser = async (req, res) => {
     // VALIDATE USER PASSWORD
     const validPassword = validatePassword(password);
     // LOG VALIDATION RESULTS
-    console.log(validPassword, validEmail);
     /* REGISTER USER IF EMAIL AND PASSWORD ARE VALID */
     if (validEmail && validPassword) {
       const newUser = await user.create({
@@ -52,7 +48,7 @@ const registerUser = async (req, res) => {
       const { password: userPassword, ...userDetails } = newUser.dataValues;
       return res.status(201).json({
         message: 'User created successfully',
-        authorization: token,
+        Authorization: token,
         user: userDetails,
       });
     }
@@ -60,19 +56,20 @@ const registerUser = async (req, res) => {
     // INVALID EMAIL
     if (!validEmail) {
       return res.status(400).json({
-        message: validEmail,
+        message: 'Invalid email',
       });
     }
     // INVALID PASSWORD
     if (!validPassword) {
       return res.status(400).json({
-        message: validPassword,
+        message: 'Invalid password',
       });
     }
   } catch (error) {
     // CATCH ERROR
     return res.status(500).json({
-      error,
+      message: error.message,
+      ok: false,
     });
   }
 };
