@@ -1,7 +1,7 @@
 import express from 'express';
 import registerUser from '../controller/signupController.js';
 import loginController from '../controller/loginController.js';
-import newsletterSubscribe from '../controller/newsletterController.js';
+import dis_enableController from '../controller/dis_enableController.js';
 
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.post('/signup', registerUser);
 
 // LOGIN USER ROUTE
 router.post('/login', loginController);
+router.post('/disable/:id',dis_enableController.disableUser)
+router.post('/enable/:id',dis_enableController.enableUser )
 
 // REQUEST NEWSLETTER SUBSCRIPTION
 router.post('/request-newsletter', newsletterSubscribe.requestSubscription);

@@ -25,3 +25,6 @@ class dis_enableController {
     }
 
 }
+
+
+export default dis_enableController;

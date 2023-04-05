@@ -23,7 +23,7 @@ const loginController = async (req, res) => {
         const payload = {
           id: findUser.email,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: 604800 });
+        const token = jwt.sign(payload, {role: findUser.role}, secret, { expiresIn: 604800 });
         res.cookie('loginToken', token, {
           httpOnly: true,
           maxAge: 604800,
