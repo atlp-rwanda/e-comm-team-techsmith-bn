@@ -9,21 +9,21 @@ const { USER_SECRET: secret } = process.env;
 const { user } = db;
 
 const loginController = async (req, res) => {
-  const { email: userEmail, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const findUser = await user.findOne({ where: { userEmail } });
-    // console.log(findUser.password);
+    const findUser = await user.findOne({ where: { email } });
     // console.log(hashedPassword);
     // console.log(password);
     const checkPassword = await bcrypt.compare(password, findUser.password);
     if (findUser) {
-      console.log(checkPassword);
+      // console.log(checkPassword);
       if (checkPassword) {
         const payload = {
+          role: findUser.roleId,
           id: findUser.email,
         };
-        const token = jwt.sign(payload, {role: findUser.role}, secret, { expiresIn: 604800 });
+        const token = jwt.sign(payload, secret, { expiresIn: 604800 });
         res.cookie('loginToken', token, {
           httpOnly: true,
           maxAge: 604800,

@@ -13,7 +13,17 @@ const registerUser = async (req, res) => {
   // TOKEN
   let token = null;
   try {
-    const { name: username, email: userEmail, password, role } = req.body;
+    const {
+      name: username,
+      email: userEmail,
+      password,
+      role,
+      userGender,
+      userBirthDate,
+      userPreferredLanguage,
+      userPreferredCurrency,
+      userPhysicalAddress,
+    } = req.body;
 
     // console.log('I am called');
     /* es-lint-disable no-console */

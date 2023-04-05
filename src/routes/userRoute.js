@@ -2,6 +2,9 @@ import express from 'express';
 import registerUser from '../controller/signupController.js';
 import loginController from '../controller/loginController.js';
 import dis_enableController from '../controller/dis_enableController.js';
+import newsletterSubscribe from '../controller/newsletterController.js';
+import verifyIsdisabled from '../middlewares/verifyIsdisabled.js';
+import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
 
 const router = express.Router();
 
@@ -9,9 +12,9 @@ const router = express.Router();
 router.post('/signup', registerUser);
 
 // LOGIN USER ROUTE
-router.post('/login', loginController);
-router.post('/disable/:id',dis_enableController.disableUser)
-router.post('/enable/:id',dis_enableController.enableUser )
+router.post('/login', verifyIsdisabled, loginController);
+router.put('/disable/:id', verifyIsAdmin, dis_enableController.disableUser);
+router.put('/enable/:id', verifyIsAdmin, dis_enableController.enableUser);
 
 // REQUEST NEWSLETTER SUBSCRIPTION
 router.post('/request-newsletter', newsletterSubscribe.requestSubscription);
