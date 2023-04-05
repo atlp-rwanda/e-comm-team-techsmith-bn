@@ -9,10 +9,10 @@ dotenv.config();
 
 // Define the nodemailer transporter object
 const transporter = nodemailer.createTransport({
-  service: process.env.SERVICE,
+  service: process.env.RESET_EMAIL_SERVICE,
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
+    user: process.env.RESET_EMAIL,
+    pass: process.env.RESET_PASSWORD,
   },
 });
 // Send the password reset email

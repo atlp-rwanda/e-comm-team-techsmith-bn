@@ -160,5 +160,4 @@ const passwordReset = {
     },
   },
 };
-
-module.exports = { requestReset, passwordReset };
+export { requestReset, passwordReset };
