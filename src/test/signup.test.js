@@ -18,8 +18,8 @@ const userExists = {
   name: 'Test',
   email: 'bel12@gmail.com',
   role: 2,
-  password: 'Testing123',
-}
+  password: 'password101',
+};
 
 const userInvalidEmail = {
   name: 'Test',

@@ -25,15 +25,18 @@ jobs:
       - run:
           command: npm install
           name: Install Dependencies
-          environment: 
+          environment:
+            PORT: $PORT 
+            HOST: $HOST
             DB_NAME: $DB_NAME
-            DB_USERNAME: $DB_USERNAME
+            DB_USER: $DB_USER
             DB_PASSWORD: $DB_PASSWORD
-            DB_UR: $DB_UR
             USER_SECRET: $USER_SECRET
+            TOKEN: $TOKEN
+            DB_URL: $DB_URL
+            DB_PORT: $DB_PORT
             SENDGRID_API_KEY: $SENDGRID_API_KEY
             SENDGRID_EMAIL: $SENDGRID_EMAIL
-            TOKEN: $TOKEN
             NODE_ENV: $NODE_ENV
             COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN  
       - run:
