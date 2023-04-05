@@ -24,7 +24,7 @@ const loginController = async (req, res) => {
         id: findUser.email,
       };
       const token = jwt.sign(payload, secret, { expiresIn: 604800 });
-      res.cookie('loginToken', token, {
+      res.cookie('Authorized', token, {
         httpOnly: true,
         maxAge: 604800,
         path: '/',

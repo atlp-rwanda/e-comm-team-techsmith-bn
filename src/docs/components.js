@@ -111,6 +111,35 @@ const components = {
         roleId: {
           $ref: '#/components/schemas/id',
         },
+        // ISACTIVE
+        isActive: {
+          type: 'boolean',
+          description: 'Status of the user account',
+          example: true,
+        },
+        birthDate: {
+          type: 'string',
+          description: 'Birth date of the user',
+          example: '2021-07-01T12:00:00.000Z',
+        },
+        // PREFERRED LANGUAGE
+        preferredLanguage: {
+          type: 'string',
+          description: 'Preferred language of the user',
+          example: 'en, rw, fr, etc..',
+        },
+        // PREFERRED CURRENCY
+        preferredCurrency: {
+          type: 'string',
+          description: 'Preferred currency of the user',
+          example: 'RWF, USD, EUR, etc..',
+        },
+        // PHYSICAL ADDRESS
+        physicalAddress: {
+          type: 'string',
+          description: 'Physical address of the user',
+          example: 'Kigali, Rwanda',
+        },
         // CREATEDAT
         createdAt: {
           $ref: '#/components/schemas/createdAt',
@@ -178,6 +207,30 @@ const components = {
           description: 'Password of the user',
           example: 'abc123456',
         },
+        // BIRTH DATE
+        birthDate: {
+          type: 'string',
+          description: 'Birth date of the user',
+          example: '2021-07-01T12:00:00.000Z',
+        },
+        // PREFERRED LANGUAGE
+        preferredLanguage: {
+          type: 'string',
+          description: 'Preferred language of the user',
+          example: 'en, rw, fr, etc..',
+        },
+        // PREFERRED CURRENCY
+        preferredCurrency: {
+          type: 'string',
+          description: 'Preferred currency of the user',
+          example: 'RWF, USD, EUR, etc..',
+        },
+        // PHYSICAL ADDRESS
+        physicalAddress: {
+          type: 'string',
+          description: 'Physical address of the user',
+          example: 'Kigali, Rwanda',
+        },
         // ROLE
         role: {
           $ref: '#/components/schemas/id',
@@ -197,6 +250,53 @@ const components = {
           type: 'string',
           description: 'Password of the user',
           example: 'abc123456',
+        },
+      },
+    },
+    // REQUEST SUBSCRIPTION
+    requestSubscription: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // EMAIL
+        email: {
+          $ref: '#/components/schemas/email',
+        },
+      },
+    },
+    // REQUEST SUBSCRIPTION RESPONSE
+    requestSubscriptionResponse: {
+      type: 'object',
+      properties: {
+        // ID
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // EMAIL
+        email: {
+          $ref: '#/components/schemas/email',
+        },
+        // ISSUBSCRIBED
+        isSubscribed: {
+          type: 'boolean',
+          description:
+            'Status of the subscription, always false until a user confirms their subscription via email',
+          example: false,
+        },
+        // CREATEDAT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATEDAT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
         },
       },
     },
