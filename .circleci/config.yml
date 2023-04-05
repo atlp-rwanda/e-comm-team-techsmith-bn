@@ -31,9 +31,10 @@ jobs:
             DB_NAME: $DB_NAME
             DB_USER: $DB_USER
             DB_PASSWORD: $DB_PASSWORD
+            USER_SECRET: $USER_SECRET
+            TOKEN: $TOKEN
             DB_URL: $DB_URL
             DB_PORT: $DB_PORT
-            USER_SECRET: $USER_SECRET
             SENDGRID_API_KEY: $SENDGRID_API_KEY
             SENDGRID_EMAIL: $SENDGRID_EMAIL
             NODE_ENV: $NODE_ENV

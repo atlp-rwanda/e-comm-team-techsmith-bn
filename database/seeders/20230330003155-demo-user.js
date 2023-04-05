@@ -29,18 +29,28 @@ const user3 = {
   createdAt: new Date(),
   updatedAt: new Date(),
 };
+const user4 = {
+  id:6400,
+  name: 'parfaite ',
+  email: 'parfaitetwagira@gmail.com',
+  password:"$2b$10$UyFfWtkc5MNHbasmk9USGeR9us1g3YcrCZfC8hiH1RHYe8leOBDUi",
+  roleId:buyer.id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
      /**
      * Add seed commands here.
     */
-  await queryInterface.bulkInsert('user',[user1,user2,user3],{});
+  await queryInterface.bulkInsert('user',[user1,user2,user3,user4],{});
 
   },
   down: async (queryInterface, Sequelize) => queryInterface.bulkDelete('user', null,{}),
   user1,
   user2,
-  user3
+  user3,
+  user4
 
 };

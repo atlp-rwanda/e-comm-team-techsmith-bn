@@ -32,28 +32,27 @@ describe('Signup Test', () => {
   // INVALID EMAIL OR PASSWORD
   describe('No email or password provided', () => {
     it('Should return a 400 status code indicating bad request', (done) => {
-        chai.request(app)
-        .post('/api/users/signup')
-        .send(userInvalidEmail)
+      chai
+        .request(app)
+        .post('/api/users/signup').send(userInvalidEmail)
         .end((err, res) => {
-        expect(res).to.have.status(400);
-        done();
-      });
+          expect(res).to.have.status(400);
+          done();
+        });
     });
   });
 
   // IF A USER ALREADY EXISTS
   describe('User already exists', () => {
+    
     it('Should return a 409 status code indicating conflict', (done) => {
-      chai
-        .request(app)
-        .post('/api/users/signup')
-        .send(userExists).end((err, res) => {
-        expect(res).to.have.status(409);
-        done();
-      });
+      chai.request(app).post('/api/users/signup').send(userExists)
+        .end((err, res) => {
+          expect(res).to.have.status(409);
+          done();
+        });
     });
   });
 
-  //
+  // 
 });

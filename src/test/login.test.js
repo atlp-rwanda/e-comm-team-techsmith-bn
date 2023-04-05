@@ -1,7 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server.js';
-import db from '../../database/models/index.js';
+
+//const app = 'http://127.0.0.1:5005';
 
 chai.should();
 chai.use(chaiHttp);

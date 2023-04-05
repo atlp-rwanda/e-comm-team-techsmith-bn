@@ -15,8 +15,8 @@
     }
   ],
   "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    "ecmaVersion": "latest"
+   
   },
   "rules": {
     "prettier/prettier": [
@@ -46,7 +46,7 @@
       "error",
       "ignorePackages",
       {
-        "js": "always"
+        "js": "false"
       }
     ],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],

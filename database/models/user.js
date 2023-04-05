@@ -14,20 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true
     },
-    name: DataTypes.STRING,
-    email:{
-    type: DataTypes.STRING,
-    unique:true,
-    allowNull:false
+    name:{
+      type:DataTypes.STRING,
+      allowNull:false
     },
+    email:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }, 
+    password:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }, 
     roleId: DataTypes.STRING,
     isActive:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
     },
     gender: {
       type: DataTypes.STRING,

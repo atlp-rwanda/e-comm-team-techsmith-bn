@@ -13,14 +13,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      password:{
+        allowNull:false,
+        type:Sequelize.STRING
+      },
       email: {
         allowNull: false,
         type: Sequelize.STRING,
         unique:true
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING
       },
       roleID: {
         allowNull: false,
