@@ -18,8 +18,13 @@ const userExists = {
   name: 'Test',
   email: 'bel12@gmail.com',
   role: 2,
+<<<<<<< HEAD
   password: 'Testing123',
 }
+=======
+  password: 'password101',
+};
+>>>>>>> 77c57d4 (feature(newsletter) subscribe user to our newsletter)
 
 const userInvalidEmail = {
   name: 'Test',

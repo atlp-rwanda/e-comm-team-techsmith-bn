@@ -6,7 +6,7 @@ const user1 = {
   id:6000,
   name: 'Belyse sely',
   email: 'bel12@gmail.com',
-  password:'$2b$10$UyFfWtkc5MNHbasmk9USGeR9us1g3YcrCZfC8hiH1RHYe8leOBDUi',
+  password:'password101',
   roleId:admin.id,
   createdAt: new Date(),
   updatedAt: new Date(),

@@ -1,21 +1,21 @@
 'use strict';
 
 const role1 = {
-  id: 1,
+  id: 10,
   name: 'admin',
   createdAt: new Date(),
   updatedAt: new Date()
 };
 
 const role2 = {
-  id: 2,
+  id: 20,
   name: 'buyer',
   createdAt: new Date(),
   updatedAt: new Date()
 };
 
 const role3 = {
-  id: 3,
+  id: 30,
   name: 'seller',
   createdAt: new Date(),
   updatedAt: new Date()
