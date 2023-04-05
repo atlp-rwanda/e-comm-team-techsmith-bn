@@ -1,6 +1,7 @@
 import registerUser from './User/userSignup.js';
 import getProducts from './Product/getProducts.js';
 import loginUser from './User/userLogin.js';
+import requestSubscription from './User/userNewsletter.js';
 
 const paths = {
   '/products': {
@@ -11,6 +12,9 @@ const paths = {
   },
   '/users/login': {
     post: loginUser,
+  },
+  '/users/request-newsletter': {
+    post: requestSubscription,
   },
 };
 

@@ -25,29 +25,39 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.BOOLEAN,
       defaultValue:false
     },
-    password:DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    birthDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    preferredLanguage: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    preferredCurrency: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      defaultValue: 'RWF'
+    },
+    physicalAddress: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      defaultValue: 'Kigali, Rwanda'
+    },
   }, {
     sequelize,
     modelName: 'user',
     tableName: 'user',
   });
-  // user.associate = function (models) {
-  //   user.belongsTo(models.role, {
-  //     foreignKey: "roleId",
-  //     as: "Role",
-  //   });
-  //   user.belongsTo(models.order,{
-  //     foreignKey: "userId",
-  //     as: "Order",
-  //   });
-  //   user.belongsToMany(models.product,{
-  //     through:"user_product"
-  //   })
-  //   user.hasOne(models.cart,{
-  //     foreignKey: "userId",
-  //     as: "Cart", 
-  //   })
-  // };
+
 
   return user;
 };

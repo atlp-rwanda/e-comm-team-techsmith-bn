@@ -14,24 +14,56 @@ const loginUser = {
 };
 
 // UNKNOWN USER
-const invalidEmail = {
-  email: 'checkcehck@gmail.com',
+const unknwonUser = {
+  email: 'checkcehckchecckkk@gmail.com',
   password: '123456',
 };
 
 // INVALID PASSWORD
 const invalidPassword = {
   email: 'ne12@gmail.com',
-  password: '123456',
+  password: 'idontknow',
 };
 
 describe('User authentication', () => {
-  it('should return a response with status code 200', (done) => {
-    chai.request(app)
-      .get('/api/sample_test')
-      .end((err, res) => {
-        chai.expect(res).to.have.status(200);
-        done();
-      });
+  
+  // VALID EMAIL AND PASSWORD
+  describe('Valid email and password', () => {
+    it('should return a 200 status code', (done) => {
+      chai.request(app)
+        .post('/api/users/login')
+        .send(loginUser)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
   });
+
+  // UNKNOWN USER
+  describe('User not found', () => {
+    it('should return a 404 status code', (done) => {
+      chai.request(app)
+        .post('/api/users/login')
+        .send(unknwonUser)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+  });
+
+  // INVALID PASSWORD
+  describe('Invalid password', () => {
+    it('should return a 400 status code', (done) => {
+      chai.request(app)
+        .post('/api/users/login')
+        .send(invalidPassword)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+  });
+
 });
