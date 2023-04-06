@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
 import { validateEmail, validatePassword } from '../utils/userValidation.js';
-import { sendEmail, registerMessageTemplate } from '../utils/emails.js';
+import { registerMessageTemplate, nodeMail } from '../utils/emails.js';
 
 const { user } = db;
 
@@ -23,15 +23,17 @@ const registerUser = async (req, res) => {
       preferredLanguage: userPreferredLanguage,
       preferredCurrency: userPreferredCurrency,
       physicalAddress: userPhysicalAddress,
+      telephone: userTelephone,
     } = req.body;
     /* es-lint-disable no-console */
     const hashedPassword = await bcrypt.hash(password, 10);
     // CHECK IF USER EXISTS
     const userExists = await user.findOne({ where: { email: userEmail } });
     if (userExists) {
+      const { password: userPassword, ...userDetails } = userExists.dataValues;
       return res.status(409).json({
         message: 'User already exists',
-        user: userExists,
+        user: userDetails,
       });
     }
     // VALIDATE USER EMAIL
@@ -52,6 +54,7 @@ const registerUser = async (req, res) => {
         preferredLanguage: userPreferredLanguage || 'rw',
         preferredCurrency: userPreferredCurrency || 'RWF',
         physicalAddress: userPhysicalAddress || 'Rwanda',
+        telephone: userTelephone || '0788888888',
       });
       // CREATE TOKEN
       token = jwt.sign({ id: newUser.id, role }, secret, {
@@ -60,11 +63,10 @@ const registerUser = async (req, res) => {
       // SET TOKEN IN COOKIE
       res.cookie('Authorized', token, { httpOnly: true, maxAge: 604800 });
       // SEND EMAIL
-      await sendEmail(
+      await nodeMail(
         userEmail,
         username,
         'Welcome to the team',
-        res,
         registerMessageTemplate,
         token
       );

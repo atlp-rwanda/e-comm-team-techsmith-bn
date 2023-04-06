@@ -1,14 +1,19 @@
 import dotenv from 'dotenv';
 import sgMail from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 
 // CONFIGURE DOTENV
 dotenv.config();
+
+// LOAD ENV VARIABLES
+const { NODEMAILER_EMAIL_USERNAME, NODEMAILER_EMAIL_PASSWORD, PORT } =
+  process.env;
 
 // CONFIGURE HOST
 const host =
   process.env.NODE_ENV === 'production'
     ? process.env.HOST
-    : `http://localhost:5000`;
+    : `http://localhost:${PORT}`;
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -26,7 +31,7 @@ ${host}/users/login
 Thank you for using our service.
 `;
 
-// RESET PASSWORD MESSAGE TEMPLATE
+/* RESET PASSWORD MESSAGE TEMPLATE */
 const resetPasswordMessageTemplate = (name, token) => `
 Dear ${name},
 
@@ -39,7 +44,8 @@ If you did not request for a password reset, please contact our support team.
 Thank you.
 `;
 
-// NEWSLETTER SUBSCRIPTION MESSAGE TEMPLATE
+/* NEWSLETTER SUBSCRIPTION MESSAGE TEMPLATE */
+
 const newsletterSubscriptionMessageTemplate = (name, token) => `
 Dear ${name},
 
@@ -52,7 +58,22 @@ If you did not request for a newsletter subscription, kindly ignore this email.
 Thank you.
 `;
 
-const sendEmail = async (email, name, heading, res, messageTemplate, token) => {
+/* TWO FACTOR AUTHENTICATION MESSAGE TEMPLATE */
+
+const twoFAMessageTemplate = (name, token) => `
+Dear ${name},
+
+You have requested to enable two factor authentication on your account. Please click on the link below to confirm your request.
+
+${host}/api/users/login/${token}
+
+If you did not request for two factor authentication, please contact our support team.
+
+Thank you.
+`;
+
+/* SENDGRID EMAIL */
+const sendEmail = async (email, name, heading, messageTemplate, token) => {
   try {
     const message = {
       to: email,
@@ -63,9 +84,35 @@ const sendEmail = async (email, name, heading, res, messageTemplate, token) => {
     // SEND EMAIL
     await sgMail.send(message);
     // RETURN SUCCESS MESSAGE
-
   } catch (error) {
-    console.log(error);
+    return error;
+  }
+};
+
+/* NODEMAILER */
+const nodeMail = async (email, name, heading, messageTemplate, token) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'hotmail',
+      auth: {
+        user: NODEMAILER_EMAIL_USERNAME,
+        pass: NODEMAILER_EMAIL_PASSWORD,
+      },
+    });
+    // SET MAIL OPTIONS
+    const mailOptions = {
+      from: `Techsmiths Digital Team <${NODEMAILER_EMAIL_USERNAME}>`,
+      to: email,
+      subject: heading,
+      text: messageTemplate(name, token),
+    };
+    // SEND EMAIL
+    /* eslint-disable */
+    await transporter
+      .sendMail(mailOptions)
+      .then((message) => console.log(message));
+  } catch (error) {
+    return error;
   }
 };
 
@@ -74,4 +121,6 @@ export {
   registerMessageTemplate,
   resetPasswordMessageTemplate,
   newsletterSubscriptionMessageTemplate,
+  twoFAMessageTemplate,
+  nodeMail,
 };

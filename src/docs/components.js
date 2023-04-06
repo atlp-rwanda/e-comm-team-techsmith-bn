@@ -251,6 +251,20 @@ const components = {
         },
       },
     },
+    // SELLER LOGGED IN
+    SellerLoggedIn: {
+      type: 'object',
+      properties: {
+        // MESSAGE
+        message: {
+          $ref: '#/components/schemas/string',
+        },
+        // TOKEN
+        token: {
+          $ref: '#/components/schemas/token',
+        },
+      },
+    },
     // REGISTER USER
     registerUser: {
       type: 'object',

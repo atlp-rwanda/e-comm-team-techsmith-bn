@@ -51,7 +51,7 @@ describe('User login', () => {
         .post('/api/users/login')
         .send(userLogin)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(202);
           userCookie = res.header['set-cookie'][0];
           done();
         });
