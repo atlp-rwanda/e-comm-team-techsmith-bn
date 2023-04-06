@@ -26,7 +26,7 @@ async function sendResetEmail(user) {
   const resetLink = `${process.env.APP_URL}/reset-password/${token}`;
   const mailOptions = {
     to: user.email,
-    from: `ATLP E-commerce <${process.env.EMAIL}>`,
+    from: `ATLP E-commerce <${process.env.RESET_EMAIL}>`,
     subject: 'Your App Password Reset',
     text: `Hi ${user.name},\n\nYou are receiving this email because we received a password 
     reset request for your account.\n\nPleas

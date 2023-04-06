@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
 import {
-  sendEmail,
   newsletterSubscriptionMessageTemplate,
+  nodeMail,
 } from '../utils/emails.js';
 import { validateEmail } from '../utils/userValidation.js';
 
@@ -44,11 +44,10 @@ class newsletterSubscribe {
         expiresIn: '1d',
       });
 
-      await sendEmail(
+      await nodeMail(
         userEmail,
         username,
         `Welcome to the Newsletter, ${username}`,
-        res,
         newsletterSubscriptionMessageTemplate,
         token
       );

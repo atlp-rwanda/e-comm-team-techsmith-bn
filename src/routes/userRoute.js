@@ -10,7 +10,10 @@ const router = express.Router();
 router.post('/signup', registerUser);
 
 // LOGIN USER ROUTE
-router.post('/login', loginController);
+router.post('/login', loginController.userLogin);
+
+// TWO FACTOR AUTHENTICATION
+router.get('/login/:token', loginController.twoFAController);
 
 // REQUEST NEWSLETTER SUBSCRIPTION
 router.post('/request-newsletter', newsletterSubscribe.requestSubscription);

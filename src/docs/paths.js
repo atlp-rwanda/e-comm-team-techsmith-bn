@@ -3,8 +3,12 @@ import registerUser from './User/userSignup.js';
 import getProducts from './Product/getProducts.js';
 =======
 import { passwordReset, requestReset } from './resetPassword.js';
+<<<<<<< HEAD
 >>>>>>> ceaef81 (feature(payment) handle payments using Stripe API)
 import loginUser from './User/userLogin.js';
+=======
+import { loginUser, twoFactorAuthentication } from './User/userLogin.js';
+>>>>>>> 64dbe3b (ft(2FA):two factor authentication)
 import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
@@ -41,6 +45,10 @@ const paths = {
 >>>>>>> ceaef81 (feature(payment) handle payments using Stripe API)
   '/users/login': {
     post: loginUser,
+  },
+  // CONFIRM TWO FACTOR AUTHENTICATION
+  '/users/login/{token}': {
+    get: twoFactorAuthentication,
   },
   // REQUEST NEWSLETTER SUBSCRIPTION
   '/users/request-newsletter': {
