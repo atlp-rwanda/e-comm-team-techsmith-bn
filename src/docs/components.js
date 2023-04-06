@@ -384,6 +384,26 @@ const components = {
         },
       },
     },
+    /**
+     *  UPDATED USER
+     */
+    // UPDATED USER RESPONSE
+    updatedUserResponse: {
+      type: 'object',
+      properties: {
+        // MESSAGE
+        message: {
+          $ref: '#/components/schemas/string',
+        },
+        // UPDATED USER DATA
+        updatedUser: {
+          type: 'array',
+          items: {
+            type: 'number',
+          },
+        },
+      },
+    },
     // PAYMENT REQUEST
     PaymentRequest: {
       type: 'object',
