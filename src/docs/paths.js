@@ -15,6 +15,7 @@ import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
 import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
+import updatedUser from './User/updateUser.js';
 
 const paths = {
 <<<<<<< HEAD
@@ -77,6 +78,10 @@ const paths = {
   },
   '/Product/allProduct': {
     get: getProducts,
+  },
+  // UPDATE USER
+  '/users/{id}': {
+    put: updatedUser,
   },
 };
 

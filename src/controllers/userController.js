@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
 
 dotenv.config();
@@ -37,6 +38,72 @@ class userController {
       });
     }
   };
+
+  //  Getting a user by id
+  static async getUser(req, res) {
+    try {
+      const { id } = req.params;
+      const userInfo = await user.findOne({ where: { id } });
+      if (!userInfo) {
+        return res.status(404).json({
+          message: 'user not found',
+        });
+      }
+      return res.status(200).json({
+        data: userInfo,
+      });
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  // Updating a User
+  static async updateUser(req, res) {
+    try {
+      const tokenvalue = await req.headers.cookie;
+      const token = tokenvalue.split('=')[1];
+      const userToken = jwt.verify(token, process.env.USER_SECRET);
+      if (userToken.id) {
+        const findUser = await user.findOne({ where: { id: userToken.id } });
+        if (findUser) {
+          const {
+            name,
+            email,
+            birthDate,
+            preferredLanguage,
+            preferredCurrency,
+            physicalAddress,
+          } = req.body;
+          if (email) {
+            return res.status(403).json({
+              message: 'You are not authorized to update your email',
+            });
+          }
+          const checkupdate = await user.update(
+            {
+              name,
+              birthDate,
+              preferredLanguage,
+              preferredCurrency,
+              physicalAddress,
+            },
+            { where: { id: userToken.id }, returning: true }
+          );
+          if (checkupdate) {
+            res.status(200).json({
+              message: 'Updated ',
+              updatedUser: checkupdate,
+            });
+          } else {
+            /* eslint-disable no-console */
+            console.log('not updated');
+          }
+        }
+      }
+    } catch (error) {
+      return error.message;
+    }
+  }
 
   //   Updating user password
   static async updatePass(req, res) {
