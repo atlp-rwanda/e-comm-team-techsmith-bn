@@ -2,6 +2,7 @@ import express from 'express';
 import registerUser from '../controller/signupController.js';
 import loginController from '../controller/loginController.js';
 import newsletterSubscribe from '../controller/newsletterController.js';
+import userController from '../controller/userController.js';
 
 const router = express.Router();
 
@@ -19,5 +20,8 @@ router.get(
   '/confirm-newsletter/:token',
   newsletterSubscribe.confirmSubscription
 );
+
+// Updating password
+router.put('/update-password', userController.updatePass);
 
 export default router;

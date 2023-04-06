@@ -3,6 +3,7 @@ import getProducts from './Product/getProducts.js';
 import { passwordReset, requestReset } from './resetPassword.js';
 import loginUser from './User/userLogin.js';
 import requestSubscription from './User/userNewsletter.js';
+import updateUserPassword from './User/updatePassword.js';
 
 const paths = {
   '/products': {
@@ -24,6 +25,9 @@ const paths = {
   },
   '/users/request-newsletter': {
     post: requestSubscription,
+  },
+  '/users/updateP': {
+    put: updateUserPassword,
   },
 };
 
