@@ -35,7 +35,6 @@ async function sendResetEmail(user) {
 }
 function verifyResetToken(token) {
   return new Promise((resolve, reject) => {
-    console.log(token);
     jwt.verify(token, process.env.USER_SECRET, (err, decoded) => {
       if (err) {
         reject(err);

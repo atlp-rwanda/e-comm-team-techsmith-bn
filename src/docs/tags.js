@@ -5,7 +5,7 @@ const tags = [
   },
 
   {
-    name: 'Users',
+    name: 'User',
     description: 'API for users in the E-Commerce app',
   },
 ];

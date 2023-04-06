@@ -26,8 +26,7 @@ jobs:
           command: npm install
           name: Install Dependencies
           environment:
-            PORT: $PORT 
-            HOST: $HOST
+            DB_HOST: $DB_HOST
             DB_NAME: $DB_NAME
             DB_USER: $DB_USER
             DB_PASSWORD: $DB_PASSWORD
@@ -39,6 +38,10 @@ jobs:
             SENDGRID_EMAIL: $SENDGRID_EMAIL
             NODE_ENV: $NODE_ENV
             COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN  
+            RESET_EMAIL: $RESET_EMAIL
+            RESET_PASSWORD: $RESET_PASSWORD
+            RESET_EMAIL_SERVICE: $RESET_EMAIL_SERVICE
+
       - run:
           command: npm ci
           name: Install Packages
