@@ -65,9 +65,7 @@ const sendEmail = async (email, name, heading, res, messageTemplate, token) => {
     // RETURN SUCCESS MESSAGE
 
   } catch (error) {
-    return res.status(500).json({
-      status: error,
-    });
+    console.log(error);
   }
 };
 

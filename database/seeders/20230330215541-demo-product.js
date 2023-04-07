@@ -1,6 +1,8 @@
 'use strict';
-const { user1,user2,user3 }= require('./20230330003155-demo-user.js');
-const { category1,category2,category3 }= require('./20230330224039-demo-Category.js');
+
+const { category1,category2,category3 } = require('./20230330224039-demo-Category.js');
+const { user1, user2, user3 } = require('./20230330160128-demo-user.js');
+
 
 const product1 = {
   id:2001,
