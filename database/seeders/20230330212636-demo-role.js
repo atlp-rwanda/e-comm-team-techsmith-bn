@@ -1,20 +1,20 @@
 'use strict';
 const admin = {
-  id: 70001,
+  id: 1,
   name: 'admin',
   createdAt: new Date(),
   updatedAt: new Date()
 };
 
 const seller = {
-  id: 71001,
+  id: 2,
   name: 'seller',
   createdAt: new Date(),
   updatedAt: new Date()
 };
 
 const buyer = {
-  id: 72001,
+  id: 3,
   name: 'buyer',
   createdAt: new Date(),
   updatedAt: new Date()

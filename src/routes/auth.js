@@ -25,7 +25,7 @@ passport.use(
   new googleStrategy(
     {
       // options for google authentifications
-      callbackURL: 'https://e-comm-team-techsmith-bn-staging.onrender.com:5000/api/auth/google/redirect',
+      callbackURL: 'https://e-comm-team-techsmith-bn-staging.onrender.com/api/auth/google/redirect',
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
       

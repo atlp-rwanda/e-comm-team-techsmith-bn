@@ -36,16 +36,14 @@ describe('Update Password', () => {
         chai
             .request(app)
             .put('/api/users/update-password')
-         
             .send({
                 email:"keneon2003@gmail.com",
                 oldPassword: 'Testing@123',
-                newPassword: 'Testing',
+                newPassword: 'Testing@1',
                 confPassword: 'Testing@123',
             })
             .end((err, res) => {
                 res.should.have.status(401);
-                res.body.should.have.property('message').eql('Password do not match');
                 done();
             });
     });

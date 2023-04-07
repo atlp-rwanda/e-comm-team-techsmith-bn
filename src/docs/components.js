@@ -30,6 +30,12 @@ const components = {
       description: 'Email of users',
       example: 'atlp@gmail.com',
     },
+    // STRING
+    string: {
+      type: 'string',
+      description: 'Any sting attribute',
+      example: 'description, condition, name, place, message, etc.',
+    },
     // CREATEDAT
     createdAt: {
       type: 'string',
@@ -46,41 +52,93 @@ const components = {
     /**
      *  PRODUCT
      */
-
-    Product: {
+    // PRODUCT RESPONSE
+    ProductResponse: {
       type: 'object',
       properties: {
         // ID
-        _id: {
+        id: {
           $ref: '#/components/schemas/id',
         },
-
         // NAME
         name: {
-          type: 'string',
-          description: 'Name of the product',
-          example: 'iPhone 12',
+          $ref: '#/components/schemas/name',
         },
-
         // IMAGE
         image: {
-          type: 'string',
-          description: 'Image of the product',
+          type: 'array',
+          description: 'Minimum of 4 images, Maximum of 8 images',
           example: 'https://images.unsplash.com/photo-',
         },
-
-        // CREATEDAT
-        createdAt: {
+        // CONDITION
+        condition: {
+          $ref: '#/components/schemas/string',
+        },
+        // PRICE
+        price: {
+          type: 'number',
+          description: 'Price of the product',
+          example: 720,
+        },
+        // DESCRIPTION
+        description: {
+          $ref: '#/components/schemas/string',
+        },
+        userId: {
+          $ref: '#components/schemas/id',
+        },
+        // EXPITY DATE
+        expiryDate: {
           type: 'string',
-          description: 'Date when the product was created',
+          description: 'Date when the product is going to expire',
           example: '2021-07-01T12:00:00.000Z',
         },
-
-        // VERSION
-        __v: {
+        // CREATEDAT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATEDAT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
+    // CREATE PRODUCT
+    CreateProduct: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // IMAGE
+        image: {
+          type: 'array',
+          description: 'Minimum of 4 images, Maximum of 8 images',
+          example: 'https://images.unsplash.com/photo-',
+        },
+        // CONDITION
+        condition: {
+          $ref: '#/components/schemas/string',
+        },
+        // PRICE
+        price: {
           type: 'number',
-          description: 'Version of the product',
-          example: 0,
+          description: 'Price of the product',
+          example: 720,
+        },
+        // DESCRIPTION
+        description: {
+          $ref: '#/components/schemas/string',
+        },
+        userId: {
+          $ref: '#components/schemas/id',
+        },
+        // EXPITY DATE
+        expiryDate: {
+          type: 'string',
+          description: 'Date when the product is going to expire',
+          example: '2021-07-01T12:00:00.000Z',
         },
       },
     },
@@ -88,7 +146,6 @@ const components = {
     /**
      * USER
      */
-
     // USER REGISTERED RESPONSE
     UserRegistered: {
       type: 'object',
@@ -312,9 +369,8 @@ const components = {
     },
 
     /**
-     *  Order
+     *  ORDER
      */
-
     Order: {
       type: 'object',
       properties: {
@@ -350,6 +406,77 @@ const components = {
             updatedAt: '2023-04-05T12:28:00.571Z',
           },
         ],
+      },
+    },
+    /**
+     * PAYMENT
+     */
+    // PAYMENT RESPONSE
+    PaymentReponse: {
+      type: 'object',
+      properties: {
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // ORDER ID
+        orderId: {
+          $ref: '#/components/schemas/id',
+        },
+        // USER ID
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        // RECEIPT URL
+        receiptUrl: {
+          type: 'string',
+          description: 'Receipt URL of the payment',
+          example: 'https://paystack.com/receipts/123456789',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
+    // PAYMENT REQUEST
+    PaymentRequest: {
+      type: 'object',
+      properties: {
+        // CARD
+        card: {
+          type: 'object',
+          properties: {
+            number: {
+              type: 'integer',
+              description:
+                'Card number. Use the example provided (Stripe testing card) for testing purposes.',
+              example: 4242424242424242,
+            },
+            // EXPIRY MONTH
+            exp_month: {
+              type: 'number',
+              description:
+                'Card expiry month. Use any month of your choice for testing',
+              example: 12,
+            },
+            // EXPIRY YEAR
+            exp_year: {
+              type: 'number',
+              description: 'Card expiry year. Choose any year from the feature',
+              example: 2028,
+            },
+            // CVC
+            cvc: {
+              type: 'number',
+              description: 'Card security code. Enter any three digits',
+              example: 212,
+            },
+          },
+        },
       },
     },
   },

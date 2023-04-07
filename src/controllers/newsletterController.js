@@ -25,8 +25,6 @@ class newsletterSubscribe {
       const subscriptionExists = await subscription.findOne({
         where: { email: userEmail },
       });
-      /* eslint-disable no-console */
-
       if (subscriptionExists?.isSubscribed) {
         return res.status(409).json({
           status: 'conflict',

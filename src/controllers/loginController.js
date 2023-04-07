@@ -21,7 +21,7 @@ const loginController = async (req, res) => {
     const checkPassword = await bcrypt.compare(password, findUser.password);
     if (checkPassword) {
       const payload = {
-        id: findUser.email,
+        id: findUser.id,
         role: findUser.roleId,
       };
       const token = jwt.sign(payload, secret, { expiresIn: 604800 });
