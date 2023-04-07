@@ -27,4 +27,6 @@ router.get(
 // Updating password
 router.put('/update-password', userController.updatePass);
 
+// LOGOUT USER ROUTE
+router.post('/logout', userController.logoutController);
 export default router;
