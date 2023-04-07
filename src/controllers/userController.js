@@ -15,6 +15,27 @@ class userController {
       return res.status(500).json(error.message);
     }
   }
+  // LOGOUT
+  static logoutController = async (req, res) => {
+    const token = await req.headers.cookie;
+    try {
+      if (!token) {
+        return res.status(401).json({
+          success: false,
+          message: 'You are not logged in',
+        });
+      }
+      res.clearCookie(token);
+      res.status(200).json({
+        success: true,
+        message: 'Logout successful',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
 
   //   Updating user password
   static async updatePass(req, res) {

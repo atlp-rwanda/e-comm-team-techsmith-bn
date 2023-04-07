@@ -35,7 +35,7 @@ describe('Signup Test', () => {
 
 // GOOD REQUEST
 const loginUser = {
-  email: 'parfaitetwagira@gmail.com',
+  email: 'parfaitetwagira2003@gmail.com',
   password: '$2b$10$UyFfWtkc5MNHbasmk9USGeR9us1g3YcrCZfC8hiH1RHYe8leOBDUi',
 };
 
