@@ -17,6 +17,12 @@ const components = {
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5pc2hpbXdlc3dhZ2dlcmFnYWluQGdtYWlsLmNvbSIsImlhdCI6MTY4MDI1Mzc1MiwiZXhwIjoxNjgwODU4NTUyfQ.2jVpZ8XB_3ra4vukc8NkdI2aZcTiEoJIzheAsA-fM5U',
     },
+    // STRING
+    string: {
+      type: 'string',
+      description: 'Any sting attribute',
+      example: 'description, condition, name, place, etc.',
+    },
     // NAME
     name: {
       type: 'string',
@@ -30,12 +36,6 @@ const components = {
       description: 'Email of users',
       example: 'atlp@gmail.com',
     },
-    // STRING
-    string: {
-      type: 'string',
-      description: 'Any sting attribute',
-      example: 'description, condition, name, place, message, etc.',
-    },
     // CREATEDAT
     createdAt: {
       type: 'string',
@@ -48,10 +48,6 @@ const components = {
       description: 'Date when the model was last updated',
       example: '2021-07-01T12:00:00.000Z',
     },
-
-    /**
-     *  PRODUCT
-     */
     // PRODUCT RESPONSE
     ProductResponse: {
       type: 'object',
@@ -121,6 +117,8 @@ const components = {
         condition: {
           $ref: '#/components/schemas/string',
         },
+        // CATEGORY ID
+        categoryId: { $ref: '#/components/schemas/id' },
         // PRICE
         price: {
           type: 'number',
@@ -139,76 +137,6 @@ const components = {
           type: 'string',
           description: 'Date when the product is going to expire',
           example: '2021-07-01T12:00:00.000Z',
-        },
-      },
-    },
-
-    /**
-     * USER
-     */
-    // USER REGISTERED RESPONSE
-    UserRegistered: {
-      type: 'object',
-      properties: {
-        // ID
-        id: {
-          $ref: '#/components/schemas/id',
-        },
-        // NAME
-        name: {
-          $ref: '#/components/schemas/name',
-        },
-        // EMAIL
-        email: {
-          type: 'string',
-          description: 'Email of the user',
-          example: 'atlp@gmail.com',
-        },
-        // ROLE
-        roleId: {
-          $ref: '#/components/schemas/id',
-        },
-        // ISACTIVE
-        isActive: {
-          type: 'boolean',
-          description: 'Status of the user account',
-          example: true,
-        },
-        birthDate: {
-          type: 'string',
-          description: 'Birth date of the user',
-          example: '2021-07-01T12:00:00.000Z',
-        },
-        // PREFERRED LANGUAGE
-        preferredLanguage: {
-          type: 'string',
-          description: 'Preferred language of the user',
-          example: 'en, rw, fr, etc..',
-        },
-        // PREFERRED CURRENCY
-        preferredCurrency: {
-          type: 'string',
-          description: 'Preferred currency of the user',
-          example: 'RWF, USD, EUR, etc..',
-        },
-        // PHYSICAL ADDRESS
-        physicalAddress: {
-          type: 'string',
-          description: 'Physical address of the user',
-          example: 'Kigali, Rwanda',
-        },
-        // CREATEDAT
-        createdAt: {
-          $ref: '#/components/schemas/createdAt',
-        },
-        // UPDATEDAT
-        updatedAt: {
-          $ref: '#/components/schemas/updatedAt',
-        },
-        googleId: {
-          type: 'string',
-          description: 'Google ID of the user',
-          example: '123456789',
         },
       },
     },
