@@ -16,7 +16,7 @@ passport.serializeUser((user, done) => {
   done(null, user.googleId);
 });
 /* eslint-disable */
-passport.deserializeUser( async(id, done) => {
+passport.deserializeUser(async (id, done) => {
   await user.findOne({ where: { id } }).then((user) => {
     done(null, user);
   });
@@ -25,17 +25,18 @@ passport.use(
   new googleStrategy(
     {
       // options for google authentifications
-      callbackURL: 'https://e-comm-team-techsmith-bn-staging.onrender.com/api/auth/google/redirect',
+      callbackURL:
+        'https://e-comm-team-techsmith-bn-staging.onrender.com/api/auth/google/redirect',
       clientID: CLIENTID,
-      clientSecret: CLIENTSECRET,
-      
+      clientSecret: CLIENTSECRET
     },
     /* eslint-disable */
     async (accessToken, refreshToken, profile, done) => {
-
       try {
         // check if user already exists in our own db
-        const currentUser = await user.findOne({ where: { email: profile.email } });
+        const currentUser = await user.findOne({
+          where: { email: profile.email }
+        });
         if (currentUser) {
           // already have this user
           done(null, currentUser);
@@ -48,11 +49,11 @@ passport.use(
             googleId: profile.id,
             roleId: 2,
             isActive: true,
-            gender: "unknwon",
+            gender: 'unknwon',
             birthDate: new Date(),
             preferredLanguage: 'rw',
             preferredCurrency: 'RWF',
-            physicalAddress: 'Rwanda',
+            physicalAddress: 'Rwanda'
           });
           done(null, newUser);
         }
@@ -60,29 +61,26 @@ passport.use(
         done(err);
       }
     }
-
   )
 );
-
-
-
-
 
 router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-router.get('/google/redirect', passport.authenticate('google',{
-  failureRedirect: '/api/users/login'}),(req, res) => {
-  res.send(`
+router.get(
+  '/google/redirect',
+  passport.authenticate('google', {
+    failureRedirect: '/api/users/login'
+  }),
+  (req, res) => {
+    res.send(`
   <h1>WELCOME TO THE PROFILE PAGE OF ${req.user.name}</h1> 
   <h2>YOUR EMAIL IS ${req.user.email}</h2>
   <h2>YOUR ROLE ID IS ${req.user.roleId}</h2>
-  <h2>YOUR STATUS IS ${req.user.isActive}</h2>`);});
-
-
-
-
+  <h2>YOUR STATUS IS ${req.user.isActive}</h2>`);
+  }
+);
 
 export default router;
