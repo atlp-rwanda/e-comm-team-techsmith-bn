@@ -13,6 +13,8 @@ import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
+import createProduct from './Product/addProduct.js';
+import getProducts from './Product/getProducts.js';
 
 const paths = {
 <<<<<<< HEAD
@@ -69,6 +71,12 @@ const paths = {
   // CREATE ORDER PAYMENT
   '/orders/{id}/payment': {
     post: addPayment,
+  },
+  '/Product/addProduct': {
+    post: createProduct,
+  },
+  '/Product/allProduct': {
+    get: getProducts,
   },
 };
 

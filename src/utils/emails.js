@@ -122,5 +122,5 @@ export {
   resetPasswordMessageTemplate,
   newsletterSubscriptionMessageTemplate,
   twoFAMessageTemplate,
-  nodeMail,
+  nodeMail
 };

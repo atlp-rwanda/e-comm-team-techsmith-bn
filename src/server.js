@@ -46,7 +46,7 @@ const dbCon = async () => {
 try {
   app.listen(PORT, () => {
     /* eslint-disable */
-    dbCon()
+    dbCon();
     console.log(`Server listening on port:${PORT}`);
   });
 } catch (error) {
