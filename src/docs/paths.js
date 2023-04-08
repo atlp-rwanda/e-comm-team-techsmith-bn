@@ -29,6 +29,9 @@ const paths = {
   '/users/updateP': {
     put: updateUserPassword,
   },
+  '/auth/google': {
+    get: loginUser,
+  },
 };
 
 export default paths;
