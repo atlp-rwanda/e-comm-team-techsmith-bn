@@ -310,6 +310,48 @@ const components = {
         },
       },
     },
+
+    /**
+     *  Order
+     */
+
+    Order: {
+      type: 'object',
+      properties: {
+        data: [
+          {
+            id: 1002,
+            productId: 20101,
+            userId: 6100,
+            status: 'payment received',
+            quantity: 10,
+            amount: 200000,
+            createdAt: '2023-04-05T12:28:00.571Z',
+            updatedAt: '2023-04-05T12:28:00.571Z',
+          },
+          {
+            id: 1003,
+            productId: 20201,
+            userId: 6300,
+            status: 'payment failed',
+            quantity: 35,
+            amount: 140000,
+            createdAt: '2023-04-05T12:28:00.571Z',
+            updatedAt: '2023-04-05T12:28:00.571Z',
+          },
+          {
+            id: 1001,
+            productId: 2001,
+            userId: 20,
+            status: 'new',
+            quantity: 12,
+            amount: 72000,
+            createdAt: '2023-04-05T12:28:00.571Z',
+            updatedAt: '2023-04-05T12:28:00.571Z',
+          },
+        ],
+      },
+    },
   },
 };
 

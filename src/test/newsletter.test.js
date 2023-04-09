@@ -18,8 +18,8 @@ const invalidEmail = {
 };
 
 const userExists = {
-    name: 'John Doe',
-    email: 'uteiy@gmail.com',
+    name: goodRequest.name,
+    email: goodRequest.email,
 }
 
 let token = '';

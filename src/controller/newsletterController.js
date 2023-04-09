@@ -26,8 +26,8 @@ class newsletterSubscribe {
         where: { email: userEmail },
       });
       /* eslint-disable no-console */
-      console.log(subscriptionExists);
-      if (subscriptionExists) {
+
+      if (subscriptionExists?.isSubscribed) {
         return res.status(409).json({
           status: 'conflict',
           message: 'Your email is already subscribed to our newsletter',
@@ -73,7 +73,6 @@ class newsletterSubscribe {
     const { token } = req.params;
     try {
       /* eslint-disable no-console */
-      console.log(token);
       // VERIFY TOKEN
       const { userEmail } = jwt.verify(token, process.env.USER_SECRET);
       // FIND USER

@@ -10,7 +10,7 @@ const router = express.Router();
 
 const { user } = db;
 dotenv.config();
-const { CLIENTID, CLIENTSECRET ,GOOGLEDEFAULTPASSWORD} = process.env;
+const { CLIENTID, CLIENTSECRET, GOOGLEDEFAULTPASSWORD } = process.env;
 /* eslint-disable */
 passport.serializeUser((user, done) => {
   done(null, user.googleId);
