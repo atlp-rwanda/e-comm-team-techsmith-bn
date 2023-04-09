@@ -25,23 +25,19 @@ passport.use(
   new googleStrategy(
     {
       // options for google authentifications
-      callbackURL: 'http://localhost:5000/api/auth/google/redirect',
+      callbackURL: 'https://e-comm-team-techsmith-bn-staging.onrender.com:5000/api/auth/google/redirect',
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
       
     },
     /* eslint-disable */
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile.id);
-      console.log(profile.email)
-      console.log(profile.displayName)
 
       try {
         // check if user already exists in our own db
         const currentUser = await user.findOne({ where: { email: profile.email } });
         if (currentUser) {
           // already have this user
-          console.log('USER ALREADY EXIST: ', currentUser);
           done(null, currentUser);
         } else {
           // if not, create user in our db
@@ -58,7 +54,6 @@ passport.use(
             preferredCurrency: 'RWF',
             physicalAddress: 'Rwanda',
           });
-          console.log('created new user: ', newUser);
           done(null, newUser);
         }
       } catch (err) {

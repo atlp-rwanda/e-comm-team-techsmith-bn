@@ -21,7 +21,7 @@ app.use(cors({ origin: '*' }));
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.BEER],
+    keys: [process.env.SESSIONCOOKIE],
   })
 );
 app.use(passport.initialize());
@@ -45,8 +45,7 @@ try {
     console.log(`Server listening on port:${PORT}`);
   });
 } catch (error) {
-  /* eslint-disable */
-  console.log(error);
+  console.log(`server error: ${error.message}`);
 }
 
 export default app;
