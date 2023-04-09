@@ -2,7 +2,6 @@
 const { product1,product2,product3 } = require('./20230330215540-demo-Product.js')
 const { user1,user2,user3 }=require('./20230330003155-demo-user.js')
 
-console.log(product1.price);
 const order1={
   id: 1001,
   productId: product1.id,

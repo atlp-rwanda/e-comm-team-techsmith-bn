@@ -63,8 +63,7 @@ const sendEmail = async (email, name, heading, res, messageTemplate, token) => {
     // SEND EMAIL
     await sgMail.send(message);
     // RETURN SUCCESS MESSAGE
-    /* eslint-disable no-console */
-    console.log(`Email sent to ${name}`);
+
   } catch (error) {
     return res.status(500).json({
       status: error,
