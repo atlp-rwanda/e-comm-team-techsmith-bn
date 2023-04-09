@@ -14,7 +14,7 @@
     "undo-seed": "npx sequelize-cli db:seed:undo",
     "undo-seed-all": "npx sequelize-cli db:seed:undo:all",
     "lint:fix": "eslint --fix \"**/*.js\"",
-    "dev": "npm run lint:fix && nodemon --exec babel-node --experimental-specifier-resolution=node src/server.js",
+    "dev": "npm run lint:fix && nodemon --exec babel-node  src/server.js",
     "start": "npm run build && node build/server.js",
     "test": " nyc --reporter=lcov --reporter=text mocha ./src/test/*.test.js --require @babel/register --timeout 1000000 --exit ",
     "coverage": "nyc report --reporter=text-lcov | coveralls"

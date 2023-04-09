@@ -52,12 +52,11 @@ class userController {
           message: 'Provide the correct password in the old password field',
         });
       }
-      console.log('no one');
       return res.status(404).json({
         message: 'User does not exists or make sure you are logged in',
       });
     } catch (error) {
-      console.log(error.message);
+      return res.status(500).json(error.message);
     }
   }
 }
