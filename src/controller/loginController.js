@@ -22,6 +22,7 @@ const loginController = async (req, res) => {
     if (checkPassword) {
       const payload = {
         id: findUser.email,
+        role: findUser.roleId,
       };
       const token = jwt.sign(payload, secret, { expiresIn: 604800 });
       res.cookie('Authorized', token, {
