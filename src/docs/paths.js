@@ -4,6 +4,7 @@ import { passwordReset, requestReset } from './resetPassword.js';
 import loginUser from './User/userLogin.js';
 import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
+import getOrders from './Order/order.js';
 
 const paths = {
   '/products': {
@@ -15,13 +16,11 @@ const paths = {
   '/password/reset-password/{token}': {
     post: passwordReset,
   },
-  '/user/signup': {
-    '/users/signup': {
-      post: registerUser,
-    },
-    '/users/login': {
-      post: loginUser,
-    },
+  '/users/signup': {
+    post: registerUser,
+  },
+  '/users/login': {
+    post: loginUser,
   },
   '/users/request-newsletter': {
     post: requestSubscription,
@@ -29,8 +28,12 @@ const paths = {
   '/users/updateP': {
     put: updateUserPassword,
   },
+
   '/auth/google': {
     get: loginUser,
+  },
+  '/orders': {
+    get: getOrders,
   },
 };
 

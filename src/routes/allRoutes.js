@@ -5,6 +5,8 @@ import userRoute from './userRoute.js';
 import resetPasswordRoute from './resetPasswordRoute.js';
 import sampleRoute from './sampleRoute.js';
 import callbackRoute from './auth.js';
+import orderRoute from './orderRoute.js';
+
 // SETUP ROUTER
 const router = express.Router();
 
@@ -14,5 +16,6 @@ router.use('/users', userRoute);
 router.use('/password', resetPasswordRoute);
 router.use('/sample_test', sampleRoute);
 router.use('/auth', callbackRoute);
+router.use('/orders', orderRoute);
 
 export default router;
