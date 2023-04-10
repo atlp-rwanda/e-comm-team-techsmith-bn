@@ -7,13 +7,13 @@ dotenv.config();
 
 // LOAD ENV VARIABLES
 const { NODEMAILER_EMAIL_USERNAME, NODEMAILER_EMAIL_PASSWORD, PORT } =
-process.env;
+  process.env;
 
 // CONFIGURE HOST
 const host =
-    process.env.NODE_ENV === 'production' ?
-    process.env.HOST :
-    `http://localhost:${PORT}`;
+  process.env.NODE_ENV === 'production'
+    ? process.env.HOST
+    : `http://localhost:${PORT}`;
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -73,41 +73,41 @@ Thank you.
 `;
 
 /* SENDGRID EMAIL */
-const sendEmail = async(email, name, heading, messageTemplate, token) => {
-    try {
-        const message = {
-            to: email,
-            from: process.env.SENDGRID_EMAIL,
-            subject: heading,
-            text: messageTemplate(name, token),
-        };
-        // SEND EMAIL
-        await sgMail.send(message);
-        // RETURN SUCCESS MESSAGE
-    } catch (error) {
-        return error;
-    }
+const sendEmail = async (email, name, heading, messageTemplate, token) => {
+  try {
+    const message = {
+      to: email,
+      from: process.env.SENDGRID_EMAIL,
+      subject: heading,
+      text: messageTemplate(name, token),
+    };
+    // SEND EMAIL
+    await sgMail.send(message);
+    // RETURN SUCCESS MESSAGE
+  } catch (error) {
+    return error;
+  }
 };
 
 /* NODEMAILER */
-const nodeMail = async(email, name, heading, messageTemplate, token) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            service: 'hotmail',
-            auth: {
-                user: NODEMAILER_EMAIL_USERNAME,
-                pass: NODEMAILER_EMAIL_PASSWORD,
-            },
-        });
-        // SET MAIL OPTIONS
-        const mailOptions = {
-            from: `Techsmiths Digital Team <${NODEMAILER_EMAIL_USERNAME}>`,
-            to: email,
-            subject: heading,
-            text: messageTemplate(name, token),
-        };
-        // SEND EMAIL
-        /* eslint-disable */
+const nodeMail = async (email, name, heading, messageTemplate, token) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'hotmail',
+      auth: {
+        user: NODEMAILER_EMAIL_USERNAME,
+        pass: NODEMAILER_EMAIL_PASSWORD,
+      },
+    });
+    // SET MAIL OPTIONS
+    const mailOptions = {
+      from: `Techsmiths Digital Team <${NODEMAILER_EMAIL_USERNAME}>`,
+      to: email,
+      subject: heading,
+      text: messageTemplate(name, token),
+    };
+    // SEND EMAIL
+    /* eslint-disable */
         await transporter
             .sendMail(mailOptions)
             .then((message) => console.log(message));

@@ -27,7 +27,7 @@ const registerUser = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/userRegistered', // REQUIRED
+            $ref: '#/components/schemas/UserRegistered', // REQUIRED
           },
         },
       },
