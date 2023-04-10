@@ -28,7 +28,7 @@ const enableUser = {
       content: {
         'application/json': {
           schema: {
-           message: 'User successfully enabled',
+            message: 'User successfully enabled',
           },
         },
       },
