@@ -1,8 +1,8 @@
 const getProducts = {
   // DEFINITION
-  tags: ['Products'], // REQUIRED
+  tags: ['Product'], // REQUIRED
   description: 'Get all products', // REQUIRED
-  operationId: 'getProducts', // REQUIRED
+  operationId: 'allProducts', // REQUIRED
 
   // PARAMETERS
   parameters: [],
@@ -18,7 +18,7 @@ const getProducts = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/Product',
+            $ref: '#/components/schemas/ProductResponse',
           },
         }, // REQUIRED
       }, // REQUIRED

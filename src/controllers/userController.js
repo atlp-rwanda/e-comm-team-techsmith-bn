@@ -15,6 +15,7 @@ class userController {
       return res.status(500).json(error.message);
     }
   }
+
   // LOGOUT
   static logoutController = async (req, res) => {
     const token = await req.headers.cookie;
