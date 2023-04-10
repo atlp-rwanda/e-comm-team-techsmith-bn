@@ -21,26 +21,18 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // REGISTER MESSAGE TEMPLATE
 const registerMessageTemplate = (name) => `
 Dear ${name},
-
 You have successfully registered on our platform. We are glad to have you on board.
-
 Below is the link to our platform. You can login with your email and password.
-
 ${host}/users/login
-
 Thank you for using our service.
 `;
 
 /* RESET PASSWORD MESSAGE TEMPLATE */
 const resetPasswordMessageTemplate = (name, token) => `
 Dear ${name},
-
 You have requested to reset your password. Please click on the link below to reset your password.
-
 ${host}/api/users/reset-password/${token}
-
 If you did not request for a password reset, please contact our support team.
-
 Thank you.
 `;
 
@@ -48,13 +40,9 @@ Thank you.
 
 const newsletterSubscriptionMessageTemplate = (name, token) => `
 Dear ${name},
-
 You have registered for our newsletter. To make sure it is you, please click on the link below to confirm your subscription.
-
 ${host}/api/users/confirm-newsletter/${token}
-
 If you did not request for a newsletter subscription, kindly ignore this email.
-
 Thank you.
 `;
 
@@ -62,13 +50,30 @@ Thank you.
 
 const twoFAMessageTemplate = (name, token) => `
 Dear ${name},
-
 You have requested to enable two factor authentication on your account. Please click on the link below to confirm your request.
-
 ${host}/api/users/login/${token}
-
 If you did not request for two factor authentication, please contact our support team.
+Thank you.
+`;
 
+/* SENDGRID EMAIL */
+// disable user MESSAGE TEMPLATE
+const disableUserMessageTemplate = (name) => `
+Dear ${name},
+We are sorry to inform you that your account has been temporarily disabled. This may
+be cause by improper conduct or other illegal transactions performed under your name.
+If uou believe that this is a mistake, kindly reach out to the site admin.
+Thank you.
+`;
+
+// disable user MESSAGE TEMPLATE
+const enableUserMessageTemplate = (name) => `
+Dear ${name},
+We are happy to inform you that your account has been enabled again. Make sure to
+abide with proper conduct or avoid illegal transactions performed under your account name.
+If uou believe that this is a mistake, kindly ignore this message.
+Follow this link to know mow:
+https://smithT/linkToContactUs
 Thank you.
 `;
 
@@ -121,6 +126,8 @@ export {
     registerMessageTemplate,
     resetPasswordMessageTemplate,
     newsletterSubscriptionMessageTemplate,
+    enableUserMessageTemplate,
+    disableUserMessageTemplate,
     twoFAMessageTemplate,
     nodeMail
 };

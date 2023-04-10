@@ -8,6 +8,8 @@ import addPayment from './Payment/createPayment.js';
 import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
 import updatedUser from './User/updateUser.js';
+import enableUser from './Admin/enableUser.js';
+import disableUser from './Admin/disableUser.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -59,6 +61,14 @@ const paths = {
   // UPDATE USER
   '/users/{id}': {
     put: updatedUser,
+  },
+
+  // ENABLE AND DISABLE USER
+  '/users/enable/{id}': {
+    put: enableUser,
+  },
+  '/users/disable/{id}': {
+    put: disableUser,
   },
 };
 
