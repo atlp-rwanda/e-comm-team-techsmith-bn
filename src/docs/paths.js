@@ -18,6 +18,10 @@ import getProducts from './Product/getProducts.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
+import createUser from './Admin/createUser.js';
+import getUsers from './Admin/getUsers.js';
+import updateUser from './Admin/updateUser.js';
+import deleteUser from './Admin/deleteUser.js';
 
 const paths = {
 <<<<<<< HEAD
@@ -92,6 +96,17 @@ const paths = {
   },
   '/users/disable/{id}': {
     put: disableUser,
+  },
+
+  // Admin crud
+  '/admin': {
+    post: createUser,
+    get: getUsers,
+  },
+
+  '/admin/{id}': {
+    put: updateUser,
+    delete: deleteUser,
   },
 };
 
