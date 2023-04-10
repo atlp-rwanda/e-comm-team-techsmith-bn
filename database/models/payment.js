@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
-    }
+    },
+    receiptUrl: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
   }, {
     sequelize,
     modelName: 'payment',

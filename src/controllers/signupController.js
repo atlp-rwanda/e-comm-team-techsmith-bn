@@ -54,7 +54,7 @@ const registerUser = async (req, res) => {
         physicalAddress: userPhysicalAddress || 'Rwanda',
       });
       // CREATE TOKEN
-      token = jwt.sign({ id: userEmail, role }, secret, {
+      token = jwt.sign({ id: newUser.id, role }, secret, {
         expiresIn: 604800,
       });
       // SET TOKEN IN COOKIE

@@ -1,8 +1,8 @@
 import express from 'express';
-import registerUser from '../controller/signupController.js';
-import loginController from '../controller/loginController.js';
-import newsletterSubscribe from '../controller/newsletterController.js';
-import userController from '../controller/userController.js';
+import registerUser from '../controllers/signupController.js';
+import loginController from '../controllers/loginController.js';
+import newsletterSubscribe from '../controllers/newsletterController.js';
+import userController from '../controllers/userController.js';
 
 const router = express.Router();
 
