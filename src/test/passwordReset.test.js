@@ -91,7 +91,7 @@ describe('testing password reset', () => {
         request(app)
             .get('/api/users/')
             .end((error, res) => {
-                chai.expect(res).to.have.status(200);
+                chai.expect(res).to.have.status(404);
             });
     });
 });

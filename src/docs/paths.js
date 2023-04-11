@@ -14,6 +14,7 @@ import createUser from './Admin/createUser.js';
 import getUsers from './Admin/getUsers.js';
 import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
+import userPermissions from './Admin/changeRole.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -84,6 +85,11 @@ const paths = {
   '/admin/{id}': {
     put: updateUser,
     delete: deleteUser,
+  },
+
+  // changing user's roles by admin
+  '/users/{id}/role/{role}': {
+    put: userPermissions,
   },
 };
 

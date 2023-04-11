@@ -7,6 +7,7 @@ import checkIsLoggedIn from '../middlewares/checkIsLoggedIn.js';
 import dis_enableController from '../controllers/disEnableUser.js';
 import ensureIsAdmin from '../middlewares/verifyIsAdmin.js';
 import ensureIsEnabled from '../middlewares/ensureIsEnabled.js';
+import changeRole from '../controllers/roleController.js';
 
 const router = express.Router();
 
@@ -23,14 +24,14 @@ router.post('/login', ensureIsEnabled, loginController.userLogin);
 // TWO FACTOR AUTHENTICATION
 router.get('/login/:token', loginController.twoFAController);
 
-// GETTTING ALL USERS
-router.get('/', userController.getUsers);
-
 // GETTING A USER BY ID
 router.get('/:id', userController.getUser);
 
 // UPDATING A USER
 router.put('/:id', checkIsLoggedIn, userController.updateUser);
+
+// CHANGING ROLES OF USERS
+router.put('/:id/role/:role', ensureIsAdmin, changeRole);
 
 // REQUEST NEWSLETTER SUBSCRIPTION
 router.post('/request-newsletter', newsletterSubscribe.requestSubscription);
@@ -47,3 +48,4 @@ router.put('/update-password', userController.updatePass);
 // LOGOUT USER ROUTE
 router.post('/logout', userController.logoutController);
 export default router;
+ 
