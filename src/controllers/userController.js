@@ -7,16 +7,6 @@ dotenv.config();
 
 const { user } = db;
 class userController {
-  // get allusers
-  static async getUsers(req, res) {
-    try {
-      const users = await user.findAll();
-      res.status(200).json({ data: users });
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
-  }
-
   // LOGOUT
   static logoutController = async (req, res) => {
     const token = await req.headers.cookie;

@@ -43,6 +43,7 @@ describe('Sample Test', () => {
         expect(res).to.have.status(404);
       });
   });
+});
 // GOOD REQUEST
 const loginUser = {
   email: 'gabby23@gmail.com',
