@@ -140,6 +140,16 @@ const components = {
         },
       },
     },
+
+    // create user response
+    userCreated: {
+      type: 'object',
+      properties: {
+        newUser: {
+          $red: '#/components/schemas/UserRegistered',
+        },
+      },
+    },
     // USER LOGIN RESPONSE
     UserLoggedIn: {
       type: 'object',
@@ -243,6 +253,11 @@ const components = {
           type: 'string',
           description: 'Google ID of the user',
           example: '123456789',
+        },
+        gender: {
+          type: 'string',
+          description: 'gender of the user',
+          example: 'female',
         },
       },
     },
