@@ -29,7 +29,7 @@ describe('Newsletter Subscription', () => {
     describe('Valid email', () => {
         it('should return a response with status code 201', (done) => {
             chai.request(app)
-                .post('/api/users/request-newsletter')
+                .post('/api/users/requestNewsletter')
                 .send(goodRequest)
                 .end((err, res) => {
                     expect(res).to.have.status(201);
@@ -42,7 +42,7 @@ describe('Newsletter Subscription', () => {
     describe('Confirm subscription', () => {
         it('should return a response with status code 200', (done) => {
             chai.request(app)
-                .get(`/api/users/confirm-newsletter/${token}`)
+                .get(`/api/users/confirmNewsletter/${token}`)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     done();
@@ -53,7 +53,7 @@ describe('Newsletter Subscription', () => {
     describe('Invalid email', () => {
         it('should return a response with status code 400', (done) => {
             chai.request(app)
-                .post('/api/users/request-newsletter')
+                .post('/api/users/requestNewsletter')
                 .send(invalidEmail)
                 .end((err, res) => {
                     expect(res).to.have.status(400);
@@ -65,7 +65,7 @@ describe('Newsletter Subscription', () => {
     describe('User already exists', () => {
         it('should return a response with status code 409', (done) => {
             chai.request(app)
-                .post('/api/users/request-newsletter')
+                .post('/api/users/requestNewsletter')
                 .send(userExists)
                 .end((err, res) => {
                     expect(res).to.have.status(409);

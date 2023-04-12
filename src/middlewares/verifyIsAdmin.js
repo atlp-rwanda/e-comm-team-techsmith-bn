@@ -1,38 +1,39 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import getToken from '../utils/cookies';
 
 dotenv.config();
 
 // verify if the user is the admin using the token in cookies
 export default async (req, res, next) => {
   try {
-    const cookieHeader = req.headers.cookie; // get cookie header string
-    if (!cookieHeader) {
+    const { cookie } = req.headers;
+    // IF NO COOKIE IS FOUND
+    if (!cookie) {
       return res
         .status(401)
-        .send({ message: 'please login to perform this Action.' });
+        .send({ message: 'Please log in to perform this action' });
     }
-
-    const cookies = cookieHeader.split(';'); // split cookies by semicolon
-
-    const loginTokenCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith('Authorized=')
-    ); // find the loginToken cookie
-
-    if (!loginTokenCookie) {
+    // EXTRACT TOKEN FROM COOKIE
+    const token = getToken(req);
+    // IF NO TOKEN IS FOUND
+    if (!token) {
       return res
         .status(400)
-        .send({ message: 'Please login to perform this Action' });
+        .send({ message: 'Could not verify your authentication' });
     }
-    const token = loginTokenCookie.split('=')[1];
-    const decoded = jwt.verify(token, process.env.USER_SECRET);
-
-    if (decoded.role !== 1) {
+    // VERIFY TOKEN
+    const { id, role } = jwt.verify(token, process.env.USER_SECRET);
+    // IF USER IS NOT ADMIN
+    if (role !== 1) {
       return res.status(403).send({
         message:
-          'Unauthorized! Only site Admin is allowed to perform this action.',
+          'Unauthorized! Only site admin is allowed to perform this action.',
       });
     }
+    // RETURN USER ID AND ROLE
+    res.locals = { id, role };
+    // PROCEED IF USER IS ADMIN
     next();
   } catch (e) {
     next();

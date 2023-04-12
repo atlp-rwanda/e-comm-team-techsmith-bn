@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
       physicalAddress: userPhysicalAddress,
       telephone: userTelephone,
     } = req.body;
-    /* es-lint-disable no-console */
+
     const hashedPassword = await bcrypt.hash(password, 10);
     // CHECK IF USER EXISTS
     const userExists = await user.findOne({ where: { email: userEmail } });
@@ -56,13 +56,13 @@ const registerUser = async (req, res) => {
         physicalAddress: userPhysicalAddress || 'Rwanda',
         telephone: userTelephone || '0788888888',
       });
-      // CREATE TOKEN
+      // Create token
       token = jwt.sign({ id: newUser.id, role }, secret, {
         expiresIn: 604800,
       });
-      // SET TOKEN IN COOKIE
+      // Set token in cookie
       res.cookie('Authorized', token, { httpOnly: true, maxAge: 604800 });
-      // SEND EMAIL
+      //  Send email
       await nodeMail(
         userEmail,
         username,
@@ -70,16 +70,17 @@ const registerUser = async (req, res) => {
         registerMessageTemplate,
         token
       );
-      // RETURN USER
+      //  Return User
       const { password: userPassword, ...userDetails } = newUser.dataValues;
       return res.status(201).json({
+        ok: true,
         message: 'User created successfully',
         Authorization: token,
         user: userDetails,
       });
     }
-    /* RETURN ERROR IF EMAIL OR PASSWORD IS INVALID */
-    // INVALID EMAIL
+    /*  Retrun error if email or password is invalid */
+    // Invalid Email
     if (!validEmail) {
       return res.status(400).json({
         message: 'Invalid email',

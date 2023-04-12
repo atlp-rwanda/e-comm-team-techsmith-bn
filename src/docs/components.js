@@ -261,6 +261,59 @@ const components = {
         },
       },
     },
+    // REGISTERED USER
+    UserRegistered: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // EMAIL
+        email: {
+          $ref: '#/components/schemas/email',
+        },
+
+        // BIRTH DATE
+        birthDate: {
+          type: 'string',
+          description: 'Birth date of the user',
+          example: '2021-07-01T12:00:00.000Z',
+        },
+        // PREFERRED LANGUAGE
+        preferredLanguage: {
+          type: 'string',
+          description: 'Preferred language of the user',
+          example: 'en, rw, fr, etc..',
+        },
+        // PREFERRED CURRENCY
+        preferredCurrency: {
+          type: 'string',
+          description: 'Preferred currency of the user',
+          example: 'RWF, USD, EUR, etc..',
+        },
+        // PHYSICAL ADDRESS
+        physicalAddress: {
+          type: 'string',
+          description: 'Physical address of the user',
+          example: 'Kigali, Rwanda',
+        },
+        // ROLE
+        role: {
+          $ref: '#/components/schemas/id',
+        },
+        googleId: {
+          type: 'string',
+          description: 'Google ID of the user',
+          example: '123456789',
+        },
+        gender: {
+          type: 'string',
+          description: 'gender of the user',
+          example: 'female',
+        },
+      },
+    },
     // LOGIN USER
     loginUser: {
       type: 'object',

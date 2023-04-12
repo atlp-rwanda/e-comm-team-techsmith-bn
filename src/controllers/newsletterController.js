@@ -67,9 +67,9 @@ class newsletterSubscribe {
 
   // CONFIRM SUBSCRIPTION
   static async confirmSubscription(req, res) {
+    // CATCH TOKEN PASSED IN PATH
     const { token } = req.params;
     try {
-      /* eslint-disable no-console */
       // VERIFY TOKEN
       const { userEmail } = jwt.verify(token, process.env.USER_SECRET);
       // FIND USER
@@ -87,9 +87,11 @@ class newsletterSubscribe {
       });
       // RETURN SUCCESS MESSAGE
       return res.status(200).json({
+        ok: true,
         message: 'You have successfully subscribed to our newsletter',
         data: updatedUser,
       });
+      // CATCH ERRORS
     } catch (error) {
       return res.status(500).json({
         message: error.message,

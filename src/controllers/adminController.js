@@ -1,9 +1,11 @@
 import bcrypt from 'bcrypt';
 import db from '../../database/models/index.js';
 import { validateEmail, validatePassword } from '../utils/userValidation.js';
-// import { sendEmail, registerMessageTemplate } from '../utils/emails.js';
 
+// LOAD MODELS FROM DATABASE
 const { user } = db;
+
+/* ADMIN CONTROLLER */
 class adminControllers {
   // GET ALL USERS
   static async getUsers(req, res) {
@@ -54,7 +56,7 @@ class adminControllers {
       const validEmail = validateEmail(email);
       const validPassword = validatePassword(password);
       // INVALID EMAIL
-      if (!validEmail || validPassword) {
+      if (!validEmail || !validPassword) {
         return res.status(400).json({
           message: 'Invalid email or password',
         });
@@ -96,7 +98,6 @@ class adminControllers {
   }
 
   // UPDATE USER
-
   static async updateUser(req, res) {
     try {
       const { id } = req.params;
