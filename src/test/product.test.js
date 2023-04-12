@@ -13,32 +13,34 @@ const { expect } = chai;
 const { USER_SECRET: secret } = process.env;
 
 const goodProduct = {
+
   name: 'product' + makeid(10),
-  description: 'New Samsung A23 released in 2022',
   image: [
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png',
+  "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
+  "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg",
+  "https://www.pngwing.com/en/free-png-zbfan",
+  "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg"
   ],
-  condition: 'New',
-  price: 900,
-  categoryId: 4,
-  expiryDate: '2023-04-06 10:30:00-07:00',
-};
-const badProduct = {
-  name: 'product' + makeid(10),
-  description: 'New Samsung A23 released in 2022',
-  image: [
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png',
-    'https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png',
-  ],
-  condition: 'New',
-  price: 900,
-  expiryDate: '2023-04-06 10:30:00-07:00',
-};
+  price:85000,
+  categoryId:70,
+  condition:"New",
+  description:"New Samsung A10 released in 2021",
+  expiryDate:"2023-05-06T17:30:00.000Z"
+  }
+  //BAD PRODUCT
+  const badProduct = {
+    name: 'product' + makeid(10),
+    image: [
+    "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
+    "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg",
+    "https://www.pngwing.com/en/free-png-zbfan",
+    "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg"
+    ],
+    price:85000,
+    condition:"New",
+    description:"New Samsung A10 released in 2021",
+    expiryDate:"2023-05-06T17:30:00.000Z"
+    }
 
 // INITIALIZING AUTHORIZATION COOKIE
 let sellerCookie = '', twoFAToken = '';

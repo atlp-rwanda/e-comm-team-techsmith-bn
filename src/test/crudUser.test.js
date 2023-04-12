@@ -13,16 +13,16 @@ chai.use(chaiHttp);
 let cookie = '';
 
 const user = {
-  name: 'Jean Jules IRAKOZE',
+  name: 'Joshua Karenzi',
   email: `${makeid(5)}@gmail.com`,
-  password: 'Jules@123',
-  role: 10,
+  password: 'Testing@123',
+  role: 1,
   gender: 'male',
 };
 
 const adminLogin = {
-  email: 'gabs0@gmail.com',
-  password: '@Gaby12345',
+  email: 'joshua@gmail.com',
+  password: 'Testing@123',
 };
 
 // ADMIN LOGIN

@@ -12,9 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 
     product.init({
         id: {
-            type: DataTypes.STRING(36),
+        type: DataTypes.INTEGER,
             primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            allowNull: false,
+            autoIncrement: true
         },
         userId: {
             allowNull: false,
@@ -39,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         condition: {
             allowNull: false,
             type: DataTypes.STRING
+        },
+        isAvailable: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         },
         description: {
             type: DataTypes.STRING,
