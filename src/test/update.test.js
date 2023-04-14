@@ -12,7 +12,7 @@ describe('Update Password', () => {
   it('should return an error if old password is incorrect', (done) => {
     chai
       .request(app)
-      .put('/api/users/update-password')
+      .put('/api/users/update/password')
 
       .send({
         email: 'keneon2003@gmail.com',
@@ -29,7 +29,7 @@ describe('Update Password', () => {
   it('should return an error if new passwords do not match', (done) => {
     chai
       .request(app)
-      .put('/api/users/update-password')
+      .put('/api/users/update/password')
       .send({
         email: 'keneon2003@gmail.com',
         oldPassword: 'Testing@123',

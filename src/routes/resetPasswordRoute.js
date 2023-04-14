@@ -5,6 +5,6 @@ const resetPasswordRoute = express.Router();
 
 resetPasswordRoute.post('/requestReset', requestReset);
 
-resetPasswordRoute.post('/reset-password/:token', processReset);
+resetPasswordRoute.post('/resetPassword/:token', processReset);
 
 export default resetPasswordRoute;

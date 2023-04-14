@@ -41,8 +41,6 @@ class PaymentsController {
         customer: stripeCustomer.id,
         description: `Charge for ${findProduct.name}`,
       });
-      /* eslint-disable no-console */
-      console.log(stripeCharge);
       if (stripeCharge) {
         // CREATE PAYMENT RECORD
         const createPayment = await payment.create({
@@ -56,7 +54,8 @@ class PaymentsController {
         });
         const { status } = updateOrder;
         return res.status(201).json({
-          message: 'Payment successful and order status updated',
+          ok: true,
+          message: 'Payment successfully and order status updated',
           data: createPayment,
           status,
         });

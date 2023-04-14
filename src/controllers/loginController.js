@@ -45,6 +45,7 @@ class loginController {
           token,
         });
       }
+      // IF USER IS NOT A SELLER, LOG THEM IN AND RETURN A COOKIE
       if (checkPassword) {
         const payload = {
           id: findUser.id,
@@ -83,8 +84,6 @@ class loginController {
           message: 'Token may have expired. Please login again',
         });
       }
-      /* eslint-disable */
-      console.log(token);
       const { email } = jwt.verify(token, secret);
       // CHECK IF USER EXISTS
       const findUser = await user.findOne({ where: { email } });
@@ -103,7 +102,7 @@ class loginController {
       const { password: userPassword, ...userDetails } = findUser.dataValues;
       // RETURN USER DETAILS
       return res.status(200).json({
-        message: 'You have logged in successfully',
+        message: 'Login successfully',
         Authorization: userToken,
         user: userDetails,
       });

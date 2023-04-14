@@ -5,8 +5,8 @@ import newsletterSubscribe from '../controllers/newsletterController.js';
 import userController from '../controllers/userController.js';
 import checkIsLoggedIn from '../middlewares/checkIsLoggedIn.js';
 import dis_enableController from '../controllers/disEnableUser.js';
-import ensureIsAdmin from '../middlewares/verifyIsAdmin.js';
-import ensureIsEnabled from '../middlewares/ensureIsEnabled.js';
+import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
+import isActive from '../middlewares/activeUser.js';
 import changeRole from '../controllers/roleController.js';
 
 const router = express.Router();
@@ -14,12 +14,12 @@ const router = express.Router();
 // REGISTER NEW USER ROUTE
 router.post('/signup', registerUser);
 
-// enable and disable user
-router.put('/disable/:id', ensureIsAdmin, dis_enableController.disableUser);
-router.put('/enable/:id', ensureIsAdmin, dis_enableController.enableUser);
+// Enable and disable user
+router.put('/disable/:id', verifyIsAdmin, dis_enableController.disableUser);
+router.put('/enable/:id', verifyIsAdmin, dis_enableController.enableUser);
 
-// LOGIN USER ROUTE
-router.post('/login', ensureIsEnabled, loginController.userLogin);
+// Login user route
+router.post('/login', isActive, loginController.userLogin);
 
 // TWO FACTOR AUTHENTICATION
 router.get('/login/:token', loginController.twoFAController);
@@ -31,20 +31,21 @@ router.get('/:id', userController.getUser);
 router.put('/:id', checkIsLoggedIn, userController.updateUser);
 
 // CHANGING ROLES OF USERS
-router.put('/:id/role/:role', ensureIsAdmin, changeRole);
+router.put('/:id/role/:role', verifyIsAdmin, changeRole);
 
 // REQUEST NEWSLETTER SUBSCRIPTION
-router.post('/request-newsletter', newsletterSubscribe.requestSubscription);
+router.post('/requestNewsletter', newsletterSubscribe.requestSubscription);
 
 // CONFIRM NEWSLETTER SUBSCRIPTION
 router.get(
-  '/confirm-newsletter/:token',
+  '/confirmNewsletter/:token',
   newsletterSubscribe.confirmSubscription
 );
 
-// Updating password
-router.put('/update-password', userController.updatePass);
+// Update password
+router.put('/update/password', checkIsLoggedIn, userController.updatePass);
 
 // LOGOUT USER ROUTE
 router.post('/logout', userController.logoutController);
+
 export default router;

@@ -1,23 +1,26 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
 
+// CONFIG DOTENV
 dotenv.config();
 
+// LOAD MODELS FROM DATABASE
 const { user } = db;
+
+/* USER CONTROLLER */
 class userController {
   // LOGOUT
   static logoutController = async (req, res) => {
-    const token = await req.headers.cookie;
+    const { cookie } = req.headers;
     try {
-      if (!token) {
+      if (!cookie) {
         return res.status(401).json({
           success: false,
           message: 'You are not logged in',
         });
       }
-      res.clearCookie(token);
+      res.clearCookie(cookie);
       res.status(200).json({
         success: true,
         message: 'Logout successful',
@@ -36,29 +39,38 @@ class userController {
       const userInfo = await user.findOne({ where: { id } });
       if (!userInfo) {
         return res.status(404).json({
-          message: 'user not found',
+          message: 'User not found',
         });
       }
+      // FILTER PASSWORD FROM USER RESPONSE
+      const { password: userPassword, ...userDeatils } = userInfo;
+      // RETURN SUCCESS MESSAGE
       return res.status(200).json({
-        data: userInfo,
+        ok: true,
+        data: userDeatils,
       });
+      // CATCH ERRORS
     } catch (error) {
       return error.message;
     }
   }
 
-  // Updating a User
+  // Update User
   static async updateUser(req, res) {
     try {
-      const tokenvalue = await req.headers.cookie;
-      const token = tokenvalue.split('=')[1];
-      const userToken = jwt.verify(token, process.env.USER_SECRET);
-      if (userToken.id) {
-        const findUser = await user.findOne({ where: { id: userToken.id } });
+      const { id } = res.locals;
+      if (id !== Number(req.params.id)) {
+        return res.status(401).json({
+          message: 'You are only allowed to interact with your profile',
+        });
+      }
+      if (id) {
+        const findUser = await user.findOne({ where: { id } });
         if (findUser) {
           const {
             name,
             email,
+            gender,
             birthDate,
             preferredLanguage,
             preferredCurrency,
@@ -69,25 +81,30 @@ class userController {
               message: 'You are not authorized to update your email',
             });
           }
-          const checkupdate = await user.update(
+          const checkUpdate = await user.update(
             {
               name,
+              gender,
               birthDate,
               preferredLanguage,
               preferredCurrency,
               physicalAddress,
             },
-            { where: { id: userToken.id }, returning: true }
+            { where: { id }, returning: true, new: true }
           );
-          if (checkupdate) {
-            res.status(200).json({
-              message: 'Updated ',
-              updatedUser: checkupdate,
+          const { password: userPassword, ...userDetails } = checkUpdate[1][0];
+          if (checkUpdate) {
+            return res.status(200).json({
+              ok: true,
+              message: 'Updated successfully',
+              updatedUser: userDetails,
             });
-          } else {
-            /* eslint-disable no-console */
-            console.log('not updated');
           }
+          return res.status(400).json({
+            ok: false,
+            message: 'Sorry, Update failed!',
+            updatedUser: checkUpdate,
+          });
         }
       }
     } catch (error) {
@@ -95,14 +112,14 @@ class userController {
     }
   }
 
-  //   Updating user password
+  //   Update user password
   static async updatePass(req, res) {
     try {
       const { email, oldPassword, newPassword, confPassword } = req.body;
       // Checking if the email value provided is found in the database
       const foundUser = await user.findOne({ where: { email } });
       if (foundUser) {
-        // check if the old password is correct
+        // Check if the old password is correct
         const checkPassword = await bcrypt.compare(
           oldPassword,
           foundUser.password
@@ -139,4 +156,5 @@ class userController {
     }
   }
 }
+
 export default userController;
