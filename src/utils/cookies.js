@@ -1,9 +1,9 @@
-const getCookie = (req) => {
+const getToken = (req) => {
   // Check existence of the cookie and return it
-  const cookie = req.headers?.cookie
-    ? req.headers.cookie.split('=')[1]
+  const token = req.headers?.cookie
+    ? req.headers.cookie.split('=')[1].split(';')[0]
     : req.headers?.credentials;
-  return cookie;
+  return token;
 };
 
-export default getCookie;
+export default getToken;

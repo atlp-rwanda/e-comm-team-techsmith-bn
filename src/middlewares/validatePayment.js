@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
-import getCookie from '../utils/cookies.js';
+import getToken from '../utils/cookies.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -13,10 +13,10 @@ const validatePayment = async (req, res, next) => {
   const { id: orderId } = req.params;
   try {
     // CHECK IF COOKIE IS PRESENT
-    const token = getCookie(req)?.split(';')[0];
+    const token = getToken(req);
     if (!token) {
       return res.status(401).json({
-        message: 'You are authorized to make a payment',
+        message: 'You are not authorized to make a payment',
       });
     }
     const { role, id: userId } = jwt.verify(token, secret);

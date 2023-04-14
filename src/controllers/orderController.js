@@ -2,8 +2,8 @@ import db from '../../database/models/index.js';
 
 const { order } = db;
 
-class orderController {
-  // get allusers
+class OrderController {
+  // get allorders
   static async getOrders(req, res) {
     try {
       const orders = await order.findAll();
@@ -13,4 +13,4 @@ class orderController {
     }
   }
 }
-export default orderController;
+export default OrderController;

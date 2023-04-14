@@ -22,7 +22,7 @@ const paths = {
     post: requestReset,
   },
   // CONFIRM RESET PASSWORD
-  '/password/reset-password/{token}': {
+  '/password/resetPassword/{token}': {
     post: passwordReset,
   },
   // USER SIGNUP
@@ -38,11 +38,11 @@ const paths = {
     get: twoFactorAuthentication,
   },
   // REQUEST NEWSLETTER SUBSCRIPTION
-  '/users/request-newsletter': {
+  '/users/requestNewsletter': {
     post: requestSubscription,
   },
   // CONFIRM NEWSLETTER SUBSCRIPTION
-  '/users/update-password': {
+  '/users/update/password': {
     put: updateUserPassword,
   },
   // GET ALL ORDERS
@@ -57,17 +57,14 @@ const paths = {
   '/orders/{id}/payment': {
     post: addPayment,
   },
-  '/Product/addProduct': {
+  '/products': {
     post: createProduct,
-  },
-  '/Product/allProduct': {
     get: getProducts,
   },
   // UPDATE USER
   '/users/{id}': {
     put: updatedUser,
   },
-
   // ENABLE AND DISABLE USER
   '/users/enable/{id}': {
     put: enableUser,

@@ -4,7 +4,7 @@ import getToken from '../utils/cookies';
 
 dotenv.config();
 
-// verify if the user is the admin using the token in cookies
+// verify if the user is the Buyer using the token in cookies
 export default async (req, res, next) => {
   try {
     const { cookie } = req.headers;
@@ -25,15 +25,16 @@ export default async (req, res, next) => {
     // VERIFY TOKEN
     const { id, role } = jwt.verify(token, process.env.USER_SECRET);
     // IF USER IS NOT ADMIN
-    if (role !== 1) {
+    if (role !== 3) {
       return res.status(403).send({
         message:
-          'Unauthorized! Only site admin is allowed to perform this action.',
+          'Unauthorized! Only site Buyer is allowed to perform this action.',
       });
     }
     // RETURN USER ID AND ROLE
-    res.locals = { id, role };
-    // PROCEED IF USER IS ADMIN
+    req.locals = { id, role };
+
+    // PROCEED IF USER IS BUYER
     next();
   } catch (e) {
     next();

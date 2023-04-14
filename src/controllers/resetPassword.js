@@ -27,8 +27,7 @@ async function sendResetEmail(user) {
     from: `ATLP E-commerce <${process.env.RESET_EMAIL}>`,
     subject: 'Your App Password Reset',
     text: `Hi ${user.name},\n\nYou are receiving this email because we received a password 
-    reset request for your account.\n\nPleas
-    e click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n\nIf
+    reset request for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n\nIf
      you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
   await transporter.sendMail(mailOptions);
@@ -57,7 +56,6 @@ async function requestReset(req, res) {
   const foundUser = await User.findOne({ where: { email } });
   if (!foundUser) {
     return res.status(404).json({
-      status: 'fail',
       error: 'Email not found',
     });
   }
@@ -77,20 +75,18 @@ async function processReset(req, res) {
     const foundUser = await User.findOne({ where: { email } });
     if (!foundUser) {
       return res.status(404).json({
-        status: 'fail',
         error: req.t('error'),
       });
     }
 
     await resetPassword(email, password);
     return res.status(200).json({
-      status: 'success',
-      message: 'Password reset successful',
+      ok: true,
+      message: 'Password reset successfully',
     });
   } catch (err) {
     return res.status(400).json({
-      status: 'fail',
-      error: 'Invalid tokenfedgdsghd',
+      error: 'Invalid token',
     });
   }
 }

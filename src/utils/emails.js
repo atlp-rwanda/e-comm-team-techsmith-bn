@@ -61,8 +61,8 @@ Thank you.
 const disableUserMessageTemplate = (name) => `
 Dear ${name},
 We are sorry to inform you that your account has been temporarily disabled. This may
-be cause by improper conduct or other illegal transactions performed under your name.
-If uou believe that this is a mistake, kindly reach out to the site admin.
+be caused by improper conduct or other illegal transactions performed under your name.
+If you believe that this is a mistake, kindly reach out to the site admin.
 Thank you.
 `;
 
@@ -71,7 +71,7 @@ const enableUserMessageTemplate = (name) => `
 Dear ${name},
 We are happy to inform you that your account has been enabled again. Make sure to
 abide with proper conduct or avoid illegal transactions performed under your account name.
-If uou believe that this is a mistake, kindly ignore this message.
+If you believe that this is a mistake, kindly ignore this message.
 Follow this link to know mow:
 https://smithT/linkToContactUs
 Thank you.
@@ -112,22 +112,19 @@ const nodeMail = async (email, name, heading, messageTemplate, token) => {
       text: messageTemplate(name, token),
     };
     // SEND EMAIL
-    /* eslint-disable */
-        await transporter
-            .sendMail(mailOptions)
-            .then((message) => console.log(message));
-    } catch (error) {
-        return error;
-    }
+    await transporter.sendMail(mailOptions).then((message) => message);
+  } catch (error) {
+    return error;
+  }
 };
 
 export {
-    sendEmail,
-    registerMessageTemplate,
-    resetPasswordMessageTemplate,
-    newsletterSubscriptionMessageTemplate,
-    enableUserMessageTemplate,
-    disableUserMessageTemplate,
-    twoFAMessageTemplate,
-    nodeMail
+  sendEmail,
+  registerMessageTemplate,
+  resetPasswordMessageTemplate,
+  newsletterSubscriptionMessageTemplate,
+  enableUserMessageTemplate,
+  disableUserMessageTemplate,
+  twoFAMessageTemplate,
+  nodeMail,
 };

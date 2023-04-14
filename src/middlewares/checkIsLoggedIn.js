@@ -1,34 +1,28 @@
 import jwt from 'jsonwebtoken';
+import getToken from '../utils/cookies';
 
 export default (req, res, next) => {
   try {
-    const cookieHeader = req.headers.cookie; // get cookie header string
-    if (!cookieHeader) {
+    const { cookie } = req.headers;
+    if (!cookie) {
       return res
         .status(401)
-        .send({ message: 'please login to perform this Action.' });
+        .send({ message: 'Please log in to perform this action' });
     }
-
-    const cookies = cookieHeader.split(';'); // split cookies by semicolon
-
-    const loginTokenCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith('Authorized=')
-    ); // find the loginToken cookie
-
-    if (!loginTokenCookie) {
+    // GET TOKEN FROM COOKIE
+    const token = getToken(req);
+    // IF NOT TOKEN IS FOUND
+    if (!token) {
       return res
-        .status(401)
-        .send({ message: 'Please login to perform this Action' });
+        .status(400)
+        .send({ message: 'Could not verify your authentication' });
     }
-    const token = loginTokenCookie.split('=')[1];
-    const decoded = jwt.verify(token, process.env.USER_SECRET);
+    // GET USER ID AND ROLE FROM TOKEN
+    const { id, role } = jwt.verify(token, process.env.USER_SECRET);
 
-    if (decoded.id !== Number(req.params.id)) {
-      return res.status(404).json({
-        message: 'You are only allowed to interact with your profile',
-      });
-    }
-
+    // RETURN USER ID AND ROLE
+    res.locals = { id, role };
+    // PROCEED IF USER IS ADMIN
     next();
   } catch (error) {
     return res.status(500).json({ message: error.message });
