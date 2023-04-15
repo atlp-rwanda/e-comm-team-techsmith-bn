@@ -60,7 +60,11 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: {
             allowNull: false,
             type: DataTypes.DATE
-        }
+        },
+        isAvailable: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
     }, {
         sequelize,
         modelName: 'product',
