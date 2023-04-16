@@ -76,6 +76,21 @@ Follow this link to know mow:
 https://smithT/linkToContactUs
 Thank you.
 `;
+const productIsExpired = (name, productName) => `
+Subject: Regarding Expired Product - ${productName}
+
+Dear ${name},
+
+I hope this email finds you well. We wanted to bring to your attention that the ${productName} you have provided to us for our app has expired.
+
+As part of our quality assurance process, we ensure that all products used in our app are within their designated shelf life to maintain the highest standards for our users. However, the ${productName} we received from you has exceeded its expiration date.
+
+We kindly request your assistance in providing us with an updated version of the ${productName} that is within its expiration date. This will allow us to continue providing our users with a seamless experience and maintain the integrity of our app.
+
+We appreciate your attention to this matter and your cooperation in resolving this issue. Thank you for your prompt response.
+
+Best regards,
+`;
 
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
@@ -127,4 +142,5 @@ export {
   disableUserMessageTemplate,
   twoFAMessageTemplate,
   nodeMail,
+  productIsExpired,
 };
