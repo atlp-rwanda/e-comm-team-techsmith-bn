@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
-import changeRole from '../controllers/roleController';
-
 
 const { expect } = chai;
 

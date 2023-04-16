@@ -9,9 +9,6 @@ chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
 
-// LOAD ENVIRONMENT VARIABLES
-const { USER_SECRET: secret } = process.env;
-
 const goodProduct = {
 
   name: 'product' + makeid(10),

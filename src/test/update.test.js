@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import app from '../server.js';
 
 dotenv.config();
-const { expect } = chai;
 chai.should();
 chai.use(chaiHttp);
 
@@ -13,7 +12,6 @@ describe('Update Password', () => {
     chai
       .request(app)
       .put('/api/users/update/password')
-
       .send({
         email: 'keneon2003@gmail.com',
         oldPassword: 'Testin',

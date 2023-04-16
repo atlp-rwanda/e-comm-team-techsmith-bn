@@ -21,7 +21,7 @@ const searchProducts = {
   responses: {
     // SUCCESS
     200: {
-      description: '2 products found', // REQUIRED
+      description: 'Products found successfully', // REQUIRED
       content: {
         'application/json': {
           schema: {
@@ -29,6 +29,18 @@ const searchProducts = {
           },
         }, // REQUIRED
       }, // REQUIRED
+    },
+
+    // NOT FOUND
+    404: {
+      description: 'Not found', // REQUIRED
+      content: {
+        'application/json': {
+          schema: {
+            message: 'Product not found',
+          },
+        },
+      },
     },
 
     // ERROR

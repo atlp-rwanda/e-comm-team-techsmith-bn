@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbox</title>
+</head>
+
+<body>
+
+    <h1 class="homepage-heading">
+        Welcome to Techsmiths Chatbox
+    </h1>
+    <div class="form-container">
+        <h3 class="homepage-subheading">
+            Please log in to continue
+        </h3>
+        <form action="#" id="login-form">
+            <span class="text-input">
+                <span>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email address">
+                </span>
+                <span>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your email address">
+                </span>
+                <span>
+                    <p id="login-progress">We are logging you in. You'll be redirected to the chatroom <br> ...</p>
+                    <p id="login-success">You have logged in successfully! Happy networking!</p>
+                    <p id="seller-login-progress">We are performing Two-Factor Authentication on your behalf</p>
+                </span>
+            </span>
+            <input type="submit" id="join-chat" value="Join">
+        </form>
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="assets/login.js" type="module"></script>
+</body>
+
+</html>

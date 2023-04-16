@@ -1,10 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
 import app from '../server.js';
-import jwt from 'jsonwebtoken';
 
-dotenv.config();
 const { expect } = chai;
 chai.should();
 chai.use(chaiHttp);
@@ -22,7 +19,7 @@ const updateUser = {
   physicalAddress: 'Ghana',
 };
 
-let token = '';
+let cookie = '';
 
 describe('Update user info', () => {
   it('should update user info ', (done) => {
@@ -32,17 +29,11 @@ describe('Update user info', () => {
       .send(user1)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        token = jwt.sign({ id: user1Id }, process.env.USER_SECRET, {
-          expiresIn: 604800,
-        });
-        console.log(token);
+        cookie = res.header['set-cookie'][0];
         chai
           .request(app)
           .put(`/api/users/${user1Id}`)
-          .set('Cookie', `Authorized=${token}`, {
-            httpOnly: true,
-            maxAge: 604800,
-          })
+          .set('cookie', cookie)
           .send(updateUser)
           .end((err, res) => {
             expect(res).to.have.status(200);
