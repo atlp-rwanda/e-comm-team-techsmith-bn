@@ -7,6 +7,7 @@ import callbackRoute from './auth.js';
 import orderRoute from './orderRoute.js';
 import productRoute from './productRoutes.js';
 import adminRoute from './adminRoute.js';
+import remindRoute from './remindRoute.js';
 
 // SETUP ROUTER
 const router = express.Router();
@@ -19,5 +20,6 @@ router.use('/auth', callbackRoute);
 router.use('/orders', orderRoute);
 router.use('/admin', adminRoute);
 router.use('/products', productRoute);
+router.use('/reset', remindRoute);
 
 export default router;

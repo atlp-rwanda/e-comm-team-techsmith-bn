@@ -55,6 +55,7 @@ const registerUser = async (req, res) => {
         preferredCurrency: userPreferredCurrency || 'RWF',
         physicalAddress: userPhysicalAddress || 'Rwanda',
         telephone: userTelephone || '0788888888',
+        passcodeModifiedAt: Date.now(),
       });
       // Create token
       token = jwt.sign({ id: newUser.id, role }, secret, {

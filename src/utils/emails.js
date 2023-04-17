@@ -76,6 +76,12 @@ Follow this link to know mow:
 https://smithT/linkToContactUs
 Thank you.
 `;
+// disable user MESSAGE TEMPLATE
+const remindUserMessageTemplate = (name) => `
+Dear ${name},
+You are recieving this email for security reason.It's been days using your password,we recommend you to change your password to keep your account secured.
+Thank you.
+`;
 
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
@@ -127,4 +133,5 @@ export {
   disableUserMessageTemplate,
   twoFAMessageTemplate,
   nodeMail,
+  remindUserMessageTemplate,
 };

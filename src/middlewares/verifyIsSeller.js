@@ -23,7 +23,7 @@ const isSeller = async (req, res, next) => {
       });
     }
     // Passing the userId in the body for create or getProducts of logged user
-    res.locals = { id, role };
+    req.locals = { id };
     next();
   } catch (error) {
     res.status(500).json({

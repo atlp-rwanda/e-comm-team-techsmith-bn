@@ -32,6 +32,7 @@ async function sendResetEmail(user) {
   };
   await transporter.sendMail(mailOptions);
 }
+
 function verifyResetToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.USER_SECRET, (err, decoded) => {
@@ -49,6 +50,7 @@ async function resetPassword(email, password) {
 
   await foundUser.update({
     password: hashedPassword,
+    passcodeModifiedAt: Date.now(),
   });
 }
 async function requestReset(req, res) {

@@ -19,7 +19,7 @@ class ProductController {
       expiryDate,
       condition,
     } = req.body;
-    const { id } = res.locals;
+    const { id } = req.locals;
     /* eslint-disable no-console */
     console.log(
       id,
@@ -55,6 +55,7 @@ class ProductController {
         expiryDate,
         image,
         condition,
+        isAvailable: true,
       });
       return res.status(201).json({
         ok: true,
@@ -71,7 +72,8 @@ class ProductController {
 
   static async findAllproducts(req, res) {
     try {
-      const products = await product.findAll();
+      const { id } = req.locals;
+      const products = await product.findAll({ where: { userId: id } });
       if (products.length <= 0) {
         return res.status(404).json({
           ok: false,

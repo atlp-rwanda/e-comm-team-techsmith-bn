@@ -129,7 +129,10 @@ class userController {
           if (newPassword === confPassword) {
             const hashNewPassword = await bcrypt.hash(newPassword, 10);
             await user.update(
-              { password: hashNewPassword },
+              {
+                password: hashNewPassword,
+                passcodeModifiedAt: Date.now(),
+              },
               {
                 where: {
                   email,
