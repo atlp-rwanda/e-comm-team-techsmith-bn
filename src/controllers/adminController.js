@@ -83,6 +83,7 @@ class adminControllers {
         roleId: role,
         isActive: true,
         gender,
+        passcodeModifiedAt: Date.now(),
         birthDate: new Date(),
         preferredLanguage: 'rw',
         preferredCurrency: 'RWF',

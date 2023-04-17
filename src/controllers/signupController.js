@@ -50,6 +50,7 @@ const registerUser = async (req, res) => {
         roleId: role,
         isActive: true,
         gender: userGender,
+        passcodeModifiedAt: Date.now(),
         birthDate: userBirthDate || new Date(),
         preferredLanguage: userPreferredLanguage || 'rw',
         preferredCurrency: userPreferredCurrency || 'RWF',

@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
+    passcodeModifiedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+  },
     preferredLanguage: {
       allowNull: false,
       type: DataTypes.STRING

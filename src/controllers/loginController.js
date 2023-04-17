@@ -89,7 +89,6 @@ class loginController {
       const findUser = await user.findOne({ where: { email } });
       const payload = {
         id: findUser.id,
-        email: findUser.email,
         role: findUser.roleId,
       };
       // GENERATE TOKEN

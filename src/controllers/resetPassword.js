@@ -49,6 +49,7 @@ async function resetPassword(email, password) {
 
   await foundUser.update({
     password: hashedPassword,
+    passcodeModifiedAt: Date.now(),
   });
 }
 async function requestReset(req, res) {

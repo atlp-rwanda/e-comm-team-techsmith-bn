@@ -52,6 +52,7 @@ class ProductController {
         price,
         categoryId,
         description,
+        isAvailable: true,
         expiryDate,
         image,
         condition,

@@ -39,6 +39,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      passcodeModifiedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+    },
       preferredLanguage: {
         allowNull: false,
         type: Sequelize.STRING,

@@ -2,35 +2,32 @@
 const {
   Model
 } = require('sequelize');
-const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
-  class cart extends Model {
-   
+  class wishlist extends Model {
+    
     static associate(models) {
       // define association here
     }
   }
-  cart.init({
+  wishlist.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
-      unique: true,
       autoIncrement: true
     },
-    productId: {
+    productId:{
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
+      allowNull: false,
+    }, 
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
+      allowNull: false,
+    }
   }, {
     sequelize,
-    modelName: 'cart',
-    tableName: 'cart',
+    modelName: 'wishlist',
+    tableName: 'wishlist',
   });
- 
-  return cart;
+  return wishlist;
 };
