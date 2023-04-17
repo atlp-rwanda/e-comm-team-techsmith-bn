@@ -42,22 +42,22 @@ describe('Login test', () => {
     });
 
 
+});
 
-    describe('Regular user login', () => {
-        it('should return a regular token', (done) => {
-            chai.request(app)
-            .post('/api/users/login')
-            .send(regularUser)
-            .end((err, res) => {
-                expect(res).to.have.status(202);
-                regularCookie = res.header['set-cookie'][0];
-                regularToken = res.body.Authorization;
-                console.log(regularCookie);
-                done();
-            })
+describe('Regular user login', () => {
+    it('should return a regular token', (done) => {
+        chai.request(app)
+        .post('/api/users/login')
+        .send(regularUser)
+        .end((err, res) => {
+            expect(res).to.have.status(202);
+            regularCookie = res.header['set-cookie'][0];
+            regularToken = res.body.Authorization;
+            console.log(regularCookie);
+            done();
         })
     })
-});
+})
 
 
 describe('Disable user', () => {

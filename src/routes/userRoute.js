@@ -49,3 +49,9 @@ router.put('/update/password', checkIsLoggedIn, userController.updatePass);
 router.post('/logout', userController.logoutController);
 
 export default router;
+
+// _____________________ADMIN ROUTES_________________________________________
+
+// disable and enable user
+router.put('/disable/:id', verifyIsAdmin, dis_enableController.disableUser);
+router.put('/enable/:id', verifyIsAdmin, dis_enableController.enableUser);

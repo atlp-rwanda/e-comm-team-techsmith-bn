@@ -92,6 +92,25 @@ We appreciate your attention to this matter and your cooperation in resolving th
 Best regards,
 `;
 
+// DELIVERED ORDER MESSAGE TEMPLATE
+const deliveredOrderMessage = (name) => `
+Dear ${name},
+We are please to inform you that your order is being delivered. You may expect to see it
+betwee two to three business days. We really appreciate your patience.
+
+Thank you for choosing SMITH-t-ECOMMERCE
+`;
+
+// CANCELLED ORDER MESSAGE TEMPLATE
+const cancelledOrderMessage = (name) => `
+Dear ${name},
+We are we regret to inform you that your order was cancelled. This may be 
+due to one of various reasons. We advise you to contact our team
+for further inquires. We really appreciate your patience.
+
+Thank you for choosing SMITH-t-ECOMMERCE
+`;
+
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
   try {
@@ -140,6 +159,8 @@ export {
   newsletterSubscriptionMessageTemplate,
   enableUserMessageTemplate,
   disableUserMessageTemplate,
+  deliveredOrderMessage,
+  cancelledOrderMessage,
   twoFAMessageTemplate,
   nodeMail,
   productIsExpired,

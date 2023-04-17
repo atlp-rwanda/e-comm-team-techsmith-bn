@@ -38,7 +38,6 @@ const dbCon = async () => {
   }
 };
 
-
 try {
   app.listen(PORT, () => {
     /* eslint-disable */
