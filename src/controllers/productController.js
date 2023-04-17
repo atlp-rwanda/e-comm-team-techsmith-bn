@@ -19,7 +19,7 @@ class ProductController {
       expiryDate,
       condition,
     } = req.body;
-    const { id } = req.locals;
+    const { id } = res.locals;
     /* eslint-disable no-console */
     console.log(
       id,
