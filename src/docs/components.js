@@ -437,6 +437,45 @@ const components = {
         ],
       },
     },
+
+    // CREATING ORDER
+    createOrder: {
+      type: 'object',
+      properties: {
+        productId: {
+          $ref: '#/components/schemas/id',
+        },
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        quantity: {
+          type: 'number',
+          description: 'quantity to be purchased',
+          example: 2000,
+        },
+        amount: {
+          type: 'number',
+          description: 'Amount to be paid',
+          example: 2000,
+        },
+      },
+    },
+    // UPDATING ORDER
+    updateOrder: {
+      type: 'object',
+      properties: {
+        quantity: {
+          type: 'number',
+          description: 'quantity to be purchased',
+          example: 2000,
+        },
+        amount: {
+          type: 'number',
+          description: 'Amount to be paid',
+          example: 2000,
+        },
+      },
+    },
     /**
      * PAYMENT
      */
