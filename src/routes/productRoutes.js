@@ -15,10 +15,14 @@ router.get('/myCollection', isSeller, ProductController.myCollectionProducts);
 
 // CREATE SINGLE PRODUCT
 router.post('/', isSeller, ProductController.addProduct);
+
 router.get('/expiration', ProductController.expirationOfProducts);
 
 // ADDING PRODUCT TO CART
 router.post('/wishlist/:id', isBuyer, addProductController.addTowishlist);
+// router.get('/allProduct', isActive, productController.findAllproducts);
+// router.post('/addProduct', isActive, productController.addProduct);
+router.post('/search', ProductController.getProduct);
 
 // DELETE A SPECIFIC PRODUCT
 router.delete('/:pId', isSeller, ProductController.deleteProduct);

@@ -12,6 +12,7 @@ import allAvailableProduct from './Product/getAllAvailableProducts.js';
 import myCollectionProducts from './Product/myCollectionProducts.js';
 import deleteProduct from './Product/deleteAproduct.js';
 import updateProduct from './Product/updateAproduct.js';
+import searchProducts from './Product/searchProduct.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -87,6 +88,7 @@ const paths = {
     post: createProduct,
     get: getProducts,
   },
+
   // AAVAILABLE PRODUCTS IN COLLECTON
   '/products/available': {
     get: availableProduct,
@@ -104,6 +106,10 @@ const paths = {
   },
   '/products/{pId}': {
     delete: deleteProduct,
+  },
+
+  '/products/search': {
+    post: searchProducts,
   },
   // UPDATE USER
   '/users/{id}': {
