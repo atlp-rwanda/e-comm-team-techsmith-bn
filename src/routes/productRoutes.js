@@ -12,6 +12,6 @@ router.get('/', ProductController.findAllproducts);
 router.post('/', isSeller, ProductController.addProduct);
 // router.get('/allProduct', isActive, productController.findAllproducts);
 // router.post('/addProduct', isActive, productController.addProduct);
-router.get('/all', ProductController.getProduct);
+router.post('/all', ProductController.getProduct);
 
 export default router;

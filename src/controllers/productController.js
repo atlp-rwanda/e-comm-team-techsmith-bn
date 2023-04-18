@@ -25,16 +25,6 @@ class ProductController {
     } = req.body;
     const { id } = res.locals;
     /* eslint-disable no-console */
-    console.log(
-      id,
-      name,
-      price,
-      categoryId,
-      image,
-      description,
-      expiryDate,
-      condition
-    );
     try {
       const duplicateProduct = await product.findOne({
         where: { name, userId: id },
@@ -97,8 +87,6 @@ class ProductController {
   }
 
   static async getProduct(req, res) {
-    // IMPORT MODEL PRODUCT
-
     const { name, price, categoryIds } = req.body;
 
     const { errors } = validateProductSearchInput(req.body);
@@ -112,7 +100,6 @@ class ProductController {
     if (!token) {
       try {
         if (name === null && price === null && categoryIds === null) {
-          console.log('hereshdvshfcvjxbkj.knasbhjgdhs');
           const products = await product.findAll();
 
           if (products.length <= 0) {
@@ -128,7 +115,6 @@ class ProductController {
             });
           }
         } else {
-          console.log(name, price, categoryIds);
           const products = await product.findAll({
             where: {
               [Op.or]: [
@@ -153,60 +139,58 @@ class ProductController {
           }
         }
       } catch (error) {
-        console.log(error);
+        res
+          .status(500)
+          .json({ status: 'Getting product failure', message: error.message });
+      }
+    } else {
+      try {
+        if (name === null && price === null && categoryIds === null) {
+          const products = await product.findAll({ where: { userId: req.id } });
+
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
+            });
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
+            });
+          }
+        } else {
+          const products = await product.findAll({
+            where: {
+              userId: req.id,
+              [Op.or]: [
+                { name: { [Op.like]: `%${name}%` } },
+                { categoryId: categoryIds },
+                { price },
+              ],
+            },
+          });
+
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
+            });
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
+            });
+          }
+        }
+      } catch (error) {
         res
           .status(500)
           .json({ status: 'Getting product failure', message: error });
       }
     }
-    // else {
-    //   try {
-    //     if (name === null && price === null && categoryIds === null) {
-    //       const products = await product.findAll({ where: { userId: req.id } });
-
-    //       if (products.length <= 0) {
-    //         res.status(404).json({
-    //           status: 'None',
-    //           message: 'no product found',
-    //         });
-    //       } else {
-    //         res.status(200).json({
-    //           status: 'lIST OF PRODUCTS',
-    //           message: ` ${products.length} products found`,
-    //           data: products,
-    //         });
-    //       }
-    //     }
-
-    //     const products = await product.findAll({
-    //       where: {
-    //         userId: req.id,
-    //         [Op.or]: [
-    //           { name: { [Op.like]: `%${name}%` } },
-    //           { categoryId: categoryIds },
-    //           { price },
-    //         ],
-    //       },
-    //     });
-
-    //     if (products.length <= 0) {
-    //       res.status(404).json({
-    //         status: 'None',
-    //         message: 'no product found',
-    //       });
-    //     } else {
-    //       res.status(200).json({
-    //         status: 'lIST OF PRODUCTS',
-    //         message: ` ${products.length} products found`,
-    //         data: products,
-    //       });
-    //     }
-    //   } catch (error) {
-    //     res
-    //       .status(500)
-    //       .json({ status: 'Getting product failure', message: error.message });
-    //   }
-    // }
   }
 }
 export default ProductController;

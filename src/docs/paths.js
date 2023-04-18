@@ -64,7 +64,7 @@ const paths = {
   },
 
   '/products/all': {
-    get: searchProducts,
+    post: searchProducts,
   },
   // UPDATE USER
   '/users/{id}': {
