@@ -7,6 +7,9 @@ import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
 import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
+import availableProduct from './Product/getAvailableProducts.js';
+import allAvailableProduct from './Product/getAllAvailableProducts.js';
+import myCollectionProducts from './Product/myCollectionProducts.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -60,6 +63,18 @@ const paths = {
   '/products': {
     post: createProduct,
     get: getProducts,
+  },
+  // AAVAILABLE PRODUCTS IN COLLECTON
+  '/products/available': {
+    get: availableProduct,
+  },
+  // AVAILABLE PRODUCTS IN STOCK
+  '/products/allAvailable': {
+    get: allAvailableProduct,
+  },
+  // ALL PRODUCTS IN MY COLLECTION
+  '/products/myCollection': {
+    get: myCollectionProducts,
   },
   // UPDATE USER
   '/users/{id}': {
