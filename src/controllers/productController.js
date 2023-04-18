@@ -117,10 +117,11 @@ class ProductController {
         } else {
           const products = await product.findAll({
             where: {
+              userId: req.id,
               [Op.or]: [
                 { name: { [Op.like]: `%${name}%` } },
                 { categoryId: categoryIds },
-                { price },
+                { price: price },
               ],
             },
           });
