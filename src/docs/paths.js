@@ -7,6 +7,7 @@ import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
 import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
+import searchProducts from './Product/searchProduct.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -60,6 +61,10 @@ const paths = {
   '/products': {
     post: createProduct,
     get: getProducts,
+  },
+
+  '/products/all': {
+    get: searchProducts,
   },
   // UPDATE USER
   '/users/{id}': {

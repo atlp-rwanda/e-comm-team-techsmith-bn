@@ -140,3 +140,157 @@ describe('Add  product', () => {
     });
   });
 });
+
+// ADMIN CAN GET ALL OORDERS
+describe('Buyer, Seller or Admin users', () => {
+  it('can display all Product ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: null,
+        price: null,
+        categoryIds: null,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products which have substring in name of "product" ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: 'product',
+        price: null,
+        categoryIds: null,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products which have price of 85000 ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: null,
+        price: 85000,
+        categoryIds: null,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products which have category Id of 70 ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: null,
+        price: null,
+        categoryIds: 70,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products which have substring in name of "product" or have price of 85000 or have  category Id of 70 ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: 'product',
+        price: 85000,
+        categoryIds: 70,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products and get an error when name parameter doesn\'t match any product', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: 'productsdfdsfsfsdca32343242342',
+        price: null,
+        categoryIds: null,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products and get an error when price parameter doesn\'t match any product', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: null,
+        price: 8500032424,
+        categoryIds: null,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products and get an error when categoryIds parameter doesn\'t match any product ', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: null,
+        price: null,
+        categoryIds: 7023424,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('Buyer, Seller or Admin users', () => {
+  it('can search Products and get an error when name, price or categoryIds parameters doesn\'t match any product', (done) => {
+    chai
+      .request(app)
+      .get('/api/products/all')
+      .send({
+        name: 'product2343242',
+        price: 85000324234,
+        categoryIds: 70545,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+});
