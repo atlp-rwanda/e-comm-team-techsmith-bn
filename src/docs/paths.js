@@ -29,6 +29,7 @@ import checkexpiration from './Product/checkExpirationOfProduct.js';
 import deliveredOrder from './Order/delivered.js';
 import cancelledOrder from './Order/cancelled.js';
 import logoutUser from './User/userLogout.js';
+import addItemInCart from './Cart/addItemInCart.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -141,6 +142,10 @@ const paths = {
   // LOGOUT
   '/users/logout': {
     post: logoutUser,
+  },
+  // ADDING ITEMS IN CART
+  '/cart/{id}': {
+    post: addItemInCart,
   },
 };
 

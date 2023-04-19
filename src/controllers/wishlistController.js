@@ -1,12 +1,11 @@
 import dotenv from 'dotenv';
-import { Worker } from 'worker_threads';
 import db from '../../database/models/index.js';
 
 // CONFIG DOTENV
 dotenv.config();
 
 // IMPORT MODEL PRODUCT
-const { product, wishlist, user } = db;
+const { product, wishlist } = db;
 
 class wishlistController {
   // ADD TO WISHLIST
@@ -35,36 +34,14 @@ class wishlistController {
         });
       }
       // CREATE WISHLIST
-      const wishlistProd = await wishlist.create(
-        {
-          productId,
-          userId,
-        },
-        {
-          include: [
-            {
-              model: user,
-              as: 'user',
-              attributes: ['id', 'name', 'email'], // list of attributes you want to retrieve
-            },
-          ],
-        }
-      );
-      // CREATE WORKER
-      const returnUser = new Worker('./src/workers/wishlist.js');
-      // SEND MESSAGE TO WORKER
-      returnUser.postMessage(userId);
-      // LISTEN FOR MESSAGE FROM WORKER
-      let workerUser;
-      returnUser.on('message', (userOwner) => {
-        workerUser = userOwner;
+      await wishlist.create({
+        productId,
+        userId,
       });
 
       // RETURN RESPONSE
       res.status(201).json({
-        message: 'add product into wishlist successfully',
-        data: wishlistProd,
-        user: workerUser,
+        message: 'Product added successfully',
       });
       // CATCH ERROR
     } catch (error) {
