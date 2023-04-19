@@ -28,7 +28,7 @@ const isBuyer = (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         message:
-          'Unauthorized access, please double-check if you are logged in',
+          'Unauthorized access,  please double-check if you are logged in',
       });
     }
 

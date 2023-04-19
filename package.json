@@ -58,7 +58,7 @@
         "nodemailer": "^6.9.1",
         "npm": "^9.6.2",
         "nyc": "^15.1.0",
-        "passport": "^0.5.3",
+        "passport": "^0.6.0",
         "passport-google-oauth2": "^0.2.0",
         "pg": "^8.10.0",
         "pg-hstore": "^2.3.4",
