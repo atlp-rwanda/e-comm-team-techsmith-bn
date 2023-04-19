@@ -153,7 +153,34 @@ describe('Add  product', () => {
         });
     });
 
-});
+  });
+  // describe('Check Expiration of products', () => {
+  //   it('Should return Code 200 and valid response data', async () => {
+  //     try {
+  //       const response = await chai.get('/api/products/expiration');
+  //       expect(response).to.have.status(200);
+  //       expect(response).to.be.json;
+  //       expect(response.body).to.have.property('exprired_Products');
+  //       // Additional assertions on response data can be added here
+  //     } catch (err) {
+  //       // Proper error handling
+  //       throw err;
+  //     }
+  //   });
+  // });
+  describe('Check Expiration of products', () => {
+    it('Should return Code 200 and valid response data', (done) => {
+      chai
+        .request(app)
+        .get('/api/products/expiration')
+        // .set('cookie', cookie)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+  
 describe('Available products', () => {
     describe('Products in stock', () => {
         it('Should get  products and return code 200', (done) => {

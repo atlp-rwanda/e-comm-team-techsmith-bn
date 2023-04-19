@@ -7,7 +7,7 @@ import passport from 'passport';
 import cookieSession from 'cookie-session';
 import allRoutes from './routes/allRoutes.js';
 import db from '../database/models/index.js';
-
+import './utils/shedulerController.js';
 // CONFIGURE DOTENV
 dotenv.config();
 
@@ -37,6 +37,7 @@ const dbCon = async () => {
     console.log(`db error: ${error.message}`);
   }
 };
+
 
 try {
   app.listen(PORT, () => {

@@ -15,6 +15,7 @@ router.get('/myCollection', isSeller, ProductController.myCollectionProducts);
 
 // CREATE SINGLE PRODUCT
 router.post('/', isSeller, ProductController.addProduct);
+router.get('/expiration', ProductController.expirationOfProducts);
 
 // ADDING PRODUCT TO CART
 router.post('/wishlist/:id', isBuyer, addProductController.addTowishlist);

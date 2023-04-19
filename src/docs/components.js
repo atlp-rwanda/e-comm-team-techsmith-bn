@@ -140,6 +140,25 @@ const components = {
         },
       },
     },
+    expirationResponse: {
+      type: 'object',
+      properties: {
+        id: {
+          $ref: '#components/schemas/id',
+        },
+        expiryDate: {
+          type: 'string',
+          description: 'Date when the product is going to expire',
+          example: '2021-07-01T12:00:00.000Z',
+        },
+        userId: {
+          $ref: '#components/schemas/id',
+        },
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+      },
+    },
 
     // create user response
     userCreated: {

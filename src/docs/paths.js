@@ -19,6 +19,7 @@ import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
 import addProductToWishlist from './Wishlist/addProductToWishlist.js';
+import checkexpiration from './Product/checkExpirationOfProduct.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -107,6 +108,9 @@ const paths = {
   // adding product to wishlist
   '/wishlist/{id}': {
     post: addProductToWishlist,
+  },
+  '/products/expiration': {
+    get: checkexpiration,
   },
 };
 
