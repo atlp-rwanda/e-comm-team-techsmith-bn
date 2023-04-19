@@ -140,6 +140,37 @@ const components = {
         },
       },
     },
+    updateProduct: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // IMAGE
+        image: {
+          type: 'array',
+          description: 'Minimum of 4 images, Maximum of 8 images',
+          example: 'https://images.unsplash.com/photo-',
+        },
+        // CONDITION
+        condition: {
+          $ref: '#/components/schemas/string',
+        },
+        // CATEGORY ID
+        categoryId: { $ref: '#/components/schemas/id' },
+        // PRICE
+        price: {
+          type: 'number',
+          description: 'Price of the product',
+          example: 720,
+        },
+        // DESCRIPTION
+        description: {
+          $ref: '#/components/schemas/string',
+        },
+      },
+    },
     expirationResponse: {
       type: 'object',
       properties: {

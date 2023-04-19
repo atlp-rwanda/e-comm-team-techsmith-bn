@@ -10,6 +10,8 @@ import getProducts from './Product/getProducts.js';
 import availableProduct from './Product/getAvailableProducts.js';
 import allAvailableProduct from './Product/getAllAvailableProducts.js';
 import myCollectionProducts from './Product/myCollectionProducts.js';
+import deleteProduct from './Product/deleteAproduct.js';
+import updateProduct from './Product/updateAproduct.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -97,6 +99,12 @@ const paths = {
   '/products/myCollection': {
     get: myCollectionProducts,
   },
+  '/products/editProduct/{pId}': {
+    put: updateProduct,
+  },
+  '/products/{pId}': {
+    delete: deleteProduct,
+  },
   // UPDATE USER
   '/users/{id}': {
     put: updatedUser,
@@ -108,13 +116,11 @@ const paths = {
   '/users/disable/{id}': {
     put: disableUser,
   },
-
   // Admin crud
   '/admin': {
     post: createUser,
     get: getUsers,
   },
-
   '/admin/{id}': {
     put: updateUser,
     delete: deleteUser,

@@ -7,5 +7,3 @@ cron.schedule(' 0 0 */2 * *', async () => {
   // Check the expiration of all products
   await ProductController.expirationOfProducts();
 });
-
-// Start the cron scheduler

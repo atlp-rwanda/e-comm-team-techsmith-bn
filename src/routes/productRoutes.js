@@ -20,4 +20,10 @@ router.get('/expiration', ProductController.expirationOfProducts);
 // ADDING PRODUCT TO CART
 router.post('/wishlist/:id', isBuyer, addProductController.addTowishlist);
 
+// DELETE A SPECIFIC PRODUCT
+router.delete('/:pId', isSeller, ProductController.deleteProduct);
+
+// UPDATE A SPECIFIC PRODUCT
+router.put('/editProduct/:pId', isSeller, ProductController.updateProduct);
+
 export default router;
