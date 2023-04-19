@@ -11,6 +11,7 @@ import availableProduct from './Product/getAvailableProducts.js';
 import allAvailableProduct from './Product/getAllAvailableProducts.js';
 import myCollectionProducts from './Product/myCollectionProducts.js';
 import deleteProduct from './Product/deleteAproduct.js';
+import updateProduct from './Product/updateAproduct.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -29,113 +30,117 @@ import cancelledOrder from './Order/cancelled.js';
 import logoutUser from './User/userLogout.js';
 
 const paths = {
-    // REQUEST RESET PASSWORD
-    '/password/requestReset': {
-        post: requestReset,
-    },
-    // CONFIRM RESET PASSWORD
-    '/password/resetPassword/{token}': {
-        post: passwordReset,
-    },
-    // USER SIGNUP
-    '/users/signup': {
-        post: registerUser,
-    },
-    // USER LOGIN
-    '/users/login': {
-        post: loginUser,
-    },
-    // CONFIRM TWO FACTOR AUTHENTICATION
-    '/users/login/{token}': {
-        get: twoFactorAuthentication,
-    },
-    // REQUEST NEWSLETTER SUBSCRIPTION
-    '/users/requestNewsletter': {
-        post: requestSubscription,
-    },
-    // CONFIRM NEWSLETTER SUBSCRIPTION
-    '/users/update/password': {
-        put: updateUserPassword,
-    },
+  // REQUEST RESET PASSWORD
+  '/password/requestReset': {
+    post: requestReset,
+  },
+  // CONFIRM RESET PASSWORD
+  '/password/resetPassword/{token}': {
+    post: passwordReset,
+  },
+  // USER SIGNUP
+  '/users/signup': {
+    post: registerUser,
+  },
+  // USER LOGIN
+  '/users/login': {
+    post: loginUser,
+  },
+  // CONFIRM TWO FACTOR AUTHENTICATION
+  '/users/login/{token}': {
+    get: twoFactorAuthentication,
+  },
+  // REQUEST NEWSLETTER SUBSCRIPTION
+  '/users/requestNewsletter': {
+    post: requestSubscription,
+  },
+  // CONFIRM NEWSLETTER SUBSCRIPTION
+  '/users/update/password': {
+    put: updateUserPassword,
+  },
 
-    // _______________ ORDERS _________________________
-    '/orders': {
-        get: getOrders,
-        post: createOrder,
-    },
-    '/orders/{oId}/user/{uId}': {
-        put: updateOrder,
-        delete: deleteOrder,
-    },
-    '/orders/delivered/{id}': {
-        put: deliveredOrder,
-    },
-    '/orders/cancelled/{id}': {
-        put: cancelledOrder,
-    },
+  // _______________ ORDERS _________________________
+  '/orders': {
+    get: getOrders,
+    post: createOrder,
+  },
+  '/orders/{oId}/user/{uId}': {
+    put: updateOrder,
+    delete: deleteOrder,
+  },
+  '/orders/delivered/{id}': {
+    put: deliveredOrder,
+  },
+  '/orders/cancelled/{id}': {
+    put: cancelledOrder,
+  },
 
-    // GOOGLE AUTHENTICATION
-    '/auth/google': {
-        get: loginUser,
-    },
-    // CREATE ORDER PAYMENT
-    '/orders/{id}/payment': {
-        post: addPayment,
-    },
-    '/products': {
-        post: createProduct,
-        get: getProducts,
-    },
-    // AAVAILABLE PRODUCTS IN COLLECTON
-    '/products/available': {
-        get: availableProduct,
-    },
-    // AVAILABLE PRODUCTS IN STOCK
-    '/products/allAvailable': {
-        get: allAvailableProduct,
-    },
-    // ALL PRODUCTS IN MY COLLECTION
-    '/products/myCollection': {
-        get: myCollectionProducts,
-    },
-    // UPDATE USER
-    '/users/{id}': {
-        put: updatedUser,
-    },
-    // ENABLE AND DISABLE USER
-    '/users/enable/{id}': {
-        put: enableUser,
-    },
-    '/users/disable/{id}': {
-        put: disableUser,
-    },
+  // GOOGLE AUTHENTICATION
+  '/auth/google': {
+    get: loginUser,
+  },
+  // CREATE ORDER PAYMENT
+  '/orders/{id}/payment': {
+    post: addPayment,
+  },
+  '/products': {
+    post: createProduct,
+    get: getProducts,
+  },
+  // AAVAILABLE PRODUCTS IN COLLECTON
+  '/products/available': {
+    get: availableProduct,
+  },
+  // AVAILABLE PRODUCTS IN STOCK
+  '/products/allAvailable': {
+    get: allAvailableProduct,
+  },
+  // ALL PRODUCTS IN MY COLLECTION
+  '/products/myCollection': {
+    get: myCollectionProducts,
+  },
+  '/products/editProduct/{pId}': {
+    put: updateProduct,
+  },
+  '/products/{pId}': {
+    delete: deleteProduct,
+  },
+  // UPDATE USER
+  '/users/{id}': {
+    put: updatedUser,
+  },
+  // ENABLE AND DISABLE USER
+  '/users/enable/{id}': {
+    put: enableUser,
+  },
+  '/users/disable/{id}': {
+    put: disableUser,
+  },
+  // Admin crud
+  '/admin': {
+    post: createUser,
+    get: getUsers,
+  },
+  '/admin/{id}': {
+    put: updateUser,
+    delete: deleteUser,
+  },
 
-    // Admin crud
-    '/admin': {
-        post: createUser,
-        get: getUsers,
-    },
-
-    '/admin/{id}': {
-        put: updateUser,
-        delete: deleteUser,
-    },
-
-    // changing user's roles by admin
-    '/users/{id}/role/{role}': {
-        put: userPermissions,
-    },
-    // adding product to wishlist
-    '/wishlist/{id}': {
-        post: addProductToWishlist,
-    },
-    '/products/expiration': {
-        get: checkexpiration,
-    },
-    // LOGOUT
-    '/users/logout': {
-        post: logoutUser,
-    },
+  // changing user's roles by admin
+  '/users/{id}/role/{role}': {
+    put: userPermissions,
+  },
+  // adding product to wishlist
+  '/wishlist/{id}': {
+    post: addProductToWishlist,
+  },
+  '/products/expiration': {
+    get: checkexpiration,
+  },
+  // LOGOUT
+  '/users/logout': {
+    post: logoutUser,
+  },
 };
 
 export default paths;
