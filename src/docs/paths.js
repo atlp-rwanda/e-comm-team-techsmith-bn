@@ -20,6 +20,9 @@ import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
 import addProductToWishlist from './Wishlist/addProductToWishlist.js';
 import checkexpiration from './Product/checkExpirationOfProduct.js';
+import deliveredOrder from './Order/delivered.js';
+import cancelledOrder from './Order/cancelled.js';
+import logoutUser from './User/userLogout.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -50,10 +53,18 @@ const paths = {
   '/users/update/password': {
     put: updateUserPassword,
   },
-  // GET ALL ORDERS
+
+  // _______________ ORDERS _________________________
   '/orders': {
     get: getOrders,
   },
+  '/orders/delivered/{id}': {
+    put: deliveredOrder,
+  },
+  '/orders/cancelled/{id}': {
+    put: cancelledOrder,
+  },
+
   // GOOGLE AUTHENTICATION
   '/auth/google': {
     get: loginUser,
@@ -111,6 +122,10 @@ const paths = {
   },
   '/products/expiration': {
     get: checkexpiration,
+  },
+  // LOGOUT
+  '/users/logout': {
+    post: logoutUser,
   },
 };
 

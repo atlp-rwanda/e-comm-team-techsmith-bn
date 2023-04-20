@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     productId: {
-      type: DataTypes.INTEGER(36),
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     userId: {
