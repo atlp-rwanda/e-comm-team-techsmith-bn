@@ -20,7 +20,7 @@ const components = {
     // STRING
     string: {
       type: 'string',
-      description: 'Any sting attribute',
+      description: 'Any string attribute',
       example: 'description, condition, name, place, etc.',
     },
     // NAME
@@ -35,6 +35,17 @@ const components = {
       type: 'string',
       description: 'Email of users',
       example: 'atlp@gmail.com',
+    },
+    // PRICE
+    price: {
+      type: 'number',
+      description: 'price of products',
+      example: 4000,
+    },
+    // IMAGE
+    image: {
+      type: 'string',
+      description: 'Image of products',
     },
     // CREATEDAT
     createdAt: {
@@ -720,6 +731,24 @@ const components = {
         // UPDATED AT
         updatedAt: {
           $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
+    // VIEW CART
+    retrieveResponse: {
+      type: 'object',
+      properties: {
+        // PRODUCT NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // PRICE
+        price: {
+          $ref: '#/components/schemas/price',
+        },
+        // IMAGE
+        image: {
+          $ref: '#/components/schemas/image',
         },
       },
     },

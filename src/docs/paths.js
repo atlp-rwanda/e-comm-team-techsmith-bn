@@ -30,6 +30,7 @@ import deliveredOrder from './Order/delivered.js';
 import cancelledOrder from './Order/cancelled.js';
 import logoutUser from './User/userLogout.js';
 import addItemInCart from './Cart/addItemInCart.js';
+import viewItemInCart from './Cart/viewItemsInCart.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -146,6 +147,10 @@ const paths = {
   // ADDING ITEMS IN CART
   '/cart/{id}': {
     post: addItemInCart,
+  },
+  // VIEWING ITEMS IN CART
+  '/cart': {
+    get: viewItemInCart,
   },
 };
 
