@@ -52,6 +52,26 @@ const sellerLogin = {
     password: 'Password@00',
 };
 
+//SELLER COLLECTION
+const sellerCollection = [
+    { id: 81 }, { id: 82 }, { id: 83 }, { id: 84 }, { id: 85 },
+    { id: 86 }, { id: 92 }, { id: 87 }, { id: 88 }, { id: 89 },
+    { id: 90 }, { id: 91 }, { id: 93 }, { id: 94 }, { id: 95 },
+]
+
+const productoUpdate = {
+    name: 'productcqhwcvig',
+    image: [
+        "https://userconent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
+        "https://userconent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg",
+        "https://www.pnging.com/en/free-png-zbfan",
+        "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg"
+    ],
+    categoryId: 50,
+    price: 5000,
+    description: 'The fastest on baterry'
+}
+
 // SELLER LOGIN REQUEST
 describe('Seller Login', () => {
     it('Login and return seller token for two factor authentication', (done) => {
@@ -153,34 +173,20 @@ describe('Add  product', () => {
         });
     });
 
-  });
-  // describe('Check Expiration of products', () => {
-  //   it('Should return Code 200 and valid response data', async () => {
-  //     try {
-  //       const response = await chai.get('/api/products/expiration');
-  //       expect(response).to.have.status(200);
-  //       expect(response).to.be.json;
-  //       expect(response.body).to.have.property('exprired_Products');
-  //       // Additional assertions on response data can be added here
-  //     } catch (err) {
-  //       // Proper error handling
-  //       throw err;
-  //     }
-  //   });
-  // });
-  describe('Check Expiration of products', () => {
+});
+describe('Check Expiration of products', () => {
     it('Should return Code 200 and valid response data', (done) => {
-      chai
-        .request(app)
-        .get('/api/products/expiration')
-        // .set('cookie', cookie)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
+        chai
+            .request(app)
+            .get('/api/products/expiration')
+            // .set('cookie', cookie)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
-  });
-  
+});
+
 describe('Available products', () => {
     describe('Products in stock', () => {
         it('Should get  products and return code 200', (done) => {
@@ -202,6 +208,47 @@ describe('All products', () => {
                 .get('/api/products')
                 .end((err, res) => {
                     expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
+});
+describe('Delete a specific  product', () => {
+    describe('Delete a product not in your collection', () => {
+        it('Should return code 404', (done) => {
+            chai
+                .request(app)
+                .delete('/api/products/5')
+                .set('cookie', sellerCookie)
+                .end((err, res) => {
+                    expect(res).to.have.status(404);
+                    done();
+                });
+        });
+    });
+});
+describe('Update a specific  product', () => {
+    describe('update a product', () => {
+        it('Should return code 200', (done) => {
+            chai
+                .request(app)
+                .put('/api/products/editProduct/21')
+                .send(productoUpdate)
+                .set('cookie', sellerCookie)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
+    describe('Update a product not in your collection', () => {
+        it('Should return code 404', (done) => {
+            chai
+                .request(app)
+                .put('/api/products/editProduct/5')
+                .set('cookie', sellerCookie)
+                .end((err, res) => {
+                    expect(res).to.have.status(404);
                     done();
                 });
         });

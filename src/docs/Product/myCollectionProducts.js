@@ -33,7 +33,6 @@ const myCollectionProducts = {
         }, // REQUIRED
       }, // REQUIRED
     },
-
     // ERROR
     500: {
       description: 'Server error', // REQUIRED
