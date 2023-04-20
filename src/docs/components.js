@@ -191,6 +191,81 @@ const components = {
       },
     },
 
+    // Search PRODUCT
+    SearchProduct: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          type: 'string',
+          nullable: true,
+          description: 'word which can substring or name of  product',
+          example: 'TV',
+        },
+        // CATEGORY ID
+        categoryIds: {
+          type: 'number',
+          nullable: true,
+          description: 'categoryID of  product',
+          example: 4,
+        },
+        // PRICE
+        price: {
+          type: 'number',
+          nullable: true,
+          description: 'Price of the product',
+          example: 720,
+        },
+      },
+    },
+
+    /**
+     *  Search Product Reposne
+     */
+    SearchProductResponse: {
+      type: 'object',
+      properties: {
+        data: [
+          {
+            id: 'b48e3b2c-60ee-48ae-a7bc-26d258f0e89b',
+            userId: 16,
+            categoryId: 4,
+            name: 'TV SCREEN',
+            image: [
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png',
+            ],
+            price: 300,
+            condition: 'New',
+            description: 'New Samsung csreen',
+            expiryDate: '2023-04-06T17:30:00.000Z',
+            createdAt: '2023-04-10T06:42:12.161Z',
+            updatedAt: '2023-04-10T06:42:12.161Z',
+          },
+          {
+            id: '408003ac-3782-4cd2-930f-3b6fd11c6274',
+            userId: 16,
+            categoryId: 4,
+            name: 'productubfbsowlol',
+            image: [
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png',
+              'https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png',
+            ],
+            price: 900,
+            condition: 'New',
+            description: 'New Samsung A23 released in 2022',
+            expiryDate: '2023-04-06T17:30:00.000Z',
+            createdAt: '2023-04-10T07:22:41.306Z',
+            updatedAt: '2023-04-10T07:22:41.306Z',
+          },
+        ],
+      },
+    },
+
     // create user response
     userCreated: {
       type: 'object',
