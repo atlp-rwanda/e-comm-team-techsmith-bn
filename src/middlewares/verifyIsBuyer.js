@@ -32,6 +32,8 @@ export default async (req, res, next) => {
       });
     }
     // RETURN USER ID AND ROLE
+
+    
     req.locals = { id, role };
 
     // PROCEED IF USER IS BUYER

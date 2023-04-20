@@ -13,6 +13,7 @@ class orderStatusController {
 
       console.log(specifiedOrder);
 
+      
       // check if the order exists in our db with stated id
       if (!specifiedOrder) {
         return res.status(404).json({
