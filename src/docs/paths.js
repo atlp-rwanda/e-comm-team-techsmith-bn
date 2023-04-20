@@ -15,10 +15,13 @@ import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
 import createUser from './Admin/createUser.js';
 import getUsers from './Admin/getUsers.js';
+import createOrder from './Order/createOrder.js';
 import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
 import addProductToWishlist from './Wishlist/addProductToWishlist.js';
+import updateOrder from './Order/updateOrder.js';
+import deleteOrder from './Order/deleteOrder.js';
 import checkexpiration from './Product/checkExpirationOfProduct.js';
 import deliveredOrder from './Order/delivered.js';
 import cancelledOrder from './Order/cancelled.js';
@@ -57,6 +60,11 @@ const paths = {
   // _______________ ORDERS _________________________
   '/orders': {
     get: getOrders,
+    post: createOrder,
+  },
+  '/orders/{oId}/user/{uId}': {
+    put: updateOrder,
+    delete: deleteOrder,
   },
   '/orders/delivered/{id}': {
     put: deliveredOrder,
