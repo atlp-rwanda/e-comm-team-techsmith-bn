@@ -12,6 +12,7 @@ const buyerLogin = {
   email: "ikevine@gmail.com",
     password: "Kevine@123",
 };
+
 /// COOKIE
 let buyerCookie = ''
 // BUYER LOGIN REQUEST
@@ -40,6 +41,19 @@ describe('Product is not found',() => {
 });
 });
 
+describe('Adding item to cart', () => {
+  it('should add item to cart and return code 201', (done) => {
+    chai.request(app)
+      .post('/api/cart/16')
+      .set('cookie', buyerCookie)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.message).to.equal('Items are added successfully');
+        done();
+      });
+  });
+});
+
   // CHECKING CART PRODUCT IF IS ALREADY EXIST
 describe('Product already in cart',() => {
   it('should return code 409', (done)=>{
@@ -47,7 +61,7 @@ describe('Product already in cart',() => {
         .post('/api/cart/16')
         .set('cookie',buyerCookie)
         .end((err,res) => {
-          expect(res).to.have.status(201)
+          expect(res).to.have.status(409)
           done()
         });
   });
@@ -72,3 +86,4 @@ describe('clearing all products in cart', () => {
     });
   });
 });
+

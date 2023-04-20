@@ -1,4 +1,5 @@
 import db from '../../database/models/index.js';
+import validateQuantity from '../utils/validateQuantity.js';
 
 const { order, product, user } = db;
 
@@ -31,15 +32,8 @@ class OrderController {
   }
 
   static async createOrder(req, res) {
-    const { productId, userId, quantity, amount } = req.body;
+    const { productId, desiredQuantity, amount } = req.body;
     try {
-      // Checking if the user is logged in
-      if (!res.locals) {
-        return res.status(401).json({
-          message: 'Make sure you are logged in!',
-        });
-      }
-
       // Check if the product exists and is available
       const checkProduct = await product.findOne({
         where: { id: productId, isAvailable: true },
@@ -52,35 +46,31 @@ class OrderController {
         });
       }
 
-      // Check if the product is already booked
-      const checkOrder = await order.findOne({
-        where: { productId },
-      });
+      // Check if there is enough products
 
-      if (checkOrder) {
-        return res.status(404).json({
-          ok: false,
-          message: 'Product already booked!',
-        });
-      }
-
-      // Checking if its the authorized user
-
-      if (res.locals.id !== userId) {
-        return res.status(401).json({
-          ok: false,
-          message: 'You can not place an order for someone else!',
+      const validateQty = await validateQuantity(
+        product,
+        productId,
+        desiredQuantity,
+        res
+      );
+      if (!validateQty) {
+        return res.status(400).json({
+          message: `the remaining quantity in stock is low`,
         });
       }
 
       const newOrder = await order.create({
         productId,
-        userId,
+        userId: res.locals.id,
         status: 'Pending',
-        quantity,
+        quantity: desiredQuantity,
         amount,
       });
-
+      await product.update(
+        { quantity: validateQty - desiredQuantity },
+        { where: { id: productId } }
+      );
       return res.status(201).json({
         ok: true,
         message: 'Order created successfully',
@@ -95,29 +85,52 @@ class OrderController {
   }
 
   static async updateOrder(req, res) {
-    const { quantity } = req.body;
+    const { quantity: desiredQuantity } = req.body;
     const { oId } = req.params;
     // Getting logged in user's id
     const { id: userId } = res.locals;
+
     try {
       // Checking if the order exists
       const orderExists = await order.findOne({
         where: {
-          [Op.and]: [{ id: oId }, { userId }, { status: { [Op.ne]: 'paid' } }],
+          [Op.and]: [
+            { id: oId },
+            { userId },
+            { status: { [Op.ne]: 'pending' } },
+          ],
         },
+        include: [
+          {
+            model: product,
+            as: 'product',
+            attributes: ['id'],
+          },
+        ],
       });
-
+      const previousQty = orderExists.quantity;
+      const { productId } = orderExists;
       // If the order doesn't exists
       if (!orderExists) {
         return res.status(404).json({
           message: "Order doesn't exists!",
         });
       }
-
+      const validateQty = await validateQuantity(
+        product,
+        orderExists.product.dataValues.id,
+        desiredQuantity,
+        res
+      );
+      if (!validateQty) {
+        return res.status(400).json({
+          message: `the remaining quantity in stock is low`,
+        });
+      }
       // If the order exists
       const updateOrder = await order.update(
         {
-          quantity,
+          quantity: desiredQuantity,
         },
         {
           where: { id: oId },
@@ -125,6 +138,20 @@ class OrderController {
         }
       );
 
+      if (desiredQuantity > previousQty) {
+        const updateQty = desiredQuantity - previousQty;
+
+        await product.update(
+          { quantity: validateQty - updateQty },
+          { where: { id: productId } }
+        );
+      } else {
+        const updateQty = previousQty - desiredQuantity;
+        await product.update(
+          { quantity: validateQty + updateQty },
+          { where: { id: productId } }
+        );
+      }
       // Checking if its updated
       if (updateOrder) {
         return res.status(200).json({

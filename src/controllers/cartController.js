@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import db from '../../database/models/index.js';
+
 // CONFIG DOTENV
 dotenv.config();
 // IMPORT MODEL PRODUCT
@@ -70,7 +71,6 @@ class cartController {
         name: item.product.name,
         price: item.product.price,
         image: item.product.image,
-        quantity: item.quantity,
       }));
 
       res.status(200).json({
@@ -100,6 +100,78 @@ class cartController {
     } catch (error) {
       return res.status(500).json({
         status: 'Failed to clear cart',
+        message: error.message,
+      });
+    }
+  }
+
+  static async updateCart(req, res) {
+    try {
+      const { id: userId } = res.locals;
+      // FETCHING THE PRODUCT ID AND NEW QUANTITY
+      const { desiredQuantity } = req.body;
+      const { id: productId } = req.params;
+      // VALIDATING THE QUANTITY
+      const { quantity } = await product.findOne({
+        where: {
+          id: productId,
+        },
+      });
+      if (desiredQuantity > quantity) {
+        return res.json({
+          Message: `The remaining quantity in stock is ${quantity}`,
+        });
+      }
+      // FETCHING THE ITEM
+      const cartItem = await cart.findOne({
+        where: { productId, userId },
+        include: [
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name', 'price', 'image'],
+          },
+        ],
+      });
+
+      if (!cartItem) {
+        return res.status(404).json({
+          message: 'Cart item not found',
+        });
+      }
+
+      // CALCULATING THE NEW TOTAL
+      const totalPrice = desiredQuantity * cartItem.product.price;
+
+      // UPDATING THE QUANTITY
+      await cartItem.update({ quantity: desiredQuantity, totalPrice });
+      // RETRIEVING THE UPDATED CART
+      const updatedCartItem = await cart.findOne({
+        where: { productId, userId },
+        include: [
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name', 'price', 'image'],
+          },
+        ],
+      });
+
+      const cartItems = [updatedCartItem].map((item) => ({
+        name: item.product.name,
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+        image: item.product.image,
+      }));
+      // console.log(updatedCartItem.desiredQuantity)
+
+      res.status(200).json({
+        message: 'Cart item updated successfully',
+        cart: cartItems,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Failed to update cart item',
         message: error.message,
       });
     }

@@ -41,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
       image: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
