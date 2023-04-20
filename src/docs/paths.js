@@ -36,6 +36,7 @@ import cancelledOrder from './Order/cancelled.js';
 import logoutUser from './User/userLogout.js';
 import addItemInCart from './Cart/addItemInCart.js';
 import viewItemInCart from './Cart/viewItemsInCart.js';
+import clearItemsInCart from './Cart/clearItemsInCart.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -153,7 +154,7 @@ const paths = {
   '/wishlist/{id}': {
     post: addProductToWishlist,
   },
-  '/products/expire': {
+  '/products/expired': {
     get: checkexpiration,
   },
   // LOGOUT
@@ -164,9 +165,10 @@ const paths = {
   '/cart/{id}': {
     post: addItemInCart,
   },
-  // VIEWING ITEMS IN CART
+  // VIEWING AND CLEARING ITEMS IN CART
   '/cart': {
     get: viewItemInCart,
+    delete: clearItemsInCart,
   },
 };
 
