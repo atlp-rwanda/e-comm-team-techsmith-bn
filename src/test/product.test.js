@@ -74,7 +74,7 @@ const productoUpdate = {
 
 // SELLER LOGIN REQUEST
 describe('Seller Login', () => {
-  it('Login and return seller token for two factor authentication', (done) => {
+  it( 'Login and return seller token for two factor authentication', (done) => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -105,7 +105,7 @@ describe('Seller 2FA', () => {
 describe('Add  product', () => {
   describe('User active', () => {
     describe('All information provided', () => {
-      it('Should add a product and return code 200', (done) => {
+      it('Should add a product and return code 201', (done) => {
         chai
           .request(app)
           .post('/api/products')
@@ -132,11 +132,12 @@ describe('Add  product', () => {
     });
 
   });
+
   describe('Check Expiration of products', () => {
     it('Should return Code 200 and valid response data', (done) => {
       chai
         .request(app)
-        .get('/api/products/expiration')
+        .get('/api/products/expired')
         // .set('cookie', cookie)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -150,47 +151,7 @@ describe('Add  product', () => {
       it('Should get  products and return code 200', (done) => {
         chai
           .request(app)
-          .get('/api/products/allAvailable')
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-          });
-      });
-    });
-  });
-  // describe('Check Expiration of products', () => {
-  //   it('Should return Code 200 and valid response data', async () => {
-  //     try {
-  //       const response = await chai.get('/api/products/expiration');
-  //       expect(response).to.have.status(200);
-  //       expect(response).to.be.json;
-  //       expect(response.body).to.have.property('exprired_Products');
-  //       // Additional assertions on response data can be added here
-  //     } catch (err) {
-  //       // Proper error handling
-  //       throw err;
-  //     }
-  //   });
-  // });
-  describe('Check Expiration of products', () => {
-    it('Should return Code 200 and valid response data', (done) => {
-      chai
-        .request(app)
-        .get('/api/products/expiration')
-        // .set('cookie', cookie)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
-  });
-
-  describe('Available products', () => {
-    describe('Products in stock', () => {
-      it('Should get  products and return code 200', (done) => {
-        chai
-          .request(app)
-          .get('/api/products/allAvailable')
+          .get('/api/products/inStock')
           .end((err, res) => {
             expect(res).to.have.status(200);
             done();
@@ -216,7 +177,7 @@ describe('Add  product', () => {
         it('Should return code 200', (done) => {
           chai
             .request(app)
-            .put('/api/products/editProduct/21')
+            .put('/api/products/29')
             .send(productoUpdate)
             .set('cookie', sellerCookie)
             .end((err, res) => {
@@ -229,7 +190,7 @@ describe('Add  product', () => {
         it('Should return code 404', (done) => {
           chai
             .request(app)
-            .put('/api/products/editProduct/5')
+            .put('/api/products/-1')
             .set('cookie', sellerCookie)
             .end((err, res) => {
               expect(res).to.have.status(404);
@@ -239,9 +200,9 @@ describe('Add  product', () => {
       });
     });
 
-    // User CAN GET ALL OORDERS
+    // User CAN GET ALL ORDERS
     describe('Buyer, Seller or Admin users', () => {
-      it('can display all Product ', (done) => {
+      it( 'can display all Product ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -258,7 +219,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products which have substring in name of "product" ', (done) => {
+      it( 'can search Products which have substring in name of "product" ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -275,7 +236,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products which have price of 85000 ', (done) => {
+      it( 'can search Products which have price of 85000 ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -292,7 +253,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products which have category Id of 70 ', (done) => {
+      it( 'can search Products which have category Id of 70 ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -309,7 +270,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products which have substring in name of "product" or have price of 85000 or have  category Id of 70 ', (done) => {
+      it( 'can search Products which have substring in name of "product" or have price of 85000 or have  category Id of 70 ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -326,7 +287,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products and get an error when name parameter doesn\'t match any product', (done) => {
+      it( 'can search Products and get an error when name parameter doesn\'t match any product', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -343,7 +304,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products and get an error when price parameter doesn\'t match any product', (done) => {
+      it( 'can search Products and get an error when price parameter doesn\'t match any product', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -360,7 +321,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products and get an error when categoryIds parameter doesn\'t match any product ', (done) => {
+      it( 'can search Products and get an error when categoryIds parameter doesn\'t match any product ', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
@@ -377,7 +338,7 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products and get an error when name, price or categoryIds parameters doesn\'t match any product', (done) => {
+      it( 'can search Products and get an error when name, price or categoryIds parameters doesn\'t match any product', (done) => {
         chai
           .request(app)
           .post('/api/products/search')

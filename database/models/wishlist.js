@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       // define association here
+      wishlist.belongsTo(models.user,{
+        foreignKey:'userId',
+        as:'user',
+        onDelete:'CASCADE'
+      })
+      
     }
   }
   wishlist.init({

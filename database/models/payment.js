@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
    
     static associate(models) {
       // define association here
+      payment.belongsTo(models.order,{
+        foreignKey:'orderId',
+        as:'order',
+        onDelete:'CASCADE'
+      })
     }
   }
   payment.init({

@@ -1,12 +1,25 @@
 import db from '../../database/models/index.js';
 
-const { order, product } = db;
+const { order, product, user } = db;
 
 class OrderController {
   // get allorders
   static async getOrders(req, res) {
     try {
-      const orders = await order.findAll();
+      const orders = await order.findAll({
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name'],
+          },
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name'],
+          },
+        ],
+      });
       res.status(200).json({ orders });
     } catch (error) {
       return res.status(500).json(error.message);
@@ -111,10 +124,6 @@ class OrderController {
           message: 'Order successfully updated!',
         });
       }
-      return res.status(400).json({
-        ok: false,
-        message: 'Not updated!',
-      });
     } catch (error) {
       return res.status(500).json({
         ok: false,

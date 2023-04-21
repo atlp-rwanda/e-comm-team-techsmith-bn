@@ -27,7 +27,6 @@ class newsletterSubscribe {
       });
       if (subscriptionExists?.isSubscribed) {
         return res.status(409).json({
-          status: 'conflict',
           message: 'Your email is already subscribed to our newsletter',
         });
       }

@@ -7,6 +7,19 @@ module.exports = (sequelize, DataTypes) => {
    
     static associate(models) {
       // define association here
+      order.belongsTo(models.user,{
+        foreignKey:'userId',
+        as:'user',
+        onDelete:'CASCADE'
+      })
+      order.hasOne(models.payment,{
+        onDelete:'CASCADE'
+      })
+      order.belongsTo(models.product,{
+          foreignKey: 'productId',
+          as:'product',
+          onDelete:'CASCADE'
+        })
     }
   }
   order.init({

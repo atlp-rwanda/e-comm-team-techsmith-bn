@@ -7,6 +7,8 @@ const isActive = async (req, res, next) => {
   try {
     // GET EMAIL FROM REQUEST BODY
     const { email } = req.body;
+    // eslint-disable-next-line no-console
+    console.log(email);
     const userExist = await user.findOne({
       where: { email },
     });
@@ -21,7 +23,7 @@ const isActive = async (req, res, next) => {
     next();
   } catch (error) {
     res.status(500).json({
-      message: 'Server error',
+      message: error.message,
     });
   }
 };

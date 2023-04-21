@@ -19,7 +19,7 @@ class delivery {
       // see if the user for that order still exists in our database
       const user = await User.findOne({ where: { id: order.userId } });
 
-      if (!id || !order || order.status !== 'payed' || !user) {
+      if (!id || !order || order.status !== 'paid' || !user) {
         return res.status(404).json({
           message:
             'Please provide a valid id. Make sure you are not trying to deliver the same order more than once',
@@ -35,12 +35,6 @@ class delivery {
         }
       );
 
-      if (!deliveredOrder) {
-        return res
-          .status(400)
-          .json({ error: 'Status not updated please try again' });
-      }
-
       // FIND THE NAME AND EMAIL OF THE ORDER BUYER AND SEND HIM AN EMAIL
 
       await nodeMail(
@@ -53,7 +47,7 @@ class delivery {
       return res.status(200).json({
         message:
           'Order is successfully flagged as delivered and email was sent to the Buyer',
-        order: deliveredOrder[1],
+        order: deliveredOrder.dataValues,
       });
     } catch (e) {
       return res.status(500).json({ error: e.message });
@@ -67,7 +61,12 @@ class delivery {
       const order = await Order.findOne({ where: { id } });
 
       // see if the user for that order still exists in our database
-      const user = await User.findOne({ where: { id: order.userId } });
+      const user = await User.findOne({
+        where: { id: order.userId },
+        attributes: {
+          exclude: ['password'],
+        },
+      });
 
       if (!id || !order || !user) {
         return res.status(404).json({
@@ -77,7 +76,7 @@ class delivery {
       }
 
       const deliveredOrder = await Order.update(
-        { status: 'payed' },
+        { status: 'paid' },
         {
           where: { id: params.id },
           returning: true,
@@ -103,7 +102,7 @@ class delivery {
       return res.status(200).json({
         message:
           'Order is successfully marked as cancelled and email was sent to the Buyer',
-        order: deliveredOrder[1],
+        order: deliveredOrder.dataValues,
       });
     } catch (e) {
       return res.status(500).json({ error: e.message });

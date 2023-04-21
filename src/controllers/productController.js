@@ -53,6 +53,11 @@ class ProductController {
         expiryDate,
         image,
         condition,
+        include: {
+          model: user,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
       });
       return res.status(201).json({
         ok: true,
@@ -69,7 +74,13 @@ class ProductController {
 
   static async findAllproducts(req, res) {
     try {
-      const products = await product.findAll();
+      const products = await product.findAll({
+        include: {
+          model: user,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
+      });
       if (products.length <= 0) {
         return res.status(200).json({
           ok: false,
@@ -93,7 +104,16 @@ class ProductController {
   static async myCollectionProducts(req, res) {
     try {
       const { id } = res.locals;
-      const products = await product.findAll({ where: { userId: id } });
+      const products = await product.findAll({
+        where: { userId: id },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name'],
+          },
+        ],
+      });
       if (products.length <= 0) {
         return res.status(200).json({
           ok: false,
@@ -118,6 +138,13 @@ class ProductController {
     try {
       const availableProducts = await product.findAll({
         where: { isAvailable: true },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name'],
+          },
+        ],
       });
       if (availableProducts < 1) {
         return res.status(200).json({
@@ -136,12 +163,22 @@ class ProductController {
     }
   }
 
-  // A  SELLER CAN SEE AVAILABLE PRODUCTS IN HIS COOOLECTION
+  // A  SELLER CAN SEE AVAILABLE PRODUCTS IN HIS COLLECTION
   static async availableProducts(req, res) {
     const { id } = res.locals;
     try {
       const availableProducts = await product.findAll({
-        where: { isAvailable: true, userId: id },
+        where: {
+          isAvailable: true,
+          userId: id,
+        },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name'],
+          },
+        ],
       });
       if (availableProducts < 1) {
         return res.status(409).json({
@@ -164,18 +201,16 @@ class ProductController {
     try {
       const currentDate = new Date();
       const products = await product.findAll();
-      /* eslint-disable */
-      const expiredProducts = getExpiryDateAndId(products).filter(
-        (product) => {
-          return new Date(product.expiryDate) < new Date(currentDate)
-        }
+      let foundUser;
 
+      const expiredProducts = getExpiryDateAndId(products).filter(
+        (prod) => new Date(prod.expiryDate) < new Date(currentDate)
       );
       expiredProducts.forEach(async (p) => {
-        // console.log(p)
-        const foundUser = await user.findOne({ where: { id: p.userId } })
-        // console.log(foundUser)
-        // sellersToNofify.push(foundUser)
+        foundUser = await user.findOne({
+          where: { id: p.userId },
+        });
+
         await sendEmail(
           foundUser.email,
           foundUser.name,
@@ -183,13 +218,14 @@ class ProductController {
           productIsExpired,
           p.name
         );
-        console.log("email sent successfully to " + foundUser.email)
-
-
+        console.log(`Email sent successfully to ${foundUser.email}`);
       });
       /* eslint-disable */
       for (let i = 0; i < expiredProducts.length; i++) {
-        await product.update({ isAvailable: false }, { where: { id: expiredProducts[i].id } });
+        await product.update(
+          { isAvailable: false },
+          { where: { id: expiredProducts[i].id } }
+        );
       }
       return res.status(200).json({
         ok: true,
@@ -203,6 +239,7 @@ class ProductController {
       });
     }
   }
+
   // DELETE A SEPCIFIC PRODUCT
   static async deleteProduct(req, res) {
     try {
@@ -218,10 +255,12 @@ class ProductController {
         attributes: ['id'],
       });
 
-      const myProducts = fetchMyProducts.map(({ id }) => ({ id: parseInt(id) }));
+      const myProducts = fetchMyProducts.map(({ id }) => ({
+        id: parseInt(id),
+      }));
 
       // CHECKING IF loggedInUser OWN A PRODUCT
-      const productExist = myProducts.some(e => e.id == pId);
+      const productExist = myProducts.some((e) => e.id == pId);
 
       if (!productExist) {
         return res.status(404).json({
@@ -246,6 +285,7 @@ class ProductController {
       return res.status(500).json({ message: 'Server error' });
     }
   }
+
   static async updateProduct(req, res) {
     const {
       name,
@@ -256,50 +296,51 @@ class ProductController {
       expiryDate,
       condition,
     } = req.body;
-    const { pId } = req.params;
-    const loggedInUserId = res.locals.id;
     try {
-
-
-      // Checking if he is the owner of the product
-      const fetchMyProducts = await product.findAll({
-        where: {
-          userId: loggedInUserId,
-        },
-        attributes: ['id'],
-      });
-
-      const myProducts = fetchMyProducts.map(({ id }) => ({ id: parseInt(id) }));
-
-      // CHECKING IF loggedInUser OWN A PRODUCT
-      const productExist = myProducts.some(e => e.id == pId);
-
+      // GET PRODUCT ID FROM THE PARAMS
+      const { id } = req.params;
+      // GET LOGGED IN USER ID FROM LOCAL RESPONSES
+      const { id: loggedInUserId } = res.locals;
+      // CHECK IF PRODUCT EXISTS
+      const productExist = await product.findOne({ where: { id } });
       if (!productExist) {
         return res.status(404).json({
           message: "The product doesn't exists in your collection!",
         });
       }
 
+      // CHECK IF LOGGED IN USER OWNS THE PRODUCT
+      if (productExist.userId !== loggedInUserId) {
+        return res.status(401).json({
+          message: 'You are not authorized to edit this product! It belongs to another user',
+        });
+      };
       //VALIDATE INPUTS
-
       const { error } = validateProductInput(req.body);
       if (error) {
         return res.status(400).json({ message: error.details[0].message });
       }
-      // IF INPUTS ARE VALIDATED
-
-      const updateProduct = await product.update({
-        name,
-        price,
-        categoryId,
-        image,
-        description,
-        expiryDate,
-        condition,
-      }, {
-        where: { id: pId },
-        returning: true,
-      });
+      // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
+      const updateProduct = await product.update(
+        {
+          name,
+          price,
+          categoryId,
+          image,
+          description,
+          expiryDate,
+          condition,
+        },
+        {
+          where: { id },
+          returning: true,
+          include: {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          }
+        },
+      );
 
       // CHECKING IF UPDATED
       if (updateProduct) {
@@ -308,10 +349,6 @@ class ProductController {
           message: 'Product details successfully updated!',
         });
       }
-      return res.status(400).json({
-        ok: false,
-        message: 'Not updated!',
-      });
     } catch (error) {
       return res.status(500).json({
         ok: false,
@@ -319,6 +356,38 @@ class ProductController {
       });
     }
   }
+
+  // GET A SPECIFIC PRODUCT
+  static async findProductById(req, res) {
+    try {
+      const { id } = req.params;
+      const productExist = await product.findOne({
+        where: { id },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          }
+        ]
+      });
+      if (!productExist) {
+        return res.status(404).json({
+          message: 'Product not found!',
+        });
+      }
+      return res.status(200).json({
+        ok: true,
+        message: 'Product found!',
+        data: productExist,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+  };
 
   static async getProduct(req, res) {
     const { name, price, categoryIds } = req.body;
@@ -334,7 +403,13 @@ class ProductController {
     if (!token) {
       try {
         if (name === null && price === null && categoryIds === null) {
-          const products = await product.findAll();
+          const products = await product.findAll({
+            include: {
+              model: user,
+              as: 'user',
+              attributes: ['name'],
+            },
+          });
 
           if (products.length <= 0) {
             res.status(404).json({
@@ -427,4 +502,5 @@ class ProductController {
     }
   }
 }
+
 export default ProductController;

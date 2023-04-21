@@ -5,11 +5,11 @@ import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
-import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
-import availableProduct from './Product/getAvailableProducts.js';
-import allAvailableProduct from './Product/getAllAvailableProducts.js';
-import myCollectionProducts from './Product/myCollectionProducts.js';
+import createProduct from './Product/createProduct.js';
+import allAvailableProduct from './Product/getProductsInStock.js';
+import availableProduct from './Product/getProductsInMyStock.js';
+import myCollectionProducts from './Product/getAllMyProducts.js';
 import deleteProduct from './Product/deleteAproduct.js';
 import updateProduct from './Product/updateAproduct.js';
 import searchProducts from './Product/searchProduct.js';
@@ -59,7 +59,6 @@ const paths = {
   '/users/update/password': {
     put: updateUserPassword,
   },
-
   // _______________ ORDERS _________________________
   '/orders': {
     get: getOrders,
@@ -75,7 +74,6 @@ const paths = {
   '/orders/cancelled/{id}': {
     put: cancelledOrder,
   },
-
   // GOOGLE AUTHENTICATION
   '/auth/google': {
     get: loginUser,
@@ -88,26 +86,24 @@ const paths = {
     post: createProduct,
     get: getProducts,
   },
-
-  // AAVAILABLE PRODUCTS IN COLLECTON
-  '/products/available': {
-    get: availableProduct,
-  },
-  // AVAILABLE PRODUCTS IN STOCK
-  '/products/allAvailable': {
-    get: allAvailableProduct,
-  },
   // ALL PRODUCTS IN MY COLLECTION
-  '/products/myCollection': {
+  '/products/myStock': {
     get: myCollectionProducts,
   },
-  '/products/editProduct/{pId}': {
+  // AVAILABLE PRODUCTS IN STOCK
+  '/products/inStock': {
+    get: allAvailableProduct,
+  },
+  // AVAILABLE PRODUCTS IN COLLECTON
+  '/products/inMyStock': {
+    get: availableProduct,
+  },
+  '/products/{id}': {
     put: updateProduct,
   },
   '/products/{pId}': {
     delete: deleteProduct,
   },
-
   '/products/search': {
     post: searchProducts,
   },
@@ -131,7 +127,6 @@ const paths = {
     put: updateUser,
     delete: deleteUser,
   },
-
   // changing user's roles by admin
   '/users/{id}/role/{role}': {
     put: userPermissions,
@@ -140,7 +135,7 @@ const paths = {
   '/wishlist/{id}': {
     post: addProductToWishlist,
   },
-  '/products/expiration': {
+  '/products/expire': {
     get: checkexpiration,
   },
   // LOGOUT

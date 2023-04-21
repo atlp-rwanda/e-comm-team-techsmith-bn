@@ -3,7 +3,7 @@ import stripe from 'stripe';
 import db from '../../database/models/index.js';
 
 // LOAD MODELS FROM DB
-const { payment } = db;
+const { payment, order } = db;
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -15,6 +15,7 @@ const { STRIPE_SECRET_KEY } = process.env;
 const stripePayment = stripe(STRIPE_SECRET_KEY);
 
 class PaymentsController {
+  // CREATE PAYMENT
   static async createPayment(req, res) {
     // RETRIEVE VALUES RETURNED BY THE MIDDLEWARE
     const { findUser, findOrder, findProduct } = res.locals;
@@ -55,11 +56,36 @@ class PaymentsController {
         const { status } = updateOrder;
         return res.status(201).json({
           ok: true,
-          message: 'Payment successfully and order status updated',
+          message: 'Payment successfully added and order status updated',
           data: createPayment,
           status,
         });
       }
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  // GET PAYMENTS
+  static async getPayments(req, res) {
+    try {
+      // GET PAYMENTS
+      const getPayments = await payment.findAll({
+        include: [
+          {
+            model: order,
+            as: 'order',
+            attributes: ['amount', 'status'],
+          },
+        ],
+      });
+      return res.status(200).json({
+        ok: true,
+        message: 'Payments retrieved successfully',
+        data: getPayments,
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

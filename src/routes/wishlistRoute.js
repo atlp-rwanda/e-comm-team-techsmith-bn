@@ -1,12 +1,11 @@
 import express from 'express';
-import addProductController from '../controllers/addProductToWishlistController';
-import isBuyer from '../middlewares/verifyIsBuyer.js';
+import wishlistController from '../controllers/wishlistController';
+import isBuyer from '../middlewares/verifyIsBuyer';
 
-// SETUP ROUTER
+// CREATE ROUTER
 const router = express.Router();
 
-// ADDING PRODUCT TO CART
-router.post('/:id', isBuyer, addProductController.addTowishlist);
+// ADD PRODUCT TO WISHLIST
+router.post('/:id', isBuyer, wishlistController.addTowishlist);
 
-// EXPORT ROUTER
 export default router;
