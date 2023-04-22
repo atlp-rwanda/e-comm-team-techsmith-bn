@@ -8,6 +8,7 @@ import orderRoute from './orderRoute.js';
 import productRoute from './productRoutes.js';
 import adminRoute from './adminRoute.js';
 import wishlistRoute from './wishlistRoute.js';
+import cartRoute from './cartRoute.js';
 
 // SETUP ROUTER
 const router = express.Router();
@@ -21,5 +22,6 @@ router.use('/orders', orderRoute);
 router.use('/admin', adminRoute);
 router.use('/products', productRoute);
 router.use('/wishlist', wishlistRoute);
+router.use('/cart', cartRoute);
 
 export default router;
