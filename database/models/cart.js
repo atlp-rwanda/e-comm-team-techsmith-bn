@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
    
     static associate(models) {
       // define association here
+      cart.belongsTo(models.user,{
+        foreignKey:'userId',
+        as:'user',
+        onDelete:'CASCADE'
+      })
+      
     }
   }
   cart.init({

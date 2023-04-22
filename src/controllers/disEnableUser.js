@@ -59,6 +59,9 @@ class dis_enableController {
         {
           where: { id: params.id },
           returning: true,
+          attributes: {
+            exclude: ['password'],
+          },
         }
       );
 

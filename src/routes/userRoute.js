@@ -8,6 +8,8 @@ import dis_enableController from '../controllers/disEnableUser.js';
 import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
 import isActive from '../middlewares/activeUser.js';
 import changeRole from '../controllers/roleController.js';
+import wishlistController from '../controllers/wishlistController.js';
+import isBuyer from '../middlewares/verifyIsBuyer.js';
 
 const router = express.Router();
 
@@ -47,6 +49,9 @@ router.put('/update/password', checkIsLoggedIn, userController.updatePass);
 
 // LOGOUT USER ROUTE
 router.post('/logout', userController.logoutController);
+
+// ADD PRODUCT TO WISHLIST
+router.post('/wishlist/:id', isBuyer, wishlistController.addTowishlist);
 
 export default router;
 

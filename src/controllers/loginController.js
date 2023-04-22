@@ -7,7 +7,7 @@ import { nodeMail, twoFAMessageTemplate } from '../utils/emails.js';
 dotenv.config();
 const { USER_SECRET: secret } = process.env;
 
-const { user } = db;
+const { user, role } = db;
 
 class loginController {
   // NORMAL LOGIN
@@ -16,7 +16,14 @@ class loginController {
 
     try {
       // CHECK IF USER EXISTS
-      const findUser = await user.findOne({ where: { email: userEmail } });
+      const findUser = await user.findOne({
+        where: { email: userEmail },
+        include: {
+          model: role,
+          as: 'role',
+          attributes: ['name'],
+        },
+      });
       // IF USER DOES NOT EXIST
       if (!findUser) {
         return res.status(404).json({
@@ -32,7 +39,7 @@ class loginController {
         await nodeMail(
           findUser.email,
           findUser.name,
-          'Complete two factor authentication',
+          'Complete two factor authentication to continue',
           twoFAMessageTemplate,
           token
         );
@@ -41,7 +48,7 @@ class loginController {
           maxAge: 3600,
         });
         return res.status(202).json({
-          message: 'Please check your email to verify your account',
+          message: 'Please check your email to verify your continue login',
           token,
         });
       }
@@ -57,7 +64,11 @@ class loginController {
           maxAge: 604800,
           path: '/',
         });
-        const { password: userPassword, ...userDetails } = findUser.dataValues;
+        const {
+          password: userPassword,
+          roleId,
+          ...userDetails
+        } = findUser.dataValues;
         return res.status(200).json({
           message: 'You have logged in successfully',
           Authorization: token,
@@ -86,7 +97,14 @@ class loginController {
       }
       const { email } = jwt.verify(token, secret);
       // CHECK IF USER EXISTS
-      const findUser = await user.findOne({ where: { email } });
+      const findUser = await user.findOne({
+        where: { email },
+        include: {
+          model: role,
+          as: 'role',
+          attributes: ['name'],
+        },
+      });
       const payload = {
         id: findUser.id,
         role: findUser.roleId,
@@ -98,7 +116,11 @@ class loginController {
         httpOnly: true,
         maxAge: 604800,
       });
-      const { password: userPassword, ...userDetails } = findUser.dataValues;
+      const {
+        password: userPassword,
+        roleId,
+        ...userDetails
+      } = findUser.dataValues;
       // RETURN USER DETAILS
       return res.status(200).json({
         message: 'Login successfully',

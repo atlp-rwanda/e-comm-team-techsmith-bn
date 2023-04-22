@@ -19,7 +19,7 @@ const regularUser = {
 
 
 const regularUserId = 10
-const unkownUserId = 1067
+const unkownUserId = -1
 
 // TOKENS
 let adminCookie = '', regularCookie = '', adminToken = '', regularToken = '';
