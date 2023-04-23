@@ -22,6 +22,11 @@ import createOrder from './Order/createOrder.js';
 import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
+import getProduct from './Admin/getProducts.js';
+import getAsingleProduct from './Admin/getASingleProduct.js';
+import createProducts from './Admin/createProduct.js';
+import deleteProducts from './Admin/deleteProduct.js';
+import updateProducts from './Admin/updateProduct.js';
 import addProductToWishlist from './Wishlist/addProductToWishlist.js';
 import updateOrder from './Order/updateOrder.js';
 import deleteOrder from './Order/deleteOrder.js';
@@ -129,6 +134,17 @@ const paths = {
     put: updateUser,
     delete: deleteUser,
   },
+  // ADMIN CRUD PRODUCTS
+  '/admin/products': {
+    get: getProduct,
+    post: createProducts,
+  },
+  '/admin/products/{id}': {
+    put: updateProducts,
+    delete: deleteProducts,
+    get: getAsingleProduct,
+  },
+
   // changing user's roles by admin
   '/users/{id}/role/{role}': {
     put: userPermissions,

@@ -180,8 +180,8 @@ class ProductController {
           },
         ],
       });
-      if (availableProducts < 1) {
-        return res.status(409).json({
+      if (availableProducts.length < 1) {
+        return res.status(200).json({
           message: 'All products are sold',
         });
       }
@@ -221,286 +221,284 @@ class ProductController {
         console.log(`Email sent successfully to ${foundUser.email}`);
       });
       /* eslint-disable */
-      for (let i = 0; i < expiredProducts.length; i++) {
-        await product.update(
-          { isAvailable: false },
-          { where: { id: expiredProducts[i].id } }
-        );
-      }
-      return res.status(200).json({
-        ok: true,
-        message: 'Product expiration check completed',
-        exprired_Products: expiredProducts,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        status: 'Getting product failure',
-        message: error.message,
-      });
-    }
-  }
-
-  // DELETE A SEPCIFIC PRODUCT
-  static async deleteProduct(req, res) {
-    try {
-      const { pId } = req.params;
-      // Getting logged in user's id
-      const loggedInUserId = res.locals.id;
-
-      // GETTING ONLY YOUR PRODUCT
-      const fetchMyProducts = await product.findAll({
-        where: {
-          userId: loggedInUserId,
-        },
-        attributes: ['id'],
-      });
-
-      const myProducts = fetchMyProducts.map(({ id }) => ({
-        id: parseInt(id),
-      }));
-
-      // CHECKING IF loggedInUser OWN A PRODUCT
-      const productExist = myProducts.some((e) => e.id == pId);
-
-      if (!productExist) {
-        return res.status(404).json({
-          message: "The product doesn't exists in your collection!",
-        });
-      }
-      // DELETING THE PRODUCT
-      const deleteProduct = await product.destroy({ where: { id: pId } });
-
-      // CHECK IF PRODUCT IS DELETED
-      if (deleteProduct) {
-        return res.status(200).json({
-          ok: true,
-          message: 'Product successfully deleted',
-        });
-      }
-      return res.status(400).json({
-        ok: false,
-        message: 'Not deleted!',
-      });
-    } catch (error) {
-      return res.status(500).json({ message: 'Server error' });
-    }
-  }
-
-  static async updateProduct(req, res) {
-    const {
-      name,
-      price,
-      categoryId,
-      image,
-      description,
-      expiryDate,
-      condition,
-    } = req.body;
-    try {
-      // GET PRODUCT ID FROM THE PARAMS
-      const { id } = req.params;
-      // GET LOGGED IN USER ID FROM LOCAL RESPONSES
-      const { id: loggedInUserId } = res.locals;
-      // CHECK IF PRODUCT EXISTS
-      const productExist = await product.findOne({ where: { id } });
-      if (!productExist) {
-        return res.status(404).json({
-          message: "The product doesn't exists in your collection!",
-        });
-      }
-
-      // CHECK IF LOGGED IN USER OWNS THE PRODUCT
-      if (productExist.userId !== loggedInUserId) {
-        return res.status(401).json({
-          message: 'You are not authorized to edit this product! It belongs to another user',
-        });
-      };
-      //VALIDATE INPUTS
-      const { error } = validateProductInput(req.body);
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      }
-      // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
-      const updateProduct = await product.update(
-        {
-          name,
-          price,
-          categoryId,
-          image,
-          description,
-          expiryDate,
-          condition,
-        },
-        {
-          where: { id },
-          returning: true,
-          include: {
-            model: user,
-            as: 'user',
-            attributes: ['name', 'email'],
-          }
-        },
-      );
-
-      // CHECKING IF UPDATED
-      if (updateProduct) {
-        return res.status(200).json({
-          ok: true,
-          message: 'Product details successfully updated!',
-        });
-      }
-    } catch (error) {
-      return res.status(500).json({
-        ok: false,
-        message: error.message,
-      });
-    }
-  }
-
-  // GET A SPECIFIC PRODUCT
-  static async findProductById(req, res) {
-    try {
-      const { id } = req.params;
-      const productExist = await product.findOne({
-        where: { id },
-        include: [
-          {
-            model: user,
-            as: 'user',
-            attributes: ['name', 'email'],
-          }
-        ]
-      });
-      if (!productExist) {
-        return res.status(404).json({
-          message: 'Product not found!',
-        });
-      }
-      return res.status(200).json({
-        ok: true,
-        message: 'Product found!',
-        data: productExist,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        ok: false,
-        message: error.message,
-      });
-    }
-  };
-
-  static async getProduct(req, res) {
-    const { name, price, categoryIds } = req.body;
-
-    const { errors } = validateProductSearchInput(req.body);
-
-    if (errors) {
-      return res.status(400).json({ message: errors.details[0].message });
-    }
-
-    const token = req.headers.cookie;
-
-    if (!token) {
-      try {
-        if (name === null && price === null && categoryIds === null) {
-          const products = await product.findAll({
-            include: {
-              model: user,
-              as: 'user',
-              attributes: ['name'],
-            },
-          });
-
-          if (products.length <= 0) {
-            res.status(404).json({
-              status: 'None',
-              message: 'no product found',
+            for (let i = 0; i < expiredProducts.length; i++) {
+                await product.update({ isAvailable: false }, { where: { id: expiredProducts[i].id } });
+            }
+            return res.status(200).json({
+                ok: true,
+                message: 'Product expiration check completed',
+                exprired_Products: expiredProducts,
             });
-          } else {
-            res.status(200).json({
-              status: 'lIST OF PRODUCTS',
-              message: ` ${products.length} products found`,
-              data: products,
+        } catch (error) {
+            return res.status(500).json({
+                status: 'Getting product failure',
+                message: error.message,
             });
-          }
-        } else {
-          const products = await product.findAll({
-            where: {
-              [Op.or]: [
-                { name: { [Op.like]: `%${name}%` } },
-                { categoryId: categoryIds },
-                { price },
-              ],
-            },
-          });
-
-          if (products.length <= 0) {
-            res.status(404).json({
-              status: 'None',
-              message: 'no product found',
-            });
-          } else {
-            res.status(200).json({
-              status: 'lIST OF PRODUCTS',
-              message: ` ${products.length} products found`,
-              data: products,
-            });
-          }
         }
-      } catch (error) {
-        res
-          .status(500)
-          .json({ status: 'Getting product failure', message: error.message });
-      }
-    } else {
-      try {
-        if (name === null && price === null && categoryIds === null) {
-          const products = await product.findAll({ where: { userId: req.id } });
-
-          if (products.length <= 0) {
-            res.status(404).json({
-              status: 'None',
-              message: 'no product found',
-            });
-          } else {
-            res.status(200).json({
-              status: 'lIST OF PRODUCTS',
-              message: ` ${products.length} products found`,
-              data: products,
-            });
-          }
-        } else {
-          const products = await product.findAll({
-            where: {
-              userId: req.id,
-              [Op.or]: [
-                { name: { [Op.like]: `%${name}%` } },
-                { categoryId: categoryIds },
-                { price },
-              ],
-            },
-          });
-
-          if (products.length <= 0) {
-            res.status(404).json({
-              status: 'None',
-              message: 'no product found',
-            });
-          } else {
-            res.status(200).json({
-              status: 'lIST OF PRODUCTS',
-              message: ` ${products.length} products found`,
-              data: products,
-            });
-          }
-        }
-      } catch (error) {
-        res
-          .status(500)
-          .json({ status: 'Getting product failure', message: error });
-      }
     }
-  }
+
+    // DELETE A SEPCIFIC PRODUCT
+    static async deleteProduct(req, res) {
+        try {
+            const { pId } = req.params;
+            // Getting logged in user's id
+            const loggedInUserId = res.locals.id;
+
+            // GETTING ONLY YOUR PRODUCT
+            const fetchMyProducts = await product.findAll({
+                where: {
+                    userId: loggedInUserId,
+                },
+                attributes: ['id'],
+            });
+
+            const myProducts = fetchMyProducts.map(({ id }) => ({
+                id: parseInt(id),
+            }));
+
+            // CHECKING IF loggedInUser OWN A PRODUCT
+            const productExist = myProducts.some((e) => e.id == pId);
+
+            if (!productExist) {
+                return res.status(404).json({
+                    message: "The product doesn't exists in your collection!",
+                });
+            }
+            // DELETING THE PRODUCT
+            const deleteProduct = await product.destroy({ where: { id: pId } });
+
+            // CHECK IF PRODUCT IS DELETED
+            if (deleteProduct) {
+                return res.status(200).json({
+                    ok: true,
+                    message: 'Product successfully deleted',
+                });
+            }
+            return res.status(400).json({
+                ok: false,
+                message: 'Not deleted!',
+            });
+        } catch (error) {
+            return res.status(500).json({ message: 'Server error' });
+        }
+    }
+
+    static async updateProduct(req, res) {
+        const {
+            name,
+            price,
+            categoryId,
+            image,
+            description,
+            expiryDate,
+            condition,
+        } = req.body;
+        try {
+            // GET PRODUCT ID FROM THE PARAMS
+            const { id } = req.params;
+            // GET LOGGED IN USER ID FROM LOCAL RESPONSES
+            const { id: loggedInUserId } = res.locals;
+            // CHECK IF PRODUCT EXISTS
+            const productExist = await product.findOne({ where: { id } });
+            if (!productExist) {
+                return res.status(404).json({
+                    message: "The product doesn't exists in your collection!",
+                });
+            }
+
+            // CHECK IF LOGGED IN USER OWNS THE PRODUCT
+            if (productExist.userId !== loggedInUserId) {
+                return res.status(401).json({
+                    message: 'You are not authorized to edit this product! It belongs to another user',
+                });
+            };
+            //VALIDATE INPUTS
+            const { error } = validateProductInput(req.body);
+            if (error) {
+                return res.status(400).json({ message: error.details[0].message });
+            }
+            // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
+            const updateProduct = await product.update({
+                name,
+                price,
+                categoryId,
+                image,
+                description,
+                expiryDate,
+                condition,
+            }, {
+                where: { id },
+                returning: true,
+                include: {
+                    model: user,
+                    as: 'user',
+                    attributes: ['name', 'email'],
+                }
+            }, );
+
+            // CHECKING IF UPDATED
+            if (updateProduct) {
+                return res.status(200).json({
+                    ok: true,
+                    message: 'Product details successfully updated!',
+                });
+            }
+        } catch (error) {
+            return res.status(500).json({
+                ok: false,
+                message: error.message,
+            });
+        }
+    }
+
+    // GET A SPECIFIC PRODUCT
+    static async findProductById(req, res) {
+        try {
+            const { id } = req.params;
+            const productExist = await product.findOne({
+                where: { id },
+                include: [{
+                    model: user,
+                    as: 'user',
+                    attributes: ['name', 'email'],
+                }]
+            });
+            if (!productExist) {
+                return res.status(404).json({
+                    message: 'Product not found!',
+                });
+            }
+            return res.status(200).json({
+                ok: true,
+                message: 'Product found!',
+                data: productExist,
+            });
+        } catch (error) {
+            return res.status(500).json({
+                ok: false,
+                message: error.message,
+            });
+        }
+    };
+
+    static async getProduct(req, res) {
+        const { name, price, categoryIds } = req.body;
+
+        const { errors } = validateProductSearchInput(req.body);
+
+        if (errors) {
+            return res.status(400).json({ message: errors.details[0].message });
+        }
+
+        const token = req.headers.cookie;
+
+        if (!token) {
+            try {
+                if (name === null && price === null && categoryIds === null) {
+                    const products = await product.findAll({
+                        include: {
+                            model: user,
+                            as: 'user',
+                            attributes: ['name'],
+                        },
+                    });
+
+                    if (products.length <= 0) {
+                        res.status(404).json({
+                            status: 'None',
+                            message: 'no product found',
+                        });
+                    } else {
+                        res.status(200).json({
+                            status: 'lIST OF PRODUCTS',
+                            message: ` ${products.length} products found`,
+                            data: products,
+                        });
+                    }
+                } else {
+                    const products = await product.findAll({
+                        where: {
+                            [Op.or]: [{
+                                    name: {
+                                        [Op.like]: `%${name}%`
+                                    }
+                                },
+                                { categoryId: categoryIds },
+                                { price },
+                            ],
+                        },
+                    });
+
+                    if (products.length <= 0) {
+                        res.status(404).json({
+                            status: 'None',
+                            message: 'no product found',
+                        });
+                    } else {
+                        res.status(200).json({
+                            status: 'lIST OF PRODUCTS',
+                            message: ` ${products.length} products found`,
+                            data: products,
+                        });
+                    }
+                }
+            } catch (error) {
+                res
+                    .status(500)
+                    .json({ status: 'Getting product failure', message: error.message });
+            }
+        } else {
+            try {
+                if (name === null && price === null && categoryIds === null) {
+                    const products = await product.findAll({ where: { userId: req.id } });
+
+                    if (products.length <= 0) {
+                        res.status(404).json({
+                            status: 'None',
+                            message: 'no product found',
+                        });
+                    } else {
+                        res.status(200).json({
+                            status: 'lIST OF PRODUCTS',
+                            message: ` ${products.length} products found`,
+                            data: products,
+                        });
+                    }
+                } else {
+                    const products = await product.findAll({
+                        where: {
+                            userId: req.id,
+                            [Op.or]: [{
+                                    name: {
+                                        [Op.like]: `%${name}%`
+                                    }
+                                },
+                                { categoryId: categoryIds },
+                                { price },
+                            ],
+                        },
+                    });
+
+                    if (products.length <= 0) {
+                        res.status(404).json({
+                            status: 'None',
+                            message: 'no product found',
+                        });
+                    } else {
+                        res.status(200).json({
+                            status: 'lIST OF PRODUCTS',
+                            message: ` ${products.length} products found`,
+                            data: products,
+                        });
+                    }
+                }
+            } catch (error) {
+                res
+                    .status(500)
+                    .json({ status: 'Getting product failure', message: error });
+            }
+        }
+    }
 }
 
 export default ProductController;
