@@ -1,7 +1,7 @@
-const updateProduct = {
-  tags: ['Product'],
-  description: 'update a product in database',
-  operationId: 'updateProduct',
+const createProduct = {
+  tags: ['Admin'],
+  description: 'Adding a product in database',
+  operationId: 'createProduct',
   // PARAMETERS
   parameters: [
     {
@@ -13,35 +13,24 @@ const updateProduct = {
       },
       required: true,
     },
-    {
-      name: 'id',
-      in: 'path',
-      schema: {
-        $ref: '#/components/schemas/id',
-      },
-      required: true,
-      description: 'ID of the product to be updated',
-    },
   ],
   // REQUEST BODY
   requestBody: {
     description: 'Product attributes',
     content: {
       'application/json': {
-        schema: { $ref: '#/components/schemas/updateProduct' },
+        schema: { $ref: '#/components/schemas/CreateProduct' },
       },
     },
   },
   // RESPONSES
   responses: {
     // SUCCESS
-    200: {
-      description: 'Product edited successfully',
+    201: {
+      description: 'Product added successfully',
       content: {
         'application/json': {
-          schema: {
-            message: 'Product was succesfully edited',
-          },
+          schema: { $ref: '#/components/schemas/ProductResponse' },
         },
       },
     },
@@ -50,22 +39,29 @@ const updateProduct = {
       description: 'User submits invalid information',
       content: {
         'application/json': {
-          schema: {
-            message: 'Please provide all required information',
-          },
+          schema: { message: 'Please provide all required information' },
         },
       },
     },
-    404: {
-      description: 'User update product not in collection',
+    // UNAUTHORIZED
+    401: {
+      description: 'User does not have required permissions',
       content: {
         'application/json': {
-          schema: {
-            message: 'The product does not exists in your collection!',
-          },
+          schema: { message: 'You must be a seller to add product' },
         },
       },
     },
+    // FORBIDDEN
+    403: {
+      description: 'User account not active',
+      content: {
+        'application/json': {
+          schema: { message: 'Your account is not active' },
+        },
+      },
+    },
+    // SERVER ERROR
     500: {
       description: 'Server error',
       content: {
@@ -75,4 +71,4 @@ const updateProduct = {
   },
 };
 
-export default updateProduct;
+export default createProduct;
