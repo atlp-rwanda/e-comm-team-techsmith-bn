@@ -4,7 +4,7 @@ import db from '../../database/models/index.js';
 dotenv.config();
 // IMPORT MODEL PRODUCT
 const { product, cart } = db;
-class addProductController {
+class cartController {
   static async addToCart(req, res) {
     try {
       // GET PRODUCT ID FROM PATH
@@ -48,5 +48,42 @@ class addProductController {
       });
     }
   }
+
+  static async viewCart(req, res) {
+    try {
+      // Get the user ID from local variables
+      const { id: userId } = res.locals;
+
+      // Find all cart items for the user
+      const cartItems = await cart.findAll({
+        where: { userId },
+        include: [
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name', 'price', 'image'],
+          },
+        ],
+      });
+
+      const cartProducts = cartItems.map((item) => ({
+        name: item.product.name,
+        price: item.product.price,
+        image: item.product.image,
+        quantity: item.quantity,
+      }));
+
+      res.status(200).json({
+        message: 'Cart contents retrieved successfully',
+        cart: cartProducts,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Failed to retrieve cart contents',
+        message: error.message,
+      });
+    }
+  }
 }
-export default addProductController;
+
+export default cartController;

@@ -52,3 +52,13 @@ describe('Product already in cart',() => {
         });
   });
 });
+
+describe('Getting all products in cart', () => {
+  it('should return all products and http code 200', (done) => {
+    chai.request(app).get('/api/cart').set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    })
+  })
+})
