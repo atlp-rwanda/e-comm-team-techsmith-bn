@@ -25,7 +25,7 @@ router.get('/:id', ProductController.findProductById);
 router.put('/:id', isSeller, ProductController.updateProduct);
 
 // DELETE PRODUCT
-router.delete('/:id', isSeller, ProductController.deleteProduct);
+router.delete('/:pId', isSeller, ProductController.deleteProduct);
 
 // SEARCH PRODUCT
 router.post('/search', ProductController.getProduct);
