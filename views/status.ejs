@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- socket  -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status</title>
+
+</head>
+
+<body>
+ 
+    <h1 style="padding: 10px; text-decoration: underline;">Order Status</h1>
+
+    
+    <h3 style="color: green; padding: 2px 10px">pending</h3>
+    
+
+    <script>
+        const socket = io()
+        socket.on('bcm', (message) => {
+            console.log(message)
+        })
+
+        socket.on('status', (message) => {
+            const h3 = document.querySelector('h3')
+            h3.innerHTML = message
+            console.log(message)
+        })
+        
+        
+    </script>
+
+</body>
+</html>

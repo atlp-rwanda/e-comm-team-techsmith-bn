@@ -1,4 +1,6 @@
 import db from '../../database/models';
+/* eslint-disable */
+import { io } from '../server';
 import {
   nodeMail,
   deliveredOrderMessage,
@@ -34,6 +36,9 @@ class delivery {
           plain: true,
         }
       );
+
+      // emit the status was changed
+      io.emit('status', 'delivered');
 
       // FIND THE NAME AND EMAIL OF THE ORDER BUYER AND SEND HIM AN EMAIL
 
@@ -99,6 +104,8 @@ class delivery {
         cancelledOrderMessage
       );
 
+      io.emit('status', 'paid');
+
       return res.status(200).json({
         message:
           'Order is successfully marked as cancelled and email was sent to the Buyer',
@@ -106,6 +113,18 @@ class delivery {
       });
     } catch (e) {
       return res.status(500).json({ error: e.message });
+    }
+  }
+
+  static async checkStatus(req, res) {
+    
+    try{
+      
+      // Find the order which refers to the id stated in in
+
+    }
+    catch(e){
+
     }
   }
 }

@@ -173,5 +173,51 @@ class OrderController {
       message: 'Not deleted!',
     });
   }
+
+  // SINGLE ORDER
+  static async singleOrder(req, res) {
+    try {
+      const { orderId } = req.params;
+
+      // THEN FIND THE USER WHOSE ID IS ORDERiD
+
+      const singleOrder = await order.findOne({
+        where: {
+          userId: res.locals.id,
+          id: orderId,
+        },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name'],
+          },
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name'],
+          },
+        ],
+      });
+
+      if (!singleOrder) {
+        return res.status(404).json({
+          message:
+            'Order does not exist! Please contact the us for further inquiries',
+        });
+      }
+
+      return res.status(200).json({
+        ok: true,
+        message: 'Order found',
+        data: singleOrder,
+      });
+    } catch (e) {
+      return res.status(500).json({
+        ok: false,
+        error: e.message,
+      });
+    }
+  }
 }
 export default OrderController;

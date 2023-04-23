@@ -31,6 +31,7 @@ import cancelledOrder from './Order/cancelled.js';
 import logoutUser from './User/userLogout.js';
 import addItemInCart from './Cart/addItemInCart.js';
 import viewItemInCart from './Cart/viewItemsInCart.js';
+import singleOrder from './Order/singleOrder.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -75,6 +76,9 @@ const paths = {
   },
   '/orders/cancelled/{id}': {
     put: cancelledOrder,
+  },
+  '/orders/single/{orderId}': {
+    get: singleOrder,
   },
   // GOOGLE AUTHENTICATION
   '/auth/google': {
