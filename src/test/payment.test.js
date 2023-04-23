@@ -133,3 +133,20 @@ describe('Payment Test', () => {
         });
     });
 });
+
+// GET ALL PAYMENTS
+describe('Get all payments', () => {
+  // GET ALL PAYMENTS
+  describe('Given a buyer wants to get all payments they have completed', () => {
+    it('should return all payments', (done) => {
+      chai
+        .request(app)
+        .get('/api/payments')
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+});

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import getToken from '../utils/cookies.js';
+import { getCookie, getToken } from '../utils/cookies.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -10,7 +10,7 @@ const { USER_SECRET: secret } = process.env;
 
 const isBuyer = (req, res, next) => {
   // CATCH COOKIE FROM REQUEST
-  const { cookie } = req.headers;
+  const cookie = getCookie(req);
 
   try {
     // CHECK IF COOKIE IS NOT VALID

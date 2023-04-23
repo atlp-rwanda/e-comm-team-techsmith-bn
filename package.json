@@ -54,6 +54,7 @@
         "joi": "^17.9.1",
         "jsonwebtoken": "^9.0.0",
         "mocha": "^10.2.0",
+        "moment": "^2.29.4",
         "nanoid": "^4.0.2",
         "node-cron": "^3.0.2",
         "nodemailer": "^6.9.1",
@@ -64,11 +65,13 @@
         "pg": "^8.10.0",
         "pg-hstore": "^2.3.4",
         "sequelize": "^6.30.0",
+        "socket.io": "^4.6.1",
         "speakeasy": "^2.0.0",
         "stripe": "^12.0.0",
         "supertest": "^6.3.3",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^4.6.2",
+        "url": "^0.11.0",
         "uuid": "^9.0.0"
     },
     "devDependencies": {

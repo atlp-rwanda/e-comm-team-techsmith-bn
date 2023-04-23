@@ -71,8 +71,11 @@ class PaymentsController {
   // GET PAYMENTS
   static async getPayments(req, res) {
     try {
+      // GET USER FROM LOCALS
+      const { id } = res.locals;
       // GET PAYMENTS
       const getPayments = await payment.findAll({
+        where: { userId: id },
         include: [
           {
             model: order,
