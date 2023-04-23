@@ -905,7 +905,8 @@ const components = {
         image: {
           type: 'array',
           description: 'Minimum of 4 images, Maximum of 8 images',
-          example: '["https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png]',
+          example:
+            '["https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png]',
         },
         // CONDITION
         condition: {
@@ -925,7 +926,8 @@ const components = {
         },
         sellerId: {
           type: 'number',
-          description: 'ID for the seller for which we are creating the product',
+          description:
+            'ID for the seller for which we are creating the product',
           example: 36,
         },
         // EXPITY DATE
@@ -935,7 +937,7 @@ const components = {
           example: '2021-07-01T12:00:00.000Z',
         },
       },
-    }
+    },
   },
 };
 export default components;

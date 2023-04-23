@@ -81,7 +81,8 @@ class wishlistController {
       });
     }
   }
-// DELETING THE WISHLIST
+
+  // DELETING THE WISHLIST
   static async deleteWishlist(req, res) {
     try {
       const { id: userId } = res.locals;
