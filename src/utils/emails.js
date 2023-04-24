@@ -76,6 +76,40 @@ Follow this link to know mow:
 https://smithT/linkToContactUs
 Thank you.
 `;
+const productIsExpired = (name, productName) => `
+Subject: Regarding Expired Product - ${productName}
+
+Dear ${name},
+
+I hope this email finds you well. We wanted to bring to your attention that the ${productName} you have provided to us for our app has expired.
+
+As part of our quality assurance process, we ensure that all products used in our app are within their designated shelf life to maintain the highest standards for our users. However, the ${productName} we received from you has exceeded its expiration date.
+
+We kindly request your assistance in providing us with an updated version of the ${productName} that is within its expiration date. This will allow us to continue providing our users with a seamless experience and maintain the integrity of our app.
+
+We appreciate your attention to this matter and your cooperation in resolving this issue. Thank you for your prompt response.
+
+Best regards,
+`;
+
+// DELIVERED ORDER MESSAGE TEMPLATE
+const deliveredOrderMessage = (name) => `
+Dear ${name},
+We are please to inform you that your order is being delivered. You may expect to see it
+betwee two to three business days. We really appreciate your patience.
+
+Thank you for choosing SMITH-t-ECOMMERCE
+`;
+
+// CANCELLED ORDER MESSAGE TEMPLATE
+const cancelledOrderMessage = (name) => `
+Dear ${name},
+We are we regret to inform you that your order was cancelled. This may be 
+due to one of various reasons. We advise you to contact our team
+for further inquires. We really appreciate your patience.
+
+Thank you for choosing SMITH-t-ECOMMERCE
+`;
 
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
@@ -125,6 +159,9 @@ export {
   newsletterSubscriptionMessageTemplate,
   enableUserMessageTemplate,
   disableUserMessageTemplate,
+  deliveredOrderMessage,
+  cancelledOrderMessage,
   twoFAMessageTemplate,
   nodeMail,
+  productIsExpired,
 };

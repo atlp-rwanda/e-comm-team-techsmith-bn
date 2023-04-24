@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import db from '../../database/models/index.js';
+import { getCookie } from '../utils/cookies.js';
 
 // CONFIG DOTENV
 dotenv.config();
@@ -12,7 +13,9 @@ const { user } = db;
 class userController {
   // LOGOUT
   static logoutController = async (req, res) => {
-    const { cookie } = req.headers;
+    const cookie = getCookie(req);
+    /* eslint-disable */
+    console.log(req.headers, cookie);
     try {
       if (!cookie) {
         return res.status(401).json({

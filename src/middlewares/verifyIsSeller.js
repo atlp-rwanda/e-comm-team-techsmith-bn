@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import getToken from '../utils/cookies.js';
+import { getToken } from '../utils/cookies.js';
 
 // LOAD ENVIRONMENT VARIABLES
 const { USER_SECRET: secret } = process.env;

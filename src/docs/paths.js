@@ -5,16 +5,33 @@ import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
-import createProduct from './Product/addProduct.js';
 import getProducts from './Product/getProducts.js';
+import createProduct from './Product/createProduct.js';
+import allAvailableProduct from './Product/getProductsInStock.js';
+import availableProduct from './Product/getProductsInMyStock.js';
+import myCollectionProducts from './Product/getAllMyProducts.js';
+import deleteProduct from './Product/deleteAproduct.js';
+import updateProduct from './Product/updateAproduct.js';
+import searchProducts from './Product/searchProduct.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
 import createUser from './Admin/createUser.js';
 import getUsers from './Admin/getUsers.js';
+import createOrder from './Order/createOrder.js';
 import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
+import addProductToWishlist from './Wishlist/addProductToWishlist.js';
+import updateOrder from './Order/updateOrder.js';
+import deleteOrder from './Order/deleteOrder.js';
+import checkexpiration from './Product/checkExpirationOfProduct.js';
+import deliveredOrder from './Order/delivered.js';
+import cancelledOrder from './Order/cancelled.js';
+import logoutUser from './User/userLogout.js';
+import addItemInCart from './Cart/addItemInCart.js';
+import viewItemInCart from './Cart/viewItemsInCart.js';
+import singleOrder from './Order/singleOrder.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -45,9 +62,23 @@ const paths = {
   '/users/update/password': {
     put: updateUserPassword,
   },
-  // GET ALL ORDERS
+  // _______________ ORDERS _________________________
   '/orders': {
     get: getOrders,
+    post: createOrder,
+  },
+  '/orders/{oId}/user/{uId}': {
+    put: updateOrder,
+    delete: deleteOrder,
+  },
+  '/orders/delivered/{id}': {
+    put: deliveredOrder,
+  },
+  '/orders/cancelled/{id}': {
+    put: cancelledOrder,
+  },
+  '/orders/single/{orderId}': {
+    get: singleOrder,
   },
   // GOOGLE AUTHENTICATION
   '/auth/google': {
@@ -61,6 +92,27 @@ const paths = {
     post: createProduct,
     get: getProducts,
   },
+  // ALL PRODUCTS IN MY COLLECTION
+  '/products/myStock': {
+    get: myCollectionProducts,
+  },
+  // AVAILABLE PRODUCTS IN STOCK
+  '/products/inStock': {
+    get: allAvailableProduct,
+  },
+  // AVAILABLE PRODUCTS IN COLLECTON
+  '/products/inMyStock': {
+    get: availableProduct,
+  },
+  '/products/{id}': {
+    put: updateProduct,
+  },
+  '/products/{pId}': {
+    delete: deleteProduct,
+  },
+  '/products/search': {
+    post: searchProducts,
+  },
   // UPDATE USER
   '/users/{id}': {
     put: updatedUser,
@@ -72,21 +124,37 @@ const paths = {
   '/users/disable/{id}': {
     put: disableUser,
   },
-
   // Admin crud
   '/admin': {
     post: createUser,
     get: getUsers,
   },
-
   '/admin/{id}': {
     put: updateUser,
     delete: deleteUser,
   },
-
   // changing user's roles by admin
   '/users/{id}/role/{role}': {
     put: userPermissions,
+  },
+  // adding product to wishlist
+  '/wishlist/{id}': {
+    post: addProductToWishlist,
+  },
+  '/products/expire': {
+    get: checkexpiration,
+  },
+  // LOGOUT
+  '/users/logout': {
+    post: logoutUser,
+  },
+  // ADDING ITEMS IN CART
+  '/cart/{id}': {
+    post: addItemInCart,
+  },
+  // VIEWING ITEMS IN CART
+  '/cart': {
+    get: viewItemInCart,
   },
 };
 

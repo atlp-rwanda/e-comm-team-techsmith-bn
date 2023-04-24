@@ -19,6 +19,7 @@
    
   },
   "rules": {
+    "import/no-cycle": "off",
     "prettier/prettier": [
       "error",
       {

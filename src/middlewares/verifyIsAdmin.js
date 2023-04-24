@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import getToken from '../utils/cookies';
+import { getToken } from '../utils/cookies';
 
 dotenv.config();
 

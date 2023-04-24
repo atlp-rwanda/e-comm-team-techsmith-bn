@@ -1,44 +1,58 @@
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import getToken from '../utils/cookies';
+import jwt from 'jsonwebtoken';
+import { getCookie, getToken } from '../utils/cookies.js';
 
+// CONFIGURE DOTENV
 dotenv.config();
 
-// verify if the user is the Buyer using the token in cookies
-export default async (req, res, next) => {
+// LOAD ENVIRONMENT VARIABLES
+const { USER_SECRET: secret } = process.env;
+
+const isBuyer = (req, res, next) => {
+  // CATCH COOKIE FROM REQUEST
+  const cookie = getCookie(req);
+
   try {
-    const { cookie } = req.headers;
-    // IF NO COOKIE IS FOUND
+    // CHECK IF COOKIE IS NOT VALID
     if (!cookie) {
-      return res
-        .status(401)
-        .send({ message: 'Please log in to perform this action' });
-    }
-    // EXTRACT TOKEN FROM COOKIE
-    const token = getToken(req);
-    // IF NO TOKEN IS FOUND
-    if (!token) {
-      return res
-        .status(400)
-        .send({ message: 'Could not verify your authentication' });
-    }
-    // VERIFY TOKEN
-    const { id, role } = jwt.verify(token, process.env.USER_SECRET);
-    // IF USER IS NOT ADMIN
-    if (role !== 3) {
-      return res.status(403).send({
+      return res.status(401).json({
         message:
-          'Unauthorized! Only site Buyer is allowed to perform this action.',
+          'Unauthorized access, please double-check if you are logged in',
       });
     }
-    // RETURN USER ID AND ROLE
 
-    
-    req.locals = { id, role };
+    // EXTRACT TOKEN FROM COOKIE
+    const token = getToken(req);
 
-    // PROCEED IF USER IS BUYER
-    next();
-  } catch (e) {
-    next();
+    // CHECK IF TOKEN IS NOT VALID
+    if (!token) {
+      return res.status(401).json({
+        message:
+          'Unauthorized access,  please double-check if you are logged in',
+      });
+    }
+
+    // VERIFY TOKEN
+    const { id, role } = jwt.verify(token, secret);
+
+    // VERIFY IF USER IS NOT A BUYER
+    if (role !== 3) {
+      return res.status(403).json({
+        message:
+          'Forbidden access, only buyers are allowed to perform this action',
+      });
+    }
+
+    // PASSING THE USER ID IN THE CONTROLLER
+    res.locals = { id, role };
+
+    // RETURN NEXT
+    return next();
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 };
+
+export default isBuyer;

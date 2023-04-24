@@ -1,0 +1,140 @@
+
+.homepage-heading {
+    font-size: 5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.homepage-subheading {
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* FORM STYLES */
+
+.form-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5rem 2rem;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 3rem;
+    padding: 4rem;
+    width: 90%;
+}
+
+form label {
+    text-align: center;
+}
+
+.text-input {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+}
+
+.text-input span {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.text-input label {
+    font-size: 1.5rem;
+}
+
+.text-input input {
+    border-radius: 5px;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    border: 1px solid black;
+    outline: none;
+    text-align: center;
+}
+
+.text-input input::placeholder {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.text-input input:focus {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+input:focus::placeholder {
+    color: transparent;
+  }
+
+#join-chat {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#join-chat:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 5px;
+    transform: scale(1.05);
+    transition: ease-in-out 0.2s;
+    cursor: pointer;
+}
+
+/** LOADERS */
+
+#login-progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    display: none;
+}
+
+#login-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    color: green;
+    display: none;
+}
+
+#seller-login-progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    display: none;
+}

@@ -3,14 +3,23 @@ import db from '../../database/models/index.js';
 import { validateEmail, validatePassword } from '../utils/userValidation.js';
 
 // LOAD MODELS FROM DATABASE
-const { user } = db;
+const { user, role: Role } = db;
 
 /* ADMIN CONTROLLER */
 class adminControllers {
   // GET ALL USERS
   static async getUsers(req, res) {
     try {
-      const allUsers = await user.findAll();
+      const allUsers = await user.findAll({
+        include: {
+          model: Role,
+          as: 'role',
+          attributes: ['name'],
+        },
+        attributes: {
+          exclude: ['password'],
+        },
+      });
       return res.status(200).json({
         message: ' List of all users',
         data: allUsers,
@@ -38,7 +47,7 @@ class adminControllers {
         });
       }
 
-      return res.status(200).json({
+      return res.status(204).json({
         message: `User with id: ${id} is deleted`,
       });
     } catch (error) {
@@ -83,14 +92,18 @@ class adminControllers {
         roleId: role,
         isActive: true,
         gender,
+        passcodeModifiedAt: Date.now(),
         birthDate: new Date(),
         preferredLanguage: 'rw',
         preferredCurrency: 'RWF',
         physicalAddress: 'Rwanda',
       });
 
+      const { password: userPassword, ...userDetails } = newUser.dataValues;
+
       return res.status(201).json({
-        newUser,
+        message: 'User created successfully',
+        data: userDetails,
       });
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -105,7 +118,11 @@ class adminControllers {
 
       const userUpdated = await user.update(
         { name, gender },
-        { where: { id }, returning: true },
+        {
+          where: { id },
+          returning: true,
+          attributes: { exclude: ['password'] },
+        },
         { new: true }
       );
 

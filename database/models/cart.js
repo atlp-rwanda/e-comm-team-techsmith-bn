@@ -2,12 +2,22 @@
 const {
   Model
 } = require('sequelize');
-const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
   class cart extends Model {
    
     static associate(models) {
       // define association here
+      cart.belongsTo(models.user,{
+        foreignKey:'userId',
+        as:'user',
+        onDelete:'CASCADE'
+      })
+      cart.belongsTo(models.product,{
+        foreignKey:'productId',
+        as:'product',
+        onDelete:'CASCADE'
+      })
+      
     }
   }
   cart.init({
@@ -26,10 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    categoryId:{
-      type: DataTypes.INTEGER,
-      allowNull: false 
-    }
   }, {
     sequelize,
     modelName: 'cart',

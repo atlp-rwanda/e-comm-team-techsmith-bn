@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
-import getToken from '../utils/cookies';
+import { getCookie, getToken } from '../utils/cookies';
 
 export default (req, res, next) => {
   try {
-    const { cookie } = req.headers;
+    const cookie = getCookie(req);
+    // CHECK IF COOKIE EXISTS
     if (!cookie) {
       return res
         .status(401)
@@ -11,6 +12,8 @@ export default (req, res, next) => {
     }
     // GET TOKEN FROM COOKIE
     const token = getToken(req);
+    // eslint-disable-next-line no-console
+    console.log(token);
     // IF NOT TOKEN IS FOUND
     if (!token) {
       return res
