@@ -5,7 +5,6 @@ import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
-import getProducts from './Product/getProducts.js';
 import createProduct from './Product/createProduct.js';
 import allAvailableProduct from './Product/getProductsInStock.js';
 import availableProduct from './Product/getProductsInMyStock.js';
@@ -13,6 +12,11 @@ import myCollectionProducts from './Product/getAllMyProducts.js';
 import deleteProduct from './Product/deleteAproduct.js';
 import updateProduct from './Product/updateAproduct.js';
 import searchProducts from './Product/searchProduct.js';
+import {
+  getProducts,
+  getProductById,
+  getOneFromMine,
+} from './Product/getProducts.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -22,6 +26,11 @@ import createOrder from './Order/createOrder.js';
 import updateUser from './Admin/updateUser.js';
 import deleteUser from './Admin/deleteUser.js';
 import userPermissions from './Admin/changeRole.js';
+import getProduct from './Admin/getProducts.js';
+import getAsingleProduct from './Admin/getASingleProduct.js';
+import createProducts from './Admin/createProduct.js';
+import deleteProducts from './Admin/deleteProduct.js';
+import updateProducts from './Admin/updateProduct.js';
 import addProductToWishlist from './Wishlist/addProductToWishlist.js';
 import updateOrder from './Order/updateOrder.js';
 import deleteOrder from './Order/deleteOrder.js';
@@ -109,6 +118,12 @@ const paths = {
   '/products/search': {
     post: searchProducts,
   },
+  '/products/getProduct/{id}': {
+    get: getProductById,
+  },
+  '/products/mySingleProduct/{id}': {
+    get: getOneFromMine,
+  },
   // UPDATE USER
   '/users/{id}': {
     put: updatedUser,
@@ -129,6 +144,17 @@ const paths = {
     put: updateUser,
     delete: deleteUser,
   },
+  // ADMIN CRUD PRODUCTS
+  '/admin/products': {
+    get: getProduct,
+    post: createProducts,
+  },
+  '/admin/products/{id}': {
+    put: updateProducts,
+    delete: deleteProducts,
+    get: getAsingleProduct,
+  },
+
   // changing user's roles by admin
   '/users/{id}/role/{role}': {
     put: userPermissions,

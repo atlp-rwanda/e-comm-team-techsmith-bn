@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server.js';
 
+
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -99,5 +100,20 @@ describe('User authentication', () => {
         });
     });
   });
+
+  //login user
+  describe('buyer login',()=>{
+    it('should return 200 status code',(done)=>{
+      chai.request(app)
+      .post('/api/users/login')
+      .send(loginUser)
+      .end((err,res)=>{
+        expect(res).to.have.status(200);
+        done();
+      });
+    });
+  });
+
+
 
 });

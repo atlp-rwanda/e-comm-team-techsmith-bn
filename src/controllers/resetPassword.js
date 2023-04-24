@@ -21,13 +21,13 @@ async function sendResetEmail(user) {
     expiresIn: '1h',
   });
 
-  const resetLink = `${process.env.APP_URL}/reset-password/${token}`;
+  const resetLink = `${process.env.HOST}/reset-password/${token}`;
   const mailOptions = {
     to: user.email,
     from: `ATLP E-commerce <${process.env.RESET_EMAIL}>`,
     subject: 'Your App Password Reset',
-    text: `Hi ${user.name},\n\nYou are receiving this email because we received a password 
-    reset request for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n\nIf
+    text: `Hi ${user.name},\n\nYou are receiving this email because we received a password reset request for your account.
+    \n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n If
      you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
   await transporter.sendMail(mailOptions);
