@@ -29,39 +29,39 @@ describe('Chatroom Controller', () => {
     });
   });
   // GET ACTIVE USERS
-    describe('Get active users', () => {
-        it('should return all active users', async () => {
-            const users = await getActiveUsers();
-            chai.expect(users).to.be.an('array');
-        });
+  describe('Get active users', () => {
+    it('should return all active users', async () => {
+      const users = await getActiveUsers();
+      chai.expect(users).to.be.an('array');
     });
-    // CREATE MESSAGE
-    describe('Create message', () => {
-        it('should create a new message', async () => {
-            const newMessage = await createMessage(message);
-            chai.expect(newMessage).to.be.an('object');
-        });
+  });
+  // CREATE MESSAGE
+  describe('Create message', () => {
+    it('should create a new message', async () => {
+      const newMessage = await createMessage(message);
+      chai.expect(newMessage).to.be.an('object');
     });
-    // ADD ACTIVE USER
-    let user = {};
-    describe('Add active user', () => {
-        it('should add active user', async () => {
-            user = await addActiveUser(message.loggedInUser);
-            chai.expect(user).to.be.an('object');
-        });
+  });
+  // ADD ACTIVE USER
+  let user = {};
+  describe('Add active user', () => {
+    it('should add active user', async () => {
+      user = await addActiveUser(message.loggedInUser);
+      chai.expect(user).to.be.an('object');
     });
-    // REMOVE ACTIVE USER
-    describe('Get remaining users', () => {
-        it('should return remaining users', async () => {
-            const response = await removeActiveUser(user);
-            chai.expect(response).to.be.an('number');
-        });
+  });
+  // REMOVE ACTIVE USER
+  describe('Get remaining users', () => {
+    it('should return remaining users', async () => {
+      const response = await removeActiveUser(user);
+      chai.expect(response).to.be.an('number');
     });
-    // CLEAN UP
-    describe('Remove test messages', () => {
-        it('should remove test messages', async () => {
-            const response = await removeTestMessages(message.loggedInUser.id);
-            chai.expect(response).to.be.an('number');
-        });
+  });
+  // CLEAN UP
+  describe('Remove test messages', () => {
+    it('should remove test messages', async () => {
+      const response = await removeTestMessages(message.loggedInUser.id);
+      chai.expect(response).to.be.an('number');
     });
+  });
 });

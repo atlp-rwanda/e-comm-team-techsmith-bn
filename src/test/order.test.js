@@ -22,6 +22,7 @@ const loginUser = {
   password: user.password,
 };
 
+
 const orderUser={
   email:'ikevine@gmail.com',
   password:'Kevine@123'
@@ -45,6 +46,8 @@ const update={
 }
 
 const orderId = 267;
+const singleOrderId = 256; 
+
 
 let cookie=""
 // ADMIN CAN GET ALL ORDERS
@@ -84,6 +87,7 @@ describe('Admin user', () => {
       });
   });
 });
+
 
 // BUYER CAN CRUD ORDERS
 describe("CRUD order by buyer",()=>{
@@ -138,5 +142,13 @@ describe("CRUD order by buyer",()=>{
     })
   })
 
-})
-
+  it("Buyer should be able to view a single order", (done) => {
+    chai.request(app)
+    .get(`/api/orders/single/${singleOrderId}`)
+    .set('cookie', cookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done()
+    })
+  })
+}); 

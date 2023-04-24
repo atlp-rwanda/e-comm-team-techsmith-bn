@@ -28,6 +28,9 @@ const views = path.join(__dirname, 'views');
 
 const app = express();
 
+// SET DEFALULT ENGINE FOR TESING
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -112,4 +115,5 @@ Promise.all([dbCon(), server]).then(() => {
   console.log('DB connection successful');
 });
 
+export { io };
 export default app;

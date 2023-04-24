@@ -11,7 +11,7 @@ const isSeller = async (req, res, next) => {
     // CHECK IF TOKEN IS NOT VALID
     if (!token) {
       return res.status(401).json({
-        message: 'Unauthorized access',
+        message: 'Unauthorized access. Please login!',
       });
     }
     // GET USER ID FROM TOKEN
@@ -19,7 +19,8 @@ const isSeller = async (req, res, next) => {
     // CHECK IF USER IS NOT A SELLER
     if (role !== 2) {
       return res.status(403).json({
-        message: 'Unauthorized access',
+        message:
+          'Unauthorized access. Only seller is allowed to perform this action!',
       });
     }
     // Passing the userId in the body for create or getProducts of logged user

@@ -4,15 +4,39 @@ import PaymentsController from '../controllers/paymentsController';
 import OrderController from '../controllers/orderController.js';
 import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
 import delivery from '../controllers/deliveredOrderController.js';
-import isBuyer from '../middlewares/verifyIsBuyer';
+import isBuyer from '../middlewares/verifyIsBuyer.js';
+import isSeller from '../middlewares/verifyIsSeller';
+import { io } from '../server';
 
 const router = express.Router();
 
 // CREATE A NEW PAYMENT
-router.post('/:id/checkout', validatePayment, PaymentsController.createPayment);
+router.post('/:id/pay', validatePayment, PaymentsController.createPayment);
 
 // GET ALL ORDERS
 router.get('/', verifyIsAdmin, OrderController.getOrders);
+
+// GET SINGLE ORDER
+router.get('/single/:orderId', isBuyer, OrderController.singleOrder);
+
+// FLAG ORDER AS DELIVERED
+router.put('/delivered/:id', isSeller, delivery.deliverOrder);
+router.put('/cancelled/:id', isBuyer, delivery.cancelDelivery);
+router.put('/onWay/:id', isSeller, delivery.deliveryMoving);
+
+// CREATING ORDER
+router.post('/', isBuyer, OrderController.createOrder);
+
+// UPDATING ORDER
+router.put('/:oId/user/:uId', isBuyer, OrderController.updateOrder);
+
+// DELETEING ORDER
+router.delete('/:oId/user/:uId', isBuyer, OrderController.deleteOrder);
+
+router.get('/status', (req, res) => res.render('status'));
+
+// GET SINGLE ORDER
+router.get('/single/:orderId', isBuyer, OrderController.singleOrder);
 
 // FLAG ORDER AS DELIVERED
 router.put('/delivered/:id', verifyIsAdmin, delivery.deliverOrder);
@@ -26,5 +50,14 @@ router.put('/:oId', isBuyer, OrderController.updateOrder);
 
 // DELETEING ORDER
 router.delete('/:oId', isBuyer, OrderController.deleteOrder);
+
+router.get('/stat', (req, res) => {
+  io.emit('hello_mess', 'Hello there I am io');
+  res.send({ message: 'sent' });
+});
+
+router.get('/status', (req, res) => {
+  res.render('status');
+});
 
 export default router;

@@ -1,14 +1,15 @@
 import chaiHttp from 'chai-http';
 import request from 'supertest';
+import dotenv from 'dotenv';
 import app from '../server.js';
 import makeid from '../utils/random.js';
-import dotenv from 'dotenv';
 
 dotenv.config();
 
 const { describe, it } = require('mocha');
 
 const chai = require('chai');
+
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;

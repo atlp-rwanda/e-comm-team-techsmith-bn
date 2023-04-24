@@ -8,70 +8,72 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 const goodRequest = {
-    name: 'Nishimwe',
-    email: `${makeid(5)}@gmail.com`,
+  name: 'Nishimwe',
+  email: `${makeid(5)}@gmail.com`,
 };
 
 const invalidEmail = {
-    name: 'John Doe',
-    email: 'atlpemail',
+  name: 'John Doe',
+  email: 'atlpemail',
 };
 
 const userExists = {
-    name: goodRequest.name,
-    email: goodRequest.email,
-}
+  name: goodRequest.name,
+  email: goodRequest.email,
+};
 
 let token = '';
 
 describe('Newsletter Subscription', () => {
-
-    describe('Valid email', () => {
-        it('should return a response with status code 201', (done) => {
-            chai.request(app)
-                .post('/api/users/requestNewsletter')
-                .send(goodRequest)
-                .end((err, res) => {
-                    expect(res).to.have.status(201);
-                    done();
-                    token = res.body.token;
-                });
+  describe('Valid email', () => {
+    it('should return a response with status code 201', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/requestNewsletter')
+        .send(goodRequest)
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          done();
+          token = res.body.token;
         });
     });
+  });
 
-    describe('Confirm subscription', () => {
-        it('should return a response with status code 200', (done) => {
-            chai.request(app)
-                .get(`/api/users/confirmNewsletter/${token}`)
-                .end((err, res) => {
-                    expect(res).to.have.status(200);
-                    done();
-                });
-        });
-    })
-
-    describe('Invalid email', () => {
-        it('should return a response with status code 400', (done) => {
-            chai.request(app)
-                .post('/api/users/requestNewsletter')
-                .send(invalidEmail)
-                .end((err, res) => {
-                    expect(res).to.have.status(400);
-                    done();
-                });
+  describe('Confirm subscription', () => {
+    it('should return a response with status code 200', (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/confirmNewsletter/${token}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
         });
     });
+  });
 
-    describe('User already exists', () => {
-        it('should return a response with status code 409', (done) => {
-            chai.request(app)
-                .post('/api/users/requestNewsletter')
-                .send(userExists)
-                .end((err, res) => {
-                    expect(res).to.have.status(409);
-                    done();
-                });
+  describe('Invalid email', () => {
+    it('should return a response with status code 400', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/requestNewsletter')
+        .send(invalidEmail)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
         });
     });
+  });
 
+  describe('User already exists', () => {
+    it('should return a response with status code 409', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/requestNewsletter')
+        .send(userExists)
+        .end((err, res) => {
+          expect(res).to.have.status(409);
+          done();
+        });
+    });
+  });
 });

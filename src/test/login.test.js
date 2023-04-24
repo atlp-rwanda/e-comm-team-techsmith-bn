@@ -2,7 +2,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server.js';
 
-
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -35,11 +34,11 @@ const invalidPassword = {
 let twoFAToken = '';
 
 describe('User authentication', () => {
-  
   // VALID EMAIL AND PASSWORD
   describe('Valid email and password', () => {
     it('should return a 200 status code', (done) => {
-      chai.request(app)
+      chai
+        .request(app)
         .post('/api/users/login')
         .send(loginUser)
         .end((err, res) => {
@@ -52,7 +51,8 @@ describe('User authentication', () => {
   // UNKNOWN USER
   describe('User not found', () => {
     it('should return a 404 status code', (done) => {
-      chai.request(app)
+      chai
+        .request(app)
         .post('/api/users/login')
         .send(unknwonUser)
         .end((err, res) => {
@@ -65,7 +65,8 @@ describe('User authentication', () => {
   // SELLER LOGIN
   describe('Seller login', () => {
     it('should return a 307 status code', (done) => {
-      chai.request(app)
+      chai
+        .request(app)
         .post('/api/users/login')
         .send(sellerLogin)
         .end((err, res) => {
@@ -79,7 +80,8 @@ describe('User authentication', () => {
   // CONFIRM TWO FACTOR AUTHENTICATION
   describe('Confirm two factor authentication', () => {
     it('should return a 200 status code', (done) => {
-      chai.request(app)
+      chai
+        .request(app)
         .get(`/api/users/login/${twoFAToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -91,7 +93,8 @@ describe('User authentication', () => {
   // INVALID PASSWORD
   describe('Invalid password', () => {
     it('should return a 400 status code', (done) => {
-      chai.request(app)
+      chai
+        .request(app)
         .post('/api/users/login')
         .send(invalidPassword)
         .end((err, res) => {
@@ -101,19 +104,17 @@ describe('User authentication', () => {
     });
   });
 
-  //login user
-  describe('buyer login',()=>{
-    it('should return 200 status code',(done)=>{
-      chai.request(app)
-      .post('/api/users/login')
-      .send(loginUser)
-      .end((err,res)=>{
-        expect(res).to.have.status(200);
-        done();
-      });
+  // login user
+  describe('buyer login', () => {
+    it('should return 200 status code', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/login')
+        .send(loginUser)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
     });
   });
-
-
-
 });

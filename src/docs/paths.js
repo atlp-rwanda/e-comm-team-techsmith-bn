@@ -46,6 +46,7 @@ import getFeedback from './Feedback/getfeedbacks.js';
 import getAllProductToWishlist from './Wishlist/getAllProductToWishlist.js';
 import deleteProductToWishlist from './Wishlist/deleteProductToWishlist.js';
 import updateItemInCart from './Cart/updateItemsInCart.js';
+import onWay from './Order/onWay.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -91,6 +92,10 @@ const paths = {
   '/orders/cancelled/{id}': {
     put: cancelledOrder,
   },
+  '/orders/onWay/{id}': {
+    put: onWay,
+  },
+
   // GOOGLE AUTHENTICATION
   '/auth/google': {
     get: loginUser,
