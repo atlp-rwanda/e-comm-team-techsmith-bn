@@ -5,7 +5,6 @@ import requestSubscription from './User/userNewsletter.js';
 import updateUserPassword from './User/updatePassword.js';
 import getOrders from './Order/order.js';
 import addPayment from './Payment/createPayment.js';
-import getProducts from './Product/getProducts.js';
 import createProduct from './Product/createProduct.js';
 import allAvailableProduct from './Product/getProductsInStock.js';
 import availableProduct from './Product/getProductsInMyStock.js';
@@ -13,6 +12,11 @@ import myCollectionProducts from './Product/getAllMyProducts.js';
 import deleteProduct from './Product/deleteAproduct.js';
 import updateProduct from './Product/updateAproduct.js';
 import searchProducts from './Product/searchProduct.js';
+import {
+  getProducts,
+  getProductById,
+  getOneFromMine,
+} from './Product/getProducts.js';
 import updatedUser from './User/updateUser.js';
 import enableUser from './Admin/enableUser.js';
 import disableUser from './Admin/disableUser.js';
@@ -113,6 +117,12 @@ const paths = {
   },
   '/products/search': {
     post: searchProducts,
+  },
+  '/products/getProduct/{id}': {
+    get: getProductById,
+  },
+  '/products/mySingleProduct/{id}': {
+    get: getOneFromMine,
   },
   // UPDATE USER
   '/users/{id}': {

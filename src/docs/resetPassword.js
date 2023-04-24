@@ -1,5 +1,5 @@
 const requestReset = {
-  tags: ['Users'],
+  tags: ['User'],
   description: 'Request password reset email',
   requestBody: {
     content: {
@@ -75,7 +75,7 @@ const requestReset = {
 };
 
 const passwordReset = {
-  tags: ['Users'],
+  tags: ['User'],
   description: 'Reset password with token',
   parameters: [
     {

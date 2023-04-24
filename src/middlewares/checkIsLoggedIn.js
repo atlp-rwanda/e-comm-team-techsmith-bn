@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getCookie, getToken } from '../utils/cookies';
 
-export default (req, res, next) => {
+const checkIsLoggedIn = (req, res, next) => {
   try {
     const cookie = getCookie(req);
     // CHECK IF COOKIE EXISTS
@@ -31,3 +31,4 @@ export default (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 };
+export default checkIsLoggedIn;

@@ -49,7 +49,6 @@ class ProductController {
         price,
         categoryId,
         description,
-        isAvailable: true,
         expiryDate,
         image,
         condition,
@@ -58,6 +57,7 @@ class ProductController {
           as: 'user',
           attributes: ['name', 'email'],
         },
+        isAvailable: true,
       });
       return res.status(201).json({
         ok: true,
@@ -127,7 +127,7 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
-        status: 'Getting product failure',
+        status: 'Getting product failed',
         message: error.message,
       });
     }
@@ -163,7 +163,31 @@ class ProductController {
     }
   }
 
-  // A  SELLER CAN SEE AVAILABLE PRODUCTS IN HIS COLLECTION
+  // BUYER CAN GET SPECIFIC ITEM FROM AVAILABLE
+  static async buyerGetProduct(req, res) {
+    const { id } = req.params;
+    try {
+      const availableProduct = await product.findOne({
+        where: { isAvailable: true, id },
+      });
+      if (availableProduct) {
+        return res.status(200).json({
+          status: `successfully retrived product of id ${id}`,
+          message: availableProduct,
+        });
+      }
+      return res.status(404).json({
+        status: 'fail',
+        message: `The product with this id ${id} doesn't exist`,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  // A  SELLER CAN SEE AVAILABLE PRODUCTS IN HIS COOOLECTION
   static async availableProducts(req, res) {
     const { id } = res.locals;
     try {
@@ -229,157 +253,234 @@ class ProductController {
                 message: 'Product expiration check completed',
                 exprired_Products: expiredProducts,
             });
-        } catch (error) {
-            return res.status(500).json({
-                status: 'Getting product failure',
-                message: error.message,
-            });
-        }
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Getting product failure',
+        message: error.message,
+      });
     }
+  }
 
-    // DELETE A SEPCIFIC PRODUCT
-    static async deleteProduct(req, res) {
-        try {
-            const { pId } = req.params;
-            // Getting logged in user's id
-            const loggedInUserId = res.locals.id;
 
-            // GETTING ONLY YOUR PRODUCT
-            const fetchMyProducts = await product.findAll({
-                where: {
-                    userId: loggedInUserId,
-                },
-                attributes: ['id'],
-            });
 
-            const myProducts = fetchMyProducts.map(({ id }) => ({
-                id: parseInt(id),
-            }));
+ // GET ONE FROM MINE
+  static async getOneFromMine(req, res) {
+    try {
+      const pId  = req.params.id;
+      // Getting logged in user's id
+      const loggedInUserId = res.locals.id;
 
-            // CHECKING IF loggedInUser OWN A PRODUCT
-            const productExist = myProducts.some((e) => e.id == pId);
-
-            if (!productExist) {
-                return res.status(404).json({
-                    message: "The product doesn't exists in your collection!",
-                });
-            }
-            // DELETING THE PRODUCT
-            const deleteProduct = await product.destroy({ where: { id: pId } });
-
-            // CHECK IF PRODUCT IS DELETED
-            if (deleteProduct) {
-                return res.status(200).json({
-                    ok: true,
-                    message: 'Product successfully deleted',
-                });
-            }
-            return res.status(400).json({
-                ok: false,
-                message: 'Not deleted!',
-            });
-        } catch (error) {
-            return res.status(500).json({ message: 'Server error' });
+      // GETTING ONLY YOUR PRODUCT
+      const fetchMyProducts = await product.findAll({
+        where: {
+          userId: loggedInUserId, id:pId
         }
+        
+      });
+      
+      const dataValues=fetchMyProducts[0].dataValues;
+      const retrivedProduct={
+        categoryId:dataValues.categoryId,
+        name:dataValues.name,
+        image:dataValues.image,
+        price:dataValues.price,
+        condition:dataValues.condition,
+        description:dataValues.description,
+        expiryDate:dataValues.expiryDate,
+        createdAt:dataValues.createdAt,
+        updatedAt:dataValues.updatedAt,
+        isAvailable:dataValues.isAvailable
+      }
+      
+      const myProducts = fetchMyProducts.map(({ id }) => ({
+        id: parseInt(id),
+        userId: loggedInUserId,
+        retrivedProduct,
+        
+        
+      }));
+
+      // CHECKING IF loggedInUser OWN A PRODUCT
+      const productExist = myProducts.some((e) => e.id == pId);
+
+      if(productExist) {
+        const getProduct = await product.findOne({ where: { id: pId , isAvailable: true}});
+        if (getProduct) {
+          return res.status(200).json({
+            message: 'Product successfully retrieved',
+            data:myProducts,
+          });
+        }
+        return res.status(404).json({
+          message: ' Product is not available',
+        });
+
+      }else{
+         return res.status(404).json({
+        message: "The product doesn't exists in your collection!",
+      });
+
+      }
+     
+     
+      
+    } catch (error) {
+      return res.status(500).json({ message: " The product doesn't exists in your collection!"});
     }
+  } 
 
-    static async updateProduct(req, res) {
-        const {
-            name,
-            price,
-            categoryId,
-            image,
-            description,
-            expiryDate,
-            condition,
-        } = req.body;
-        try {
-            // GET PRODUCT ID FROM THE PARAMS
-            const { id } = req.params;
-            // GET LOGGED IN USER ID FROM LOCAL RESPONSES
-            const { id: loggedInUserId } = res.locals;
-            // CHECK IF PRODUCT EXISTS
-            const productExist = await product.findOne({ where: { id } });
-            if (!productExist) {
-                return res.status(404).json({
-                    message: "The product doesn't exists in your collection!",
-                });
-            }
 
-            // CHECK IF LOGGED IN USER OWNS THE PRODUCT
-            if (productExist.userId !== loggedInUserId) {
-                return res.status(401).json({
-                    message: 'You are not authorized to edit this product! It belongs to another user',
-                });
-            };
-            //VALIDATE INPUTS
-            const { error } = validateProductInput(req.body);
-            if (error) {
-                return res.status(400).json({ message: error.details[0].message });
-            }
-            // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
-            const updateProduct = await product.update({
-                name,
-                price,
-                categoryId,
-                image,
-                description,
-                expiryDate,
-                condition,
-            }, {
-                where: { id },
-                returning: true,
-                include: {
-                    model: user,
-                    as: 'user',
-                    attributes: ['name', 'email'],
-                }
-            }, );
+  // DELETE A SEPCIFIC PRODUCT
+  static async deleteProduct(req, res) {
+    try {
+      const { pId } = req.params;
+      // Getting logged in user's id
+      const loggedInUserId = res.locals.id;
 
-            // CHECKING IF UPDATED
-            if (updateProduct) {
-                return res.status(200).json({
-                    ok: true,
-                    message: 'Product details successfully updated!',
-                });
-            }
-        } catch (error) {
-            return res.status(500).json({
-                ok: false,
-                message: error.message,
-            });
-        }
+      // GETTING ONLY YOUR PRODUCT
+      const fetchMyProducts = await product.findAll({
+        where: {
+          userId: loggedInUserId,
+        },
+        attributes: ['id'],
+      });
+
+      const myProducts = fetchMyProducts.map(({ id }) => ({
+        id: parseInt(id),
+      }));
+
+      // CHECKING IF loggedInUser OWN A PRODUCT
+      const productExist = myProducts.some((e) => e.id == pId);
+
+      if (!productExist) {
+        return res.status(404).json({
+          message: "The product doesn't exists in your collection!",
+        });
+      }
+      // DELETING THE PRODUCT
+      const deleteProduct = await product.destroy({ where: { id: pId } });
+
+      // CHECK IF PRODUCT IS DELETED
+      if (deleteProduct) {
+        return res.status(200).json({
+          ok: true,
+          message: 'Product successfully deleted',
+        });
+      }
+      return res.status(400).json({
+        ok: false,
+        message: 'Not deleted!',
+      });
+    } catch (error) {
+      return res.status(500).json({ message: 'Server error' });
     }
+  }
 
-    // GET A SPECIFIC PRODUCT
-    static async findProductById(req, res) {
-        try {
-            const { id } = req.params;
-            const productExist = await product.findOne({
-                where: { id },
-                include: [{
-                    model: user,
-                    as: 'user',
-                    attributes: ['name', 'email'],
-                }]
-            });
-            if (!productExist) {
-                return res.status(404).json({
-                    message: 'Product not found!',
-                });
-            }
-            return res.status(200).json({
-                ok: true,
-                message: 'Product found!',
-                data: productExist,
-            });
-        } catch (error) {
-            return res.status(500).json({
-                ok: false,
-                message: error.message,
-            });
-        }
-    };
+  static async updateProduct(req, res) {
+    const {
+      name,
+      price,
+      categoryId,
+      image,
+      description,
+      expiryDate,
+      condition,
+    } = req.body;
+    try {
+      // GET PRODUCT ID FROM THE PARAMS
+      const { id } = req.params;
+      // GET LOGGED IN USER ID FROM LOCAL RESPONSES
+      const { id: loggedInUserId } = res.locals;
+      // CHECK IF PRODUCT EXISTS
+      const productExist = await product.findOne({ where: { id } });
+      if (!productExist) {
+        return res.status(404).json({
+          message: "The product doesn't exists in your collection!",
+        });
+      }
+
+      // CHECK IF LOGGED IN USER OWNS THE PRODUCT
+      if (productExist.userId !== loggedInUserId) {
+        return res.status(401).json({
+          message: 'You are not authorized to edit this product! It belongs to another user',
+        });
+      };
+      //VALIDATE INPUTS
+      const { error } = validateProductInput(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
+      // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
+      const updateProduct = await product.update(
+        {
+          name,
+          price,
+          categoryId,
+          image,
+          description,
+          expiryDate,
+          condition,
+        },
+        {
+          where: { id },
+          returning: true,
+          include: {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          }
+        },
+      );
+
+      // CHECKING IF UPDATED
+      if (updateProduct) {
+        return res.status(200).json({
+          ok: true,
+          message: 'Product details successfully updated!',
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET A SPECIFIC PRODUCT
+  static async findProductById(req, res) {
+    try {
+      const { id } = req.params;
+      const productExist = await product.findOne({
+        where: { id },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          }
+        ]
+      });
+      if (!productExist) {
+        return res.status(404).json({
+          message: 'Product not found!',
+        });
+      }
+      return res.status(200).json({
+        ok: true,
+        message: 'Product found!',
+        data: productExist,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+  };
+
+ 
+   
 
     static async getProduct(req, res) {
         const { name, price, categoryIds } = req.body;
