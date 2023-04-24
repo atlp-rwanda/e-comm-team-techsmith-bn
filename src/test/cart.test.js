@@ -44,7 +44,7 @@ describe('Product is not found',() => {
 describe('Product already in cart',() => {
   it('should return code 409', (done)=>{
     chai.request(app)
-        .post('/api/cart/37')
+        .post('/api/cart/89')
         .set('cookie',buyerCookie)
         .end((err,res) => {
           expect(res).to.have.status(409)
@@ -59,6 +59,16 @@ describe('Getting all products in cart', () => {
     .end((err, res) => {
       expect(res).to.have.status(200)
       done();
-    })
-  })
-})
+    });
+  });
+});
+
+describe('clearing all products in cart', () => {
+  it('should delete all products in cart and http code 200', (done) => {
+    chai.request(app).delete('/api/cart').set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    });
+  });
+});
