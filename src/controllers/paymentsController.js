@@ -21,9 +21,9 @@ class PaymentsController {
     // RETRIEVE VALUES RETURNED BY THE MIDDLEWARE
     const { findUser, findOrder, findProduct } = res.locals;
     const { card } = req.body;
+    // eslint-disable-next-line no-console
+    console.log(card);
     try {
-      // eslint-disable-next-line
-            console.log(findProduct, findOrder, findUser);
       // CREATE STRIPE TOKEN
       const stripeToken = await stripePayment.tokens.create({
         card,
@@ -71,9 +71,6 @@ class PaymentsController {
         );
         const { status } = updateOrder;
         const { name, email } = findUser;
-        logger.paymentLogger(
-          '/POST statusCode: 201 : Payment completed successfully'
-        );
         return res.status(201).json({
           ok: true,
           message: 'Payment successfully added and order status updated',

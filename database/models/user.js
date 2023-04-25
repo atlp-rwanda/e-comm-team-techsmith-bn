@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       });
       user.hasMany(models.review,{
         onDelete:'CASCADE'
-      })
+      });
+      user.hasMany(models.notification, {
+        onDelete: 'CASCADE',
+      });
     }
   }
   user.init(
@@ -57,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
       gender: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'Unkwon',
+        defaultValue: 'Unspecified',
       },
       birthDate: {
         type: DataTypes.DATE,
