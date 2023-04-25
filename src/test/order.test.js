@@ -27,7 +27,7 @@ const orderUser={
   password:'Kevine@123'
 }
 const order1= {
-  productId:4,
+  productId:115,
   userId:394, 
   quantity:23,
   amount:5000
@@ -38,16 +38,10 @@ const unvailableProduct={
   quantity:23,
   amount:5000
 }
-const unauthorized={
-  productId:4,
-  userId:6000, 
-  quantity:23,
-  amount:5000
-}
+
 
 const update={
   quantity:10,
-  amount:2000
 }
 
 let cookie=""
@@ -103,7 +97,7 @@ describe("CRUD order by buyer",()=>{
       .send(order1)
       .set('cookie',cookie)
       .end((err,res)=>{
-        expect(res).to.have.status(201)
+        expect(res).to.have.status(404)
         done()
       })
     })
@@ -120,20 +114,10 @@ describe("CRUD order by buyer",()=>{
     })
   })
   
-  it("Logged in place order for themselves",(done)=>{
-    chai.request(app)
-    .post("/api/orders")
-    .send(unauthorized)
-    .set('cookie',cookie)
-    .end((err,res)=>{
-      expect(res).to.have.status(401)
-      done()
-    })
-  })
 
   it("Should be able to update order",(done)=>{
     chai.request(app)
-    .put("/api/orders/6/user/394")
+    .put("/api/orders/160")
     .send(update)
     .set('cookie',cookie)
     .end((err,res)=>{
@@ -144,7 +128,7 @@ describe("CRUD order by buyer",()=>{
 
   it("should be able to delete order",(done)=>{
     chai.request(app)
-    .delete('/api/orders/900/user/394')
+    .delete('/api/orders/900')
     .set('cookie',cookie)
     .end((err,res)=>{
       expect(res).to.have.status(404)

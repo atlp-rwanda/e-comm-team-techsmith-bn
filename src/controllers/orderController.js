@@ -2,6 +2,10 @@ import db from '../../database/models/index.js';
 
 const { order, product, user } = db;
 
+const Sequelize = require('sequelize');
+
+const { Op } = Sequelize;
+
 class OrderController {
   // get allorders
   static async getOrders(req, res) {
@@ -35,6 +39,7 @@ class OrderController {
           message: 'Make sure you are logged in!',
         });
       }
+
       // Check if the product exists and is available
       const checkProduct = await product.findOne({
         where: { id: productId, isAvailable: true },
@@ -44,6 +49,18 @@ class OrderController {
         return res.status(404).json({
           ok: false,
           message: 'Product not found!',
+        });
+      }
+
+      // Check if the product is already booked
+      const checkOrder = await order.findOne({
+        where: { productId },
+      });
+
+      if (checkOrder) {
+        return res.status(404).json({
+          ok: false,
+          message: 'Product already booked!',
         });
       }
 
@@ -78,25 +95,17 @@ class OrderController {
   }
 
   static async updateOrder(req, res) {
-    const { quantity, amount } = req.body;
-    const { oId, uId } = req.params;
+    const { quantity } = req.body;
+    const { oId } = req.params;
+    // Getting logged in user's id
+    const { id: userId } = res.locals;
     try {
-      // Checking id the user is logged in as a buyer
-      if (!res.locals) {
-        return res.status(401).json({
-          message: 'Make sure you are logged in!',
-        });
-      }
-
-      // Checking if he is the owner of the order
-      if (res.locals.id !== Number(uId)) {
-        return res.status(401).json({
-          message: "Unauthorized to update someone else's order!",
-        });
-      }
-
       // Checking if the order exists
-      const orderExists = await order.findOne({ where: { id: oId } });
+      const orderExists = await order.findOne({
+        where: {
+          [Op.and]: [{ id: oId }, { userId }, { status: { [Op.ne]: 'paid' } }],
+        },
+      });
 
       // If the order doesn't exists
       if (!orderExists) {
@@ -109,7 +118,6 @@ class OrderController {
       const updateOrder = await order.update(
         {
           quantity,
-          amount,
         },
         {
           where: { id: oId },
@@ -133,25 +141,17 @@ class OrderController {
   }
 
   static async deleteOrder(req, res) {
-    const { oId, uId } = req.params;
-    // Checking if the user is logged in
-    if (!res.locals) {
-      return res.status(401).json({
-        message: 'Make sure you are logged in!',
-      });
-    }
-    // Getting logged in user's id
-    const { id } = res.locals;
+    const { oId } = req.params;
 
-    // Checking if he is the owner of the order
-    if (id !== Number(uId)) {
-      return res.status(401).json({
-        message: "Unauthorized to delete someone else's order!",
-      });
-    }
+    // Getting logged in user's id
+    const { id: userId } = res.locals;
 
     // Checking if the order exists
-    const orderExists = await order.findOne({ where: { id: oId } });
+    const orderExists = await order.findOne({
+      where: {
+        [Op.and]: [{ id: oId }, { userId }],
+      },
+    });
 
     if (!orderExists) {
       return res.status(404).json({

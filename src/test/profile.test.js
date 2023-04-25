@@ -15,7 +15,7 @@ const user1 = {
 const user1Id = 394;
 
 const updateUser = {
-  name: 'Updated Ken Buyer',
+  name: 'Iradukunda Kellen',
   physicalAddress: 'Ghana',
 };
 
