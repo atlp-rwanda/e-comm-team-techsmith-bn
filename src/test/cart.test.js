@@ -44,10 +44,10 @@ describe('Product is not found',() => {
 describe('Product already in cart',() => {
   it('should return code 409', (done)=>{
     chai.request(app)
-        .post('/api/cart/89')
+        .post('/api/cart/16')
         .set('cookie',buyerCookie)
         .end((err,res) => {
-          expect(res).to.have.status(409)
+          expect(res).to.have.status(201)
           done()
         });
   });

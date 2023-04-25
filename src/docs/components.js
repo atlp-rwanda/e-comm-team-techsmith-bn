@@ -752,6 +752,96 @@ const components = {
         },
       },
     },
+    // FEEDBACK BODY
+    feedbackBody: {
+      type: 'object',
+      properties: {
+        // RATING
+        rating: {
+          type: 'number',
+          description: 'rating of the product',
+          example: 4,
+        },
+        // FEEDBACK
+        feedback: {
+          type: 'string',
+          description: 'Any string attribute',
+          example: 'Your product is nice',
+        },
+      },
+    },
+
+    // FEEDBACK CREATION RESPONSE
+    feedbackResponse: {
+      type: 'object',
+      properties: {
+        // ID
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // USER ID
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        // PRODUCT ID
+        productId: {
+          $ref: '#/components/schemas/id',
+        },
+        // RATING
+        rating: {
+          type: 'number',
+          description: 'rating of the product',
+          example: 4,
+        },
+        // FEEDBACK
+        feedback: {
+          $ref: '#/components/schemas/string',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
+
+    // GETTING ALL FEEDBACK ON A PRODUCT
+    getFeedbacks: {
+      type: 'object',
+      properties: {
+        // ID
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // RATING
+        rating: {
+          type: 'number',
+          description: 'rating of the product',
+          example: 4,
+        },
+        // FEEDBACK
+        feedback: {
+          $ref: '#/components/schemas/string',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+        user: {
+          name: { $ref: '#/components/schemas/string' },
+        },
+        product: {
+          name: { $ref: '#/components/schemas/string' },
+        },
+      },
+    },
   },
 };
 export default components;

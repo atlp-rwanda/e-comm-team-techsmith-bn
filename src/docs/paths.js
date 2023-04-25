@@ -41,6 +41,8 @@ import logoutUser from './User/userLogout.js';
 import addItemInCart from './Cart/addItemInCart.js';
 import viewItemInCart from './Cart/viewItemsInCart.js';
 import clearItemsInCart from './Cart/clearItemsInCart.js';
+import createFeedback from './Feedback/createFeedback.js';
+import getFeedback from './Feedback/getfeedbacks.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -76,7 +78,7 @@ const paths = {
     get: getOrders,
     post: createOrder,
   },
-  '/orders/{oId}/user/{uId}': {
+  '/orders/{oId}': {
     put: updateOrder,
     delete: deleteOrder,
   },
@@ -179,6 +181,11 @@ const paths = {
   '/cart': {
     get: viewItemInCart,
     delete: clearItemsInCart,
+  },
+  // ADDING FEEDBACK ON PRODUCT
+  '/feedback/{pId}': {
+    get: getFeedback,
+    post: createFeedback,
   },
 };
 

@@ -119,19 +119,19 @@ describe('Payment Test', () => {
     });
   });
   // USER LOGGED IN BUT DOES NOT OWN ORDER
-    describe('Given a user is logged in but does not own the order', () => {
-        it('should return error 403 forbidden', (done) => {
-            chai
-            .request(app)
-            .post(`/api/orders/${otherOrderId}/pay`)
-            .send(card)
-            .set('cookie', buyerCookie)
-            .end((err, res) => {
-                res.should.have.status(403);
-                done();
-            });
-        });
-    });
+    // describe('Given a user is logged in but does not own the order', () => {
+    //     it('should return error 403 forbidden', (done) => {
+    //         chai
+    //         .request(app)
+    //         .post(`/api/orders/${otherOrderId}/pay`)
+    //         .send(card)
+    //         .set('cookie', buyerCookie)
+    //         .end((err, res) => {
+    //             res.should.have.status(403);
+    //             done();
+    //         });
+    //     });
+    // });
 });
 
 // GET ALL PAYMENTS

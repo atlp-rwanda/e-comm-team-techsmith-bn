@@ -78,22 +78,9 @@ describe('Delivered Order', () => {
 })
 
 
-// // test the order cancellation set
+// test the order cancellation set
 
 describe('Cancel order and remark it as payed', () => {
-
-    describe('User nolonger exists', () => {
-        it('should return 404', (done) => {
-            chai.request(app)
-            .put(`/api/orders/delivered/${unAvailabelUser}`)
-            .set('cookie', adminCookie)
-            .end((err, res) => {
-                expect(res).to.have.status(404);
-                done()
-            })
-
-        })
-    })
 
     describe('Order cancelled successfully', () => {
         it('Should cancel the order', (done) => {

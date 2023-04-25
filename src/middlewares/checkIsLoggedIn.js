@@ -13,7 +13,6 @@ const checkIsLoggedIn = (req, res, next) => {
     // GET TOKEN FROM COOKIE
     const token = getToken(req);
     // eslint-disable-next-line no-console
-    console.log(token);
     // IF NOT TOKEN IS FOUND
     if (!token) {
       return res

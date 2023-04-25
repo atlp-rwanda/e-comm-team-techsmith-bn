@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       product.belongsToMany(models.category, {
         through: 'productCategory',
       });
+      product.hasMany(models.review,{
+        onDelete:'CASCADE'
+      })
     }
   }
 

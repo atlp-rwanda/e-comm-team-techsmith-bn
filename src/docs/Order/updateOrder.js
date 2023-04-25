@@ -24,15 +24,6 @@ const updateOrder = {
       required: true,
       description: 'ID of the order to be updated',
     },
-    {
-      name: 'uId',
-      in: 'path',
-      schema: {
-        $ref: '#/components/schemas/id',
-      },
-      required: true,
-      description: 'Id of the user logged in',
-    },
   ],
 
   // REQUEST BODY

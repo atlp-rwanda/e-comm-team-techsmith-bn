@@ -24,15 +24,6 @@ const deleteOrder = {
       required: true,
       description: 'ID of the order to be deleted',
     },
-    {
-      name: 'uId',
-      in: 'path',
-      schema: {
-        $ref: '#/components/schemas/id',
-      },
-      required: true,
-      description: 'Id of the user logged in',
-    },
   ],
 
   // RESPONSES

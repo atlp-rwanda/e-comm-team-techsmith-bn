@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       user.hasMany(models.chat, {
         onDelete: 'CASCADE',
       });
+      user.hasMany(models.review,{
+        onDelete:'CASCADE'
+      })
     }
   }
   user.init(
