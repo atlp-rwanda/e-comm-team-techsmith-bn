@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
         as:'user',
         onDelete:'CASCADE'
       })
-      
+      wishlist.belongsTo(models.product,{
+        foreignKey:'productId',
+        as:'product',
+        onDelete:'CASCADE'
+      })
+
     }
   }
   wishlist.init({

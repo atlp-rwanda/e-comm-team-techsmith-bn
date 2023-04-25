@@ -11,7 +11,7 @@ module.exports = {
       },
       productId: {
         allowNull:false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       userId: {
         allowNull:false,
@@ -31,3 +31,8 @@ module.exports = {
     await queryInterface.dropTable('wishlist');
   }
 };
+
+
+
+
+

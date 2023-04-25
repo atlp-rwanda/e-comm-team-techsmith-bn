@@ -64,19 +64,36 @@ class wishlistController {
           {
             model: product,
             as: 'product',
-            attributes: ['id', 'name', 'price', 'image'],
+            attributes: ['name', 'price', 'image'],
           },
         ],
       });
       // RETURN RESPONSE
       res.status(200).json({
         message: 'Your wishlist products',
-        data: wishlistProd,
+        wishlist: wishlistProd,
       });
       // CATCH ERROR
     } catch (error) {
       return res.status(500).json({
         status: 'Getting wishlist failed',
+        message: error.message,
+      });
+    }
+  }
+// DELETING THE WISHLIST
+  static async deleteWishlist(req, res) {
+    try {
+      const { id: userId } = res.locals;
+      await wishlist.destroy({
+        where: { userId },
+      });
+      res.status(200).json({
+        message: 'wishlist deleted successfully',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Failed to delete wishlist',
         message: error.message,
       });
     }
