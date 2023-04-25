@@ -2,30 +2,31 @@ import dotenv from 'dotenv';
 import db from '../../database/models/index.js';
 import validateProductInput from '../utils/productValidation.js';
 import getExpiryDateAndId from '../utils/getIdAndDate.js';
+import { io } from '../server.js';
+import Notification from './notificationController.js';
 import validateProductSearchInput from '../utils/productSearch.js';
 
 const Sequelize = require('sequelize');
 const logger = require('./logger');
 
+// IMPORT SEQUELIZE OPERATORS
 const { Op } = Sequelize;
+
 // CONFIG DOTENV
 dotenv.config();
 
 // IMPORT MODEL PRODUCT
-const { product, user } = db;
+const { product, user, category } = db;
 
 class ProductController {
+  // CREATE NEW PRODUCT
   static async addProduct(req, res) {
-    const {
-      name,
-      quantity,
-      price,
-      categoryId,
-      image,
-      description,
-      expiryDate,
-      condition,
-    } = req.body;
+    const { name, quantity, price, image, description, expiryDate, condition } =
+      req.body;
+
+    let { categoryId } = req.body;
+
+    // CATCH USER ID FROM MIDDLEWARE
     const { id } = res.locals;
 
     /* eslint-disable no-console */
@@ -46,6 +47,21 @@ class ProductController {
           message: 'The product already exist, You can update its details only',
           data: duplicateProduct,
         });
+      }
+      // CHECK IF CATEGORY EXISTS
+      const categoryExists = await category.findOne({
+        where: { id: categoryId },
+      });
+      if (!categoryExists) {
+        try {
+          const newCategory = await category.create({
+            name: 'New Category',
+          });
+          categoryId = newCategory.id;
+          // CATCH ERROR IF ANY
+        } catch (err) {
+          return err;
+        }
       }
       // ELSE CREATE NEW PRODUCT
       const newProduct = await product.create({
@@ -68,13 +84,38 @@ class ProductController {
       logger.productLogger.info(
         '/POST statusCode: 201 : user succesfully created product'
       );
+      // CREATE NOTIFICATION
+      const payload = {
+        userId: id,
+        title: 'New product created',
+        body: `Your product ${name} has been added successfully`,
+      };
+      await Notification.createNotification(
+        id,
+        payload.title,
+        payload.body,
+        res
+      );
+      // SEND NOTIFICATION TO CLIENT
+      io.emit('createProductSuccess', payload);
+      // RETURN RESPONSE
+      logger.productLogger.info(
+        '/POST statusCode: 201 : user succesfully created product'
+      );
+      // RETURN RESPONSE
       return res.status(201).json({
         ok: true,
         message: 'Product created successfully',
         data: newProduct,
       });
+      // CATCH ERRORS IF ANY
     } catch (error) {
       logger.productLogger.error(`/POST statCode: 500 : ${error.message}`);
+      // SEND NOTIFICATION TO CLIENT
+      io.emit('createProductError', error.message);
+      logger.productLogger.error(`/POST statCode: 500 : ${error.message}`);
+      // SEND NOTIFICATION TO CLIENT
+      io.emit('createProductError', error.message);
       return res.status(500).json({
         status: 'Adding product failed',
         message: error.message,
@@ -82,6 +123,7 @@ class ProductController {
     }
   }
 
+  // FIND ALL PRODUCTS
   static async findAllproducts(req, res) {
     const pageAsNumber = Number.parseInt(req.query.page, 10);
     const sizeAsNumber = Number.parseInt(req.query.size, 10);
@@ -380,6 +422,7 @@ class ProductController {
     }
   }
 
+  // EXPIRATION OF PRODUCTS
   static async expirationOfProducts(req, res) {
     try {
       const currentDate = new Date();
@@ -389,376 +432,364 @@ class ProductController {
       const expiredProducts = getExpiryDateAndId(products).filter(
         (prod) => new Date(prod.expiryDate) < new Date(currentDate)
       );
+      await product.update(
+        { isAvailable: false },
+        { where: { id: { [Op.in]: expiredProducts.map((p) => p.id) } } }
+      );
+      // CHECK EXPIRING PRODUCTS' USERS AND NOTIFY THEM
       expiredProducts.forEach(async (p) => {
         foundUser = await user.findOne({
           where: { id: p.userId },
         });
-
         logger.userLogger.info(
           `/POST statusCode: 200 : Email sent successfully to ${foundUser.email}`
         );
+        // CREATE NOTIFICATION IN DB
+        const payload = {
+          userId: foundUser.id,
+          title: 'Product Expiring',
+          body: `Your product ${p.name} is expiring on ${p.expiryDate}`,
+        };
+        await Notification.createNotification(
+          foundUser.id,
+          payload.title,
+          payload.body,
+          res
+        );
+        // SEND NOTIFICATION TO CLIENT
+        io.emit('productExpired', payload);
       });
-      /* eslint-disable */
-            for (let i = 0; i < expiredProducts.length; i++) {
-                await product.update({ isAvailable: false }, { where: { id: expiredProducts[i].id } });
-            }
-            logger.productLogger.info(`/GET statusCode: 200 : Product expiration check completed`);
-            return res.status(200).json({
-                ok: true,
-                message: 'Product expiration check completed',
-                exprired_Products: expiredProducts,
-            });
-        } catch (error) {
-            logger.productLogger.error(`/GET statusCode: 500 : Getting expired product failed: ${error.message}`);
-            return res.status(500).json({
-                status: 'Getting product failure',
-                message: error.message,
-            });
+      return res.status(200).json({
+        ok: true,
+        message: 'Product expiration check completed',
+        exprired_Products: expiredProducts,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Getting product failure',
+        message: error.message,
+      });
+    }
+  }
+
+  // GET ONE FROM MINE
+  static async getOneFromMine(req, res) {
+    try {
+      const pId = req.params.id;
+      // Getting logged in user's id
+      const { id: loggedInUserId } = res.locals;
+
+      // CHECK IF PRODUCT EXISTS
+      const productExist = await product.findOne({
+        where: { id: pId, userId: loggedInUserId },
+      });
+
+      if (!productExist) {
+        return res.status(404).json({
+          message: "The product doesn't exists in your collection!",
+        });
+      }
+
+      // RETURN RESPONSE
+      return res.status(200).json({
+        ok: true,
+        message: 'Product found',
+        data: productExist,
+      });
+      // CATCHING ERRORS
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: " The product doesn't exists in your collection!" });
+    }
+  }
+
+  // DELETE A SEPCIFIC PRODUCT
+  static async deleteProduct(req, res) {
+    try {
+      const { pId } = req.params;
+      // Getting logged in user's id
+      const loggedInUserId = res.locals.id;
+
+      // CHECK IF PRODUCT EXISTS
+      const productExist = await product.findOne({
+        where: { id: pId, userId: loggedInUserId },
+      });
+
+      if (!productExist) {
+        return res.status(404).json({
+          message: "The product doesn't exists in your collection!",
+        });
+      }
+      // DELETING THE PRODUCT
+      const deleteProduct = await product.destroy({ where: { id: pId } });
+
+      // CHECK IF PRODUCT IS DELETED
+      if (deleteProduct) {
+        // CREATE NOTIFICATION IN DB
+        const payload = {
+          userId: loggedInUserId,
+          title: 'Product Deleted',
+          body: `Product deleted successfully`,
+        };
+        await Notification.createNotification(
+          loggedInUserId,
+          payload.title,
+          payload.body,
+          res
+        );
+        // SEND NOTIFICATION TO CLIENT
+        io.emit('deleteProductSuccess', payload);
+        // RETURN RESPONSE
+        return res.status(200).json({
+          ok: true,
+          message: 'Product successfully deleted',
+        });
+      }
+      return res.status(400).json({
+        ok: false,
+        message: 'Not deleted!',
+      });
+    } catch (error) {
+      // SEND ERROR MESSAGE TO CLIENT
+      io.emit('deleteProductError', {
+        message: 'Product not deleted!',
+      });
+      // RETURN ERROR MESSAGE
+      return res.status(500).json({ message: 'Server error' });
+    }
+  }
+
+  // UPDATE A PRODUCT
+  static async updateProduct(req, res) {
+    const {
+      name,
+      price,
+      categoryId,
+      image,
+      description,
+      expiryDate,
+      condition,
+    } = req.body;
+    try {
+      // GET PRODUCT ID FROM THE PARAMS
+      const { id } = req.params;
+      // GET LOGGED IN USER ID FROM LOCAL RESPONSES
+      const { id: loggedInUserId } = res.locals;
+      // CHECK IF PRODUCT EXISTS
+      const productExist = await product.findOne({ where: { id } });
+      if (!productExist) {
+        return res.status(404).json({
+          message: "The product doesn't exists in your collection!",
+        });
+      }
+
+      // CHECK IF LOGGED IN USER OWNS THE PRODUCT
+      if (productExist.userId !== loggedInUserId) {
+        return res.status(401).json({
+          message:
+            'You are not authorized to edit this product! It belongs to another user',
+        });
+      }
+      // VALIDATE INPUTS
+      const { error } = validateProductInput(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
+      // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
+      const updateProduct = await product.update(
+        {
+          name,
+          price,
+          categoryId,
+          image,
+          description,
+          expiryDate,
+          condition,
+        },
+        {
+          where: { id },
+          returning: true,
+          include: {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          },
         }
+      );
+
+      // CHECKING IF UPDATED
+      if (updateProduct) {
+        // CREATE NOTIFICATION IN DB
+        const payload = {
+          userId: loggedInUserId,
+          title: 'Product Updated',
+          body: `Product updated successfully`,
+        };
+        await Notification.createNotification(
+          loggedInUserId,
+          payload.title,
+          payload.body,
+          res
+        );
+        // SEND NOTIFICATION TO CLIENT
+        io.emit('updateProductSuccess', payload);
+        return res.status(200).json({
+          ok: true,
+          message: 'Product details successfully updated!',
+        });
+      }
+    } catch (error) {
+      // SEND ERROR MESSAGE TO CLIENT
+      io.emit('updateProductError', {
+        message: 'Product not updated!',
+      });
+      return res.status(500).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET A SPECIFIC PRODUCT
+  static async findProductById(req, res) {
+    try {
+      const { id } = req.params;
+      const productExist = await product.findOne({
+        where: { id },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          },
+        ],
+      });
+      if (!productExist) {
+        return res.status(404).json({
+          message: 'Product not found!',
+        });
+      }
+      return res.status(200).json({
+        ok: true,
+        message: 'Product found!',
+        data: productExist,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        message: error.message,
+      });
+    }
+  }
+
+  // GET SINGLE PRODUCT
+  static async getProduct(req, res) {
+    const { name, price, categoryIds } = req.body;
+
+    const { errors } = validateProductSearchInput(req.body);
+
+    if (errors) {
+      return res.status(400).json({ message: errors.details[0].message });
     }
 
-    // GET ONE FROM MINE
-    static async getOneFromMine(req, res) {
-        try {
-            const pId = req.params.id;
-            // Getting logged in user's id
-            const loggedInUserId = res.locals.id;
+    const token = req.headers.cookie;
 
-            // GETTING ONLY YOUR PRODUCT
-            const fetchMyProducts = await product.findAll({
-                where: {
-                    userId: loggedInUserId,
-                    id: pId,
-                },
+    if (!token) {
+      try {
+        if (name === null && price === null && categoryIds === null) {
+          const products = await product.findAll();
+
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
             });
-
-            const { dataValues } = fetchMyProducts[0];
-            const retrivedProduct = {
-                categoryId: dataValues.categoryId,
-                name: dataValues.name,
-                image: dataValues.image,
-                price: dataValues.price,
-                condition: dataValues.condition,
-                description: dataValues.description,
-                expiryDate: dataValues.expiryDate,
-                createdAt: dataValues.createdAt,
-                updatedAt: dataValues.updatedAt,
-                isAvailable: dataValues.isAvailable,
-            };
-
-            const myProducts = fetchMyProducts.map(({ id }) => ({
-                id: parseInt(id),
-                userId: loggedInUserId,
-                retrivedProduct,
-            }));
-
-            // CHECKING IF loggedInUser OWN A PRODUCT
-            const productExist = myProducts.some((e) => e.id == pId);
-
-            if (productExist) {
-                const getProduct = await product.findOne({
-                    where: { id: pId, isAvailable: true },
-                });
-                if (getProduct) {
-                    logger.productLogger.info('/GET statusCode: 200 : Fetch a product from mine is successful ');
-                    return res.status(200).json({
-                        message: 'Product successfully retrieved',
-                        data: myProducts,
-                    });
-                }
-                logger.productLogger.error('/GET statusCode: 404 :Item not found  in stock');
-                return res.status(404).json({
-                    message: ' Product is not available',
-                });
-            }
-            logger.productLogger.error('/GET statusCode: 404 :Item not found in a seller collection ');
-            return res.status(404).json({
-                message: "The product doesn't exists in your collection!",
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
             });
-        } catch (error) {
-            logger.productLogger.error(`/GET statusCode: 500 : get a product in my collection failed: ${error.message}`);
-            return res
-                .status(500)
-                .json({ message: " The product doesn't exists in your collection!" });
-        }
-    }
-
-    // DELETE A SEPCIFIC PRODUCT
-    static async deleteProduct(req, res) {
-        try {
-            const { pId } = req.params;
-            // Getting logged in user's id
-            const loggedInUserId = res.locals.id;
-
-            // GETTING ONLY YOUR PRODUCT
-            const fetchMyProducts = await product.findAll({
-                where: {
-                    userId: loggedInUserId,
-                },
-                attributes: ['id'],
-            });
-
-            const myProducts = fetchMyProducts.map(({ id }) => ({
-                id: parseInt(id),
-            }));
-
-            // CHECKING IF loggedInUser OWN A PRODUCT
-            const productExist = myProducts.some((e) => e.id == pId);
-
-            if (!productExist) {
-                logger.productLogger.error('/DELETE statusCode: 404 :Item not found in a seller collection ');
-                return res.status(404).json({
-                    message: "The product doesn't exists in your collection!",
-                });
-            }
-            // DELETING THE PRODUCT
-            const deleteProduct = await product.destroy({ where: { id: pId } });
-
-            // CHECK IF PRODUCT IS DELETED
-            if (deleteProduct) {
-                logger.productLogger.info(`/DELETE statusCode: 200 : product with id=${id} deleted successful by owner`);
-                return res.status(200).json({
-                    ok: true,
-                    message: 'Product successfully deleted',
-                });
-            }
-            logger.productLogger.info('/DELETE statusCode: 400 : Wrong input, product not deleted');
-            return res.status(400).json({
-                ok: false,
-                message: 'Not deleted!',
-            });
-        } catch (error) {
-            logger.productLogger.error(` / DELETE statusCode: 500: Delete a product by owner failed: $ { error.message }
-                            `);
-            return res.status(500).json({ message: 'Server error' });
-        }
-    }
-
-    static async updateProduct(req, res) {
-        const {
-            name,
-            price,
-            categoryId,
-            image,
-            description,
-            expiryDate,
-            condition,
-        } = req.body;
-        try {
-            // GET PRODUCT ID FROM THE PARAMS
-            const { id } = req.params;
-            // GET LOGGED IN USER ID FROM LOCAL RESPONSES
-            const { id: loggedInUserId } = res.locals;
-            // CHECK IF PRODUCT EXISTS
-            const productExist = await product.findOne({ where: { id } });
-            if (!productExist) {
-                logger.productLogger.error('/PUT statusCode: 404 :Item not found in a seller collection ');
-                return res.status(404).json({
-                    message: "The product doesn't exists in your collection!",
-                });
-            }
-
-            // CHECK IF LOGGED IN USER OWNS THE PRODUCT
-            if (productExist.userId !== loggedInUserId) {
-                logger.productLogger.error('/PUT statusCode: 401 :Unauthorised user tries to edit an item details ');
-                return res.status(401).json({
-                    message: 'You are not authorized to edit this product! It belongs to another user',
-                });
-            }
-            // VALIDATE INPUTS
-            const { error } = validateProductInput(req.body);
-            if (error) {
-                logger.productLogger.error(` / PUT statusCode: 400: validation failed: $ { error.details[0].message }
-                            `);
-                return res.status(400).json({ message: error.details[0].message });
-            }
-            // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
-            const updateProduct = await product.update({
-                name,
-                price,
-                categoryId,
-                image,
-                description,
-                expiryDate,
-                condition,
-            }, {
-                where: { id },
-                returning: true,
-                include: {
-                    model: user,
-                    as: 'user',
-                    attributes: ['name', 'email'],
-                },
-            });
-
-            // CHECKING IF UPDATED
-            if (updateProduct) {
-                logger.productLogger.error(`/ PUT statusCode: 200: Product details edited successfully`);
-                return res.status(200).json({
-                    ok: true,
-                    message: 'Product details successfully updated!',
-                });
-            }
-        } catch (error) {
-            logger.productLogger.error(`/ PUT statusCode: 500: Edit product details failed: ${ error.details[0].message }`);
-            return res.status(500).json({
-                ok: false,
-                message: error.message,
-            });
-        }
-    }
-
-    // GET A SPECIFIC PRODUCT
-    static async findProductById(req, res) {
-        try {
-            const { id } = req.params;
-            const productExist = await product.findOne({
-                where: { id },
-                include: [{
-                    model: user,
-                    as: 'user',
-                    attributes: ['name', 'email'],
-                }, ],
-            });
-            if (!productExist) {
-                logger.productLogger.error('/GET statusCode: 404 :Item not found in database');
-                return res.status(404).json({
-                    message: 'Product not found!',
-                });
-            }
-            logger.productLogger.info('/GET statusCode: 200 : a product found');
-            return res.status(200).json({
-                ok: true,
-                message: 'Product found!',
-                data: productExist,
-            });
-        } catch (error) {
-            logger.productLogger.error(` / GET statusCode: 500: Fetching one product by ID failed: ${error.message }`);
-            return res.status(500).json({
-                ok: false,
-                message: error.message,
-            });
-        }
-    }
-
-    static async getProduct(req, res) {
-        const { name, price, categoryIds } = req.body;
-
-        const { errors } = validateProductSearchInput(req.body);
-
-        if (errors) {
-            return res.status(400).json({ message: errors.details[0].message });
-        }
-
-        const token = req.headers.cookie;
-
-        if (!token) {
-            try {
-                if (name === null && price === null && categoryIds === null) {
-                    const products = await product.findAll({
-                        include: {
-                            model: user,
-                            as: 'user',
-                            attributes: ['name'],
-                        },
-                    });
-
-                    if (products.length <= 0) {
-                        res.status(404).json({
-                            status: 'None',
-                            message: 'no product found',
-                        });
-                    } else {
-                        res.status(200).json({
-                            status: 'lIST OF PRODUCTS',
-                            message: ` ${products.length} products found`,
-                            data: products,
-                        });
-                    }
-                } else {
-                    const products = await product.findAll({
-                        where: {
-                            [Op.or]: [{
-                                    name: {
-                                        [Op.like]: `%${name}%`,
-                                    },
-                                },
-                                { categoryId: categoryIds },
-                                { price },
-                            ],
-                        },
-                    });
-
-                    if (products.length <= 0) {
-                        res.status(404).json({
-                            status: 'None',
-                            message: 'no product found',
-                        });
-                    } else {
-                        res.status(200).json({
-                            status: 'lIST OF PRODUCTS',
-                            message: ` ${products.length} products found`,
-                            data: products,
-                        });
-                    }
-                }
-            } catch (error) {
-                res
-                    .status(500)
-                    .json({ status: 'Getting product failure', message: error.message });
-            }
+          }
         } else {
-            try {
-                if (name === null && price === null && categoryIds === null) {
-                    const products = await product.findAll({ where: { userId: req.id } });
+          const products = await product.findAll({
+            where: {
+              [Op.or]: [
+                { name: { [Op.like]: `%${name}%` } },
+                { categoryId: categoryIds },
+                { price },
+              ],
+            },
+          });
 
-                    if (products.length <= 0) {
-                        res.status(404).json({
-                            status: 'None',
-                            message: 'no product found',
-                        });
-                    } else {
-                        res.status(200).json({
-                            status: 'lIST OF PRODUCTS',
-                            message: ` ${products.length} products found`,
-                            data: products,
-                        });
-                    }
-                } else {
-                    const products = await product.findAll({
-                        where: {
-                            userId: req.id,
-                            [Op.or]: [{
-                                    name: {
-                                        [Op.like]: `%${name}%`,
-                                    },
-                                },
-                                { categoryId: categoryIds },
-                                { price },
-                            ],
-                        },
-                    });
-
-                    if (products.length <= 0) {
-                        res.status(404).json({
-                            status: 'None',
-                            message: 'no product found',
-                        });
-                    } else {
-                        res.status(200).json({
-                            status: 'lIST OF PRODUCTS',
-                            message: ` ${products.length} products found`,
-                            data: products,
-                        });
-                    }
-                }
-            } catch (error) {
-                res
-                    .status(500)
-                    .json({ status: 'Getting product failure', message: error });
-            }
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
+            });
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
+            });
+          }
         }
+      } catch (error) {
+        res
+          .status(500)
+          .json({ status: 'Getting product failure', message: error.message });
+      }
+    } else {
+      try {
+        if (name === null && price === null && categoryIds === null) {
+          const products = await product.findAll({ where: { userId: req.id } });
+
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
+            });
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
+            });
+          }
+        } else {
+          const products = await product.findAll({
+            where: {
+              userId: req.id,
+              [Op.or]: [
+                { name: { [Op.like]: `%${name}%` } },
+                { categoryId: categoryIds },
+                { price },
+              ],
+            },
+          });
+
+          if (products.length <= 0) {
+            res.status(404).json({
+              status: 'None',
+              message: 'no product found',
+            });
+          } else {
+            res.status(200).json({
+              status: 'lIST OF PRODUCTS',
+              message: ` ${products.length} products found`,
+              data: products,
+            });
+          }
+        }
+      } catch (error) {
+        res
+          .status(500)
+          .json({ status: 'Getting product failure', message: error });
+      }
     }
+  }
 }
 
 export default ProductController;

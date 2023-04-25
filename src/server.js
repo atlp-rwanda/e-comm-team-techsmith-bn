@@ -14,7 +14,6 @@ import db from '../database/models/index.js';
 import './utils/shedulerController.js';
 import {
   addActiveUser,
-  // addActiveUser,
   createMessage,
   getActiveUsers,
   getMessages,
@@ -38,12 +37,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
 app.use('/chat', express.static(views));
 
-// app.use(
-//   cookieSession({
-//     maxAge: 24 * 60 * 60 * 1000,
-//     keys: [process.env.SESSIONCOOKIE],
-//   })
-// );
 app.use(
   session({
     secret: [process.env.SESSIONCOOKIE],
@@ -108,6 +101,10 @@ io.on('connection', async (socket) => {
   socket.on('leave', async (user) => {
     const response = await removeActiveUser(user);
     console.log(typeof response);
+  });
+
+  socket.on('disconnect', async () => {
+    console.log('user disconnected', socket.id);
   });
 });
 

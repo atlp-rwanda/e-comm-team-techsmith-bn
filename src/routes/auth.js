@@ -28,18 +28,26 @@ passport.use(
       callbackURL:
         'https://e-comm-team-techsmith-bn-staging.onrender.com/api/auth/google/redirect',
       clientID: CLIENTID,
-      clientSecret: CLIENTSECRET
+      clientSecret: CLIENTSECRET,
     },
     /* eslint-disable */
     async (accessToken, refreshToken, profile, done) => {
       try {
         // check if user already exists in our own db
         const currentUser = await user.findOne({
-          where: { email: profile.email }
+          where: { email: profile.email },
         });
         if (currentUser) {
           // already have this user
-          done(null, currentUser);
+          if (currentUser.googleId === null) {
+            await user.update(
+              { googleId: profile.id },
+              { where: { email: profile.email } }
+            );
+            done(null, currentUser);
+          } else {
+            done(null, currentUser);
+          }
         } else {
           // if not, create user in our db
           const newUser = await user.create({
@@ -53,7 +61,7 @@ passport.use(
             birthDate: new Date(),
             preferredLanguage: 'rw',
             preferredCurrency: 'RWF',
-            physicalAddress: 'Rwanda'
+            physicalAddress: 'Rwanda',
           });
           done(null, newUser);
         }
@@ -72,15 +80,20 @@ router.get(
 router.get(
   '/google/redirect',
   passport.authenticate('google', {
-    failureRedirect: '/api/users/login'
+    failureRedirect: '/api/users/login',
   }),
   (req, res) => {
+    res.cookie(
+      'Authorised',
+      jwt.sign({ id: req.user.id }, process.env.USER_SECRET, {
+        expiresIn: '1h',
+      })
+    );
     res.send(`
   <h1>WELCOME TO THE PROFILE PAGE OF ${req.user.name}</h1> 
   <h2>YOUR EMAIL IS ${req.user.email}</h2>
   <h2>YOUR ROLE ID IS ${req.user.roleId}</h2>
   <h2>YOUR STATUS IS ${req.user.isActive}</h2>`);
-  res.cookie('Authorised', jwt.sign({ id: req.user.id }, process.env.USER_SECRET, { expiresIn: '1h' }));
   }
 );
 
