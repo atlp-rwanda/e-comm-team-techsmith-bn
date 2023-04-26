@@ -6,13 +6,11 @@ import dotenv from 'dotenv'
 dotenv.config()
 chai.should();
 chai.use(chaiHttp);
-
 // USER LOGIN
 const buyerLogin = {
   email:'Kevine440@gmail.com',
   password:'Testing@123',
 };
-
 // COOKIE
 let buyerCookie = ''
 // BUYER LOGIN REQUEST
@@ -28,20 +26,18 @@ describe('Buyer user', () => {
           });
        });
     });
-
-  // CHECKING WISHLIST PRODUCT IF IS ALREADY EXIST
-describe('Product already in wishlist',() => {
-  it('should return code 409', (done)=>{
-    chai.request(app)
-        .post('/api/wishlist/6')
-        .set('cookie',buyerCookie)
-        .end((err,res) => {
-          expect(res).to.have.status(409)
-          done()
+    //ADDING PRODUCT INTO WISHLIST
+    describe('adding product into wishlist', () => {
+      it('should return all products and http code 201', (done) => {
+        chai.request(app)
+        .post('/api/wishlist/30')
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          expect(res).to.have.status(201)
+          done();
         });
-  });
-});
-
+      });
+    });
 //CHECKING A PRODUCT IS NOT FOUND
 describe('Product is not found',() => {
   it('should return code 404', (done)=>{
@@ -54,3 +50,41 @@ describe('Product is not found',() => {
     });
 });
 });
+//GETING ALL WISHLIST
+describe('Getting all products in wishlist', () => {
+  it('should return all products and http code 200', (done) => {
+    chai.request(app)
+    .get('/api/wishlist/')
+    .set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    });
+  });
+});
+//PRODUCT ALREADY EXISTS
+describe(' product already in wishlist', () => {
+  it('should return product already in wishlist and http code 409', (done) => {
+    chai.request(app)
+    .post('/api/wishlist/30')
+    .set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(409)
+      done();
+    });
+  });
+});        
+//DELETE PRODUCT FROM WISHLIST
+describe('deleting all products in wishlist', () => {
+  it('should delete all products in wishlist and http code 200', (done) => {
+    chai.request(app)
+    .delete('/api/wishlist/')
+    .set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    });
+  });
+});
+
+  

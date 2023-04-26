@@ -842,6 +842,57 @@ const components = {
         },
       },
     },
+    // GETTING ALL WISHLIST
+    getAllWishlistResponse: {
+      type: 'object',
+      properties: {
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // PRODUCT ID
+        productId: {
+          $ref: '#/components/schemas/id',
+        },
+        // USER ID
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
+
+    // DELETING ALL WISHLIST
+    deleteAllWishlistResponse: {
+      type: 'object',
+      properties: {
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // PRODUCT ID
+        productId: {
+          $ref: '#/components/schemas/id',
+        },
+        // USER ID
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
+        },
+      },
+    },
   },
 };
 export default components;
