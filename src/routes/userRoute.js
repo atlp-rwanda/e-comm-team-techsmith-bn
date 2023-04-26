@@ -5,7 +5,7 @@ import newsletterSubscribe from '../controllers/newsletterController.js';
 import userController from '../controllers/userController.js';
 import checkIsLoggedIn from '../middlewares/checkIsLoggedIn.js';
 import dis_enableController from '../controllers/disEnableUser.js';
-import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
+import isAdmin from '../middlewares/verifyIsAdmin.js';
 import isActive from '../middlewares/activeUser.js';
 import changeRole from '../controllers/roleController.js';
 import wishlistController from '../controllers/wishlistController.js';
@@ -17,8 +17,8 @@ const router = express.Router();
 router.post('/signup', registerUser);
 
 // Enable and disable user
-router.put('/disable/:id', verifyIsAdmin, dis_enableController.disableUser);
-router.put('/enable/:id', verifyIsAdmin, dis_enableController.enableUser);
+router.put('/disable/:id', isAdmin, dis_enableController.disableUser);
+router.put('/enable/:id', isAdmin, dis_enableController.enableUser);
 
 // Login user route
 router.post('/login', isActive, loginController.userLogin);
@@ -33,7 +33,7 @@ router.get('/:id', userController.getUser);
 router.put('/:id', checkIsLoggedIn, userController.updateUser);
 
 // CHANGING ROLES OF USERS
-router.put('/:id/role/:role', verifyIsAdmin, changeRole);
+router.put('/:id/role/:role', isAdmin, changeRole);
 
 // REQUEST NEWSLETTER SUBSCRIPTION
 router.post('/requestNewsletter', newsletterSubscribe.requestSubscription);
@@ -58,5 +58,5 @@ export default router;
 // _____________________ADMIN ROUTES_________________________________________
 
 // disable and enable user
-router.put('/disable/:id', verifyIsAdmin, dis_enableController.disableUser);
-router.put('/enable/:id', verifyIsAdmin, dis_enableController.enableUser);
+router.put('/disable/:id', isAdmin, dis_enableController.disableUser);
+router.put('/enable/:id', isAdmin, dis_enableController.enableUser);

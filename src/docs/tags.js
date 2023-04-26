@@ -13,6 +13,10 @@ const tags = [
     description: 'API for Orders in the E-Commerce app',
   },
   {
+    name: 'Statistics',
+    description: 'API for stastics of the users',
+  },
+  {
     name: 'Admin',
     description: 'API for things only admin is allowed to access',
   },
