@@ -2,9 +2,16 @@ import dotenv from 'dotenv';
 import db from '../../database/models/index.js';
 import validateProductInput from '../utils/productValidation.js';
 
+const cloudinary = require('cloudinary').v2;
 // CONFIG DOTENV
 dotenv.config();
 
+cloudinary.config({
+  cloud_name: 'ds04ivdrj',
+  secure: true,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 // IMPORT MODEL PRODUCT
 const { product, user } = db;
 class productController {
@@ -21,6 +28,26 @@ class productController {
       sellerId,
     } = req.body;
     try {
+      const imageUploads = await Promise.all(
+        image.map(async (file, index) => {
+          try {
+            const result = await cloudinary.uploader.upload(file, {
+              folder: 'ecommerce-product-uploads/products',
+              public_id: `${name}_${index}_${Date.now()}`,
+              use_filename: true,
+              unique_filename: false,
+              resource_type: 'image',
+              max_bytes: 10000000, // 10MB
+              allowed_formats: ['jpeg', 'png', 'jpg', 'webp'],
+            });
+            return result.url;
+          } catch (error) {
+            return res.status(400).json({
+              message: error.messsage,
+            });
+          }
+        })
+      );
       const duplicateProduct = await product.findOne({
         where: { name },
       });
@@ -44,7 +71,7 @@ class productController {
         description,
         isAvailable: true,
         expiryDate,
-        image,
+        image: imageUploads,
         condition,
         include: {
           model: user,

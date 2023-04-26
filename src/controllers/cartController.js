@@ -5,6 +5,7 @@ import db from '../../database/models/index.js';
 dotenv.config();
 // IMPORT MODEL PRODUCT
 const { product, cart } = db;
+
 class cartController {
   static async addToCart(req, res) {
     try {
@@ -26,7 +27,7 @@ class cartController {
       const cartProductExists = await cart.findOne({
         where: { productId, userId },
       });
-      if (!cartProductExists === false) {
+      if (cartProductExists) {
         return res.status(409).json({
           message: 'Product already in cart',
         });

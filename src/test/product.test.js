@@ -13,33 +13,27 @@ const goodProduct = {
 
     name: 'product' + makeid(10),
     image: [
-        "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
-        "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg",
-        "https://www.pngwing.com/en/free-png-zbfan",
-        "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg"
+        "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     price: 85000,
     categoryId: 70,
     condition: "New",
     description: "New Samsung A10 released in 2021",
-    sellerId: 36,
     expiryDate: "2023-05-06T17:30:00.000Z"
 }
 const adminProduct = {
 
         name: 'product' + makeid(10),
-        image: [
-            "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
-            "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg",
-            "https://www.pngwing.com/en/free-png-zbfan",
-            "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg"
-        ],
         price: 85000,
         categoryId: 70,
         condition: "New",
+        image: ["https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800", "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800", "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=80"],
         description: "New Samsung A10 released in 2021",
-        sellerId: 36,
-        expiryDate: "2023-05-06T17:30:00.000Z"
+        expiryDate: "2023-05-06T17:30:00.000Z",
+        sellerId: 6
     }
     //BAD PRODUCT
 const badProduct = {
@@ -543,254 +537,252 @@ describe('CRUD product by admin', () => {
         });
     });
 });
-  describe('Available products', () => {
+describe('Available products', () => {
     describe('Products in stock', () => {
-      it('Should get  products and return code 200', (done) => {
-        chai
-          .request(app)
-          .get('/api/products/inStock')
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-          });
-      });
+        it('Should get  products and return code 200', (done) => {
+            chai
+                .request(app)
+                .get('/api/products/inStock')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
     });
 
-  });
- 
-  
-    describe('Delete a specific  product', () => {
-      describe('Delete a product not in your collection', () => {
-            it('Should return code 404', (done) => {
+});
+
+
+describe('Delete a specific  product', () => {
+    describe('Delete a product not in your collection', () => {
+        it('Should return code 404', (done) => {
             chai
                 .request(app)
                 .delete('/api/products/5')
                 .set('cookie', sellerCookie)
                 .end((err, res) => {
+                    expect(res).to.have.status(404);
+                    done();
+                });
+        });
+    });
+});
+
+
+
+
+
+
+
+describe('get product from your collection', () => {
+    it('should returnn status code of 200', (done) => {
+        chai.request(app)
+            .get('/api/products/mySingleProduct/4')
+            .set('Cookie', sellerCookie)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
+
+    })
+});
+
+
+//PRODUCT NOT FOUND
+describe('Product not found', () => {
+    it('should returnn status code of 404 if the product is not available', (done) => {
+        chai.request(app)
+            .get('/api/products/mySingleProduct/21')
+            .set('Cookie', sellerCookie)
+            .end((err, res) => {
                 expect(res).to.have.status(404);
                 done();
-                });
             });
-       });
-    });
 
-  
-
-
-
-
-
-    describe('get product from your collection', () =>{
-        it('should returnn status code of 200', (done)=>{
-        chai.request(app)
-        .get('/api/products/mySingleProduct/4')
-        .set('Cookie', sellerCookie)
-        .end((err,res) =>{
-            expect(res).to.have.status(200);
-            done();
-        });
-
-        })
-    });
-
-   
-      //PRODUCT NOT FOUND
-    describe('Product not found', () =>{
-        it('should returnn status code of 404 if the product is not available', (done)=>{
-        chai.request(app)
-        .get('/api/products/mySingleProduct/21')
-        .set('Cookie', sellerCookie)
-        .end((err,res) =>{
-            expect(res).to.have.status(404);
-            done();
-        });
-
-        })
-    });
+    })
+});
 
 
 describe('Update a specific  product', () => {
     describe('update a product', () => {
         it('Should return code 200', (done) => {
-          chai
-            .request(app)
-            .put('/api/products/29')
-            .send(productoUpdate)
-            .set('cookie', sellerCookie)
-            .end((err, res) => {
-              expect(res).to.have.status(200);
-              done();
-            });
+            chai
+                .request(app)
+                .put('/api/products/29')
+                .send(productoUpdate)
+                .set('cookie', sellerCookie)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
         });
     });
 });
 
 describe('Update a product not in your collection', () => {
-        it('Should return code 404', (done) => {
-          chai
+    it('Should return code 404', (done) => {
+        chai
             .request(app)
             .put('/api/products/-1')
             .set('cookie', sellerCookie)
             .end((err, res) => {
-              expect(res).to.have.status(404);
-              done();
+                expect(res).to.have.status(404);
+                done();
             });
-        });
+    });
 });
 
 
-    // User CAN GET ALL OORDERS
+// User CAN GET ALL OORDERS
 describe('Buyer, Seller or Admin users', () => {
-      it('can display all Product ', (done) => {
+    it('can display all Product ', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: null,
-            price: null,
-            categoryIds: null,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: null,
+                price: null,
+                categoryIds: null,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products which have substring in name of "product" ', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: 'product',
-            price: null,
-            categoryIds: null,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: 'product',
+                price: null,
+                categoryIds: null,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products which have price of 85000 ', (done) => {
-       chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: null,
-            price: 85000,
-            categoryIds: null,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-        });
+        chai
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: null,
+                price: 85000,
+                categoryIds: null,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products which have category Id of 70 ', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: null,
-            price: null,
-            categoryIds: 70,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: null,
+                price: null,
+                categoryIds: 70,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products which have substring in name of "product" or have price of 85000 or have  category Id of 70 ', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: 'product',
-            price: 85000,
-            categoryIds: 70,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: 'product',
+                price: 85000,
+                categoryIds: 70,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products and get an error when name parameter doesn\'t match any product', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: 'productsdfdsfsfsdca32343242342',
-            price: null,
-            categoryIds: null,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: 'productsdfdsfsfsdca32343242342',
+                price: null,
+                categoryIds: null,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(404);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products and get an error when price parameter doesn\'t match any product', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: null,
-            price: 8500032424,
-            categoryIds: null,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: null,
+                price: 8500032424,
+                categoryIds: null,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(404);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products and get an error when categoryIds parameter doesn\'t match any product ', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: null,
-            price: null,
-            categoryIds: 7023424,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: null,
+                price: null,
+                categoryIds: 7023424,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(404);
+                done();
+            });
     });
 });
 
 describe('Buyer, Seller or Admin users', () => {
     it('can search Products and get an error when name, price or categoryIds parameters doesn\'t match any product', (done) => {
         chai
-          .request(app)
-          .post('/api/products/search')
-          .send({
-            name: 'product2343242',
-            price: 85000324234,
-            categoryIds: 70545,
-          })
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            done();
-        });
+            .request(app)
+            .post('/api/products/search')
+            .send({
+                name: 'product2343242',
+                price: 85000324234,
+                categoryIds: 70545,
+            })
+            .end((err, res) => {
+                expect(res).to.have.status(404);
+                done();
+            });
     });
 });
-  
-
