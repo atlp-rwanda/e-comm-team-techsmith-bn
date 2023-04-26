@@ -16,6 +16,12 @@ const components = {
       description: 'quantity of products in the cart for the buyer',
       example: 4,
     },
+    // PAGE
+    page: {
+      type: 'string',
+      description: 'Page for data',
+      example: '?page=3',
+    },
     // TOKEN
     token: {
       type: 'string',

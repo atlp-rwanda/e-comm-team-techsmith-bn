@@ -5,7 +5,27 @@ const getOrders = {
   operationId: 'getOrders', // REQUIRED
 
   // PARAMETERS
-  parameters: [],
+  parameters: [
+    {
+      name: 'page',
+      in: 'query',
+      description: 'Page number',
+      required: true,
+      schema: {
+        type: 'integer',
+      },
+    },
+    {
+      name: 'size',
+      in: 'query',
+      description: 'Number of items per page',
+      required: false,
+      schema: {
+        type: 'integer',
+        default: 20,
+      },
+    },
+  ],
 
   // REQUEST BODY
   requestBody: {},
