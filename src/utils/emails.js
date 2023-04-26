@@ -111,6 +111,18 @@ for further inquires. We really appreciate your patience.
 Thank you for choosing SMITH-t-ECOMMERCE
 `;
 
+// PAYMENT SUCCESSFUL MESSAGE TEMPLATE
+const paymentSuccessfulMessage = (name, receipt) => `
+Dear ${name},
+  
+We are happy to inform you that your payment was successful, and your order is already en route to your address. You may expect to see it between two to three business days. We really appreciate your patience.
+  
+You may access your receipt on the link below:
+  ${receipt}
+  
+Thank you for choosing Techsmiths Ecommerce
+  `;
+
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
   try {
@@ -131,6 +143,7 @@ const sendEmail = async (email, name, heading, messageTemplate, token) => {
 /* NODEMAILER */
 const nodeMail = async (email, name, heading, messageTemplate, token) => {
   try {
+    const message = messageTemplate(name, token);
     const transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
@@ -143,12 +156,16 @@ const nodeMail = async (email, name, heading, messageTemplate, token) => {
       from: `Techsmiths Digital Team <${NODEMAILER_EMAIL_USERNAME}>`,
       to: email,
       subject: heading,
-      text: messageTemplate(name, token),
+      text: message,
     };
     // SEND EMAIL
-    await transporter.sendMail(mailOptions).then((message) => message);
+    await transporter
+      .sendMail(mailOptions)
+      // eslint-disable-next-line no-console
+      .then((result) => console.log(result));
   } catch (error) {
-    return error;
+    // eslint-disable-next-line no-console
+    console.log(error, typeof paymentSuccessfulMessage);
   }
 };
 
@@ -164,4 +181,5 @@ export {
   twoFAMessageTemplate,
   nodeMail,
   productIsExpired,
+  paymentSuccessfulMessage,
 };

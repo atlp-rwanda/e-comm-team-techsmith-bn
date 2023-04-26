@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import db from '../../database/models/index.js';
 import validateProductInput from '../utils/productValidation.js';
 import getExpiryDateAndId from '../utils/getIdAndDate.js';
-import { productIsExpired, sendEmail } from '../utils/emails.js';
 import validateProductSearchInput from '../utils/productSearch.js';
 
 const Sequelize = require('sequelize');
@@ -237,13 +236,6 @@ class ProductController {
           where: { id: p.userId },
         });
 
-        await sendEmail(
-          foundUser.email,
-          foundUser.name,
-          'Expired Product',
-          productIsExpired,
-          p.name
-        );
         console.log(`Email sent successfully to ${foundUser.email}`);
       });
       /* eslint-disable */

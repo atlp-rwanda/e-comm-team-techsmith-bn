@@ -7,6 +7,9 @@ dotenv.config();
 // IMPORT MODEL PRODUCT
 const { product, wishlist } = db;
 
+// IMPORT SEQUELIZE
+const { Op } = require('sequelize');
+
 class wishlistController {
   // ADD TO WISHLIST
   static async addTowishlist(req, res) {
@@ -24,15 +27,22 @@ class wishlistController {
           message: 'Product not found',
         });
       }
-      // CHECK IF PRODUCT IS ALREADY IN CART
       const wishlistProductExists = await wishlist.findOne({
-        where: { productId, userId },
+        where: {
+          [Op.and]: [
+            { productId: { [Op.eq]: productId } },
+            { userId: { [Op.eq]: userId } },
+          ],
+        },
       });
-      if (wishlistProductExists) {
+
+      // CHECK IF PRODUCT IS ALREADY IN CART
+      if (!wishlistProductExists === false) {
         return res.status(409).json({
           message: 'Product already in wishlist',
         });
       }
+
       // CREATE WISHLIST
       await wishlist.create({
         productId,

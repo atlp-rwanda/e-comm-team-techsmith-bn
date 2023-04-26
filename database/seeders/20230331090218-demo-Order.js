@@ -7,7 +7,7 @@ const order1={
   productId: product1.id,
   userId: user1.id,
   quantity: 12,
-  status:'new',
+  status: 'Cancelled',
   get amount() {
     return this.quantity * product1.price
   },
@@ -18,8 +18,8 @@ const order2 = {
   id: 1002,
   productId: product2.id,
   userId: user2.id,
-  quantity:10,
-  status:'payment received',
+  quantity: 10,
+  status: 'Paid',
   get amount() {
     return this.quantity * product2.price
   },
@@ -31,7 +31,7 @@ const order3 = {
   productId: product3.id,
   userId: user3.id,
   quantity:35,
-  status:'payment failed',
+  status: 'Pendng',
   get amount() {
     return this.quantity * product3.price
   },

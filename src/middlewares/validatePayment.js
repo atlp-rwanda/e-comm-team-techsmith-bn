@@ -35,7 +35,7 @@ const validatePayment = async (req, res, next) => {
         message: 'Order not found',
       });
     }
-    // CHECK IF USER EXISTS
+    // RETRIEVE USER DETAILS
     const findUser = await user.findOne({ where: { id: userId } });
     // CHECK IF USER OWNS ORDER
     if (findOrder.userId !== userId) {

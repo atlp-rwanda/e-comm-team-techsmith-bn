@@ -1,9 +1,4 @@
 import db from '../../database/models';
-import {
-  sendEmail,
-  enableUserMessageTemplate,
-  disableUserMessageTemplate,
-} from '../utils/emails.js';
 
 const { user: User } = db;
 
@@ -25,15 +20,6 @@ class dis_enableController {
           returning: true,
           plain: true,
         }
-      );
-
-      await sendEmail(
-        user.email,
-        user.name,
-        `Your SMITH-t-COMMERCE account was disabled`,
-        res,
-        disableUserMessageTemplate,
-        'disabled'
       );
 
       return res.status(200).json({
@@ -64,15 +50,6 @@ class dis_enableController {
           },
         }
       );
-
-      await sendEmail(
-        user.email,
-        user.name,
-        `Your SMITH-t-COMMERCE account was enabled`,
-        res,
-        enableUserMessageTemplate
-      );
-
       return res.status(200).json({
         message: `Account which belongs to ${user.name} was successfully enabled`,
         enabledUser,
