@@ -14,6 +14,7 @@ const productSchema = Joi.object({
     .max(8)
     .unique(),
   expiryDate: Joi.date().iso().allow(null),
+  sellerId: Joi.number().required(),
 });
 const validateInput = validateProductInput(productSchema);
 export default validateInput;

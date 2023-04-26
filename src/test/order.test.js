@@ -117,7 +117,7 @@ describe("CRUD order by buyer",()=>{
 
   it("Should be able to update order",(done)=>{
     chai.request(app)
-    .put("/api/orders/160")
+    .put("/api/orders/232")
     .send(update)
     .set('cookie',cookie)
     .end((err,res)=>{

@@ -19,7 +19,7 @@ const createProduct = {
     description: 'Product attributes',
     content: {
       'application/json': {
-        schema: { $ref: '#/components/schemas/CreateProduct' },
+        schema: { $ref: '#/components/schemas/CreateProductAdmin' },
       },
     },
   },
