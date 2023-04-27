@@ -16,6 +16,12 @@ const components = {
       description: 'quantity of products in the cart for the buyer',
       example: 4,
     },
+    // PAGE
+    page: {
+      type: 'string',
+      description: 'Page for data',
+      example: '?page=3',
+    },
     // TOKEN
     token: {
       type: 'string',
@@ -136,7 +142,10 @@ const components = {
         image: {
           type: 'array',
           description: 'Minimum of 4 images, Maximum of 8 images',
-          example: 'https://images.unsplash.com/photo-',
+          example: `    "https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png",
+          "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png",
+          "https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png",
+          "https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png"`,
         },
         // CONDITION
         condition: {
@@ -153,9 +162,6 @@ const components = {
         // DESCRIPTION
         description: {
           $ref: '#/components/schemas/string',
-        },
-        userId: {
-          $ref: '#components/schemas/id',
         },
         // EXPITY DATE
         expiryDate: {

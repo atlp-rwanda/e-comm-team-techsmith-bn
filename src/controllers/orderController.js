@@ -10,8 +10,21 @@ const { Op } = Sequelize;
 class OrderController {
   // get allorders
   static async getOrders(req, res) {
+    const pageAsNumber = Number.parseInt(req.query.page, 10);
+    const sizeAsNumber = Number.parseInt(req.query.size, 10);
+
+    let page = 1;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+      page = pageAsNumber;
+    }
+
+    let size = 5;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+      size = sizeAsNumber;
+    }
+    const offset = (page - 1) * size;
     try {
-      const orders = await order.findAll({
+      const orders = await order.findAndCountAll({
         include: [
           {
             model: user,
@@ -24,8 +37,32 @@ class OrderController {
             attributes: ['name'],
           },
         ],
+        limit: size,
+        offset,
       });
-      res.status(200).json({ orders });
+      if (orders.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ message: `There is no orders found on page ${page}` });
+      }
+      const totalPages = Math.ceil(orders.count / size);
+      const currentPage = page > totalPages ? totalPages : page;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === totalPages ? null : currentPage + 1;
+
+      res.status(200).json({
+        ok: true,
+        message: `List of all ${orders.count} orders`,
+        data: {
+          totalItems: orders.count,
+          totalPages,
+          pageSize: size,
+          currentPage,
+          prevPage,
+          nextPage,
+          orders: orders.rows,
+        },
+      });
     } catch (error) {
       return res.status(500).json(error.message);
     }

@@ -51,12 +51,25 @@ class cartController {
   }
 
   static async viewCart(req, res) {
+    const pageAsNumber = Number.parseInt(req.query.page, 10);
+    const sizeAsNumber = Number.parseInt(req.query.size, 10);
+
+    let page = 1;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+      page = pageAsNumber;
+    }
+
+    let size = 5;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+      size = sizeAsNumber;
+    }
+    const offset = (page - 1) * size;
     try {
       // Get the user ID from local variables
       const { id: userId } = res.locals;
 
       // Find all cart items for the user
-      const cartItems = await cart.findAll({
+      const cartItems = await cart.findAndCountAll({
         where: { userId },
         include: [
           {
@@ -65,17 +78,33 @@ class cartController {
             attributes: ['name', 'price', 'image'],
           },
         ],
+        limit: size,
+        offset,
       });
 
-      const cartProducts = cartItems.map((item) => ({
+      const totalPages = Math.ceil(cartItems.count / size);
+      const currentPage = page > totalPages ? totalPages : page;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === totalPages ? null : currentPage + 1;
+
+      const cartProducts = cartItems.rows.map((item) => ({
         name: item.product.name,
         price: item.product.price,
         image: item.product.image,
       }));
 
       res.status(200).json({
-        message: 'Cart contents retrieved successfully',
-        cart: cartProducts,
+        ok: true,
+        message: `All ${cartItems.count} Cart contents retrieved successfully`,
+        data: {
+          totalItems: cartItems.count,
+          totalPages,
+          pageSize: size,
+          currentPage,
+          prevPage,
+          nextPage,
+          itemsInCart: cartProducts,
+        },
       });
     } catch (error) {
       return res.status(500).json({

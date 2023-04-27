@@ -50,17 +50,7 @@ import onWay from './Order/onWay.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
-  '/password/requestReset': {
-    post: requestReset,
-  },
-  // CONFIRM RESET PASSWORD
-  '/password/resetPassword/{token}': {
-    post: passwordReset,
-  },
-  // USER SIGNUP
-  '/users/signup': {
-    post: registerUser,
-  },
+
   // USER LOGIN
   '/users/login': {
     post: loginUser,
@@ -69,6 +59,18 @@ const paths = {
   '/users/login/{token}': {
     get: twoFactorAuthentication,
   },
+  // USER SIGNUP
+  '/users/signup': {
+    post: registerUser,
+  },
+  '/password/requestReset': {
+    post: requestReset,
+  },
+  // CONFIRM RESET PASSWORD
+  '/password/resetPassword/{token}': {
+    post: passwordReset,
+  },
+
   // REQUEST NEWSLETTER SUBSCRIPTION
   '/users/requestNewsletter': {
     post: requestSubscription,
@@ -101,7 +103,7 @@ const paths = {
     get: loginUser,
   },
   // CREATE ORDER PAYMENT
-  '/orders/{id}/payment': {
+  '/orders/{id}/checkout': {
     post: addPayment,
   },
   '/products': {
