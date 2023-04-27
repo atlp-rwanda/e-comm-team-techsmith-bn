@@ -8,6 +8,7 @@ import moment from 'moment';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
 import socketio from 'socket.io';
+import fileUpload from 'express-fileupload';
 import allRoutes from './routes/allRoutes.js';
 import db from '../database/models/index.js';
 import './utils/shedulerController.js';
@@ -34,6 +35,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// IMAGE UPLOADS
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB
+  })
+);
+
 app.use(cors({ origin: '*' }));
 app.use('/chat', express.static(views));
 
@@ -55,7 +64,7 @@ const server = app.listen(PORT);
 const io = socketio(server);
 
 // eslint-disable-next-line
-io.on('connection', async (socket) => {
+io.on('connection', async(socket) => {
   // ALTER USER CONNECTION MESSAGE
   const userConnected = {
     message: 'A user has joined the chat',
@@ -85,12 +94,12 @@ io.on('connection', async (socket) => {
       createMessage(message)
         .then((newMessage) => {
           // eslint-disable-next-line
-          console.log(newMessage);
+                    console.log(newMessage);
           io.emit('newMessage', newMessage);
         })
         .catch((error) => {
           // eslint-disable-next-line
-          console.log(error);
+                    console.log(error);
         });
     } catch (error) {
       console.log(error, message);

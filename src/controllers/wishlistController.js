@@ -105,7 +105,7 @@ class wishlistController {
       }
       // RETURN RESPONSE
       res.status(200).json({
-        ok:true,
+        ok: true,
         message: `You have ${wishlistProd.count} products to your wishlist `,
         data: {
           totalItems: wishlistProd.count,
