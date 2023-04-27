@@ -1,6 +1,5 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import { isReadable } from "nodemailer/lib/xoauth2";
 import app from '../server.js'
 
 chai.should()
@@ -9,43 +8,90 @@ const {expect} = chai
 
 // LOGIN THE ADMIN INORDER TO CONFIRM THE ORDER
 
-const adminUser = {
-    "email": "gabs0@gmail.com",
-    "password": "@Gaby12345"
+const buyerUser = {
+    "email": "ikevine@gmail.com",
+     "password": "Kevine@123"
 }
 
 // REGULAR USER
 
-const regularUser = {
-    "email": "gabseller@gmail.com",
+const seller = {
+    "email": "gabs1@gmail.com",
     "password": "@Gaby12345"
 }
 
 
+// order for on way test
+const orderOnWayId = 256;
+
+
 // ORDERS TO BE DELIVERD AND UNKNOWN ORDERS
-const knownOrder = 1001;
-const unknownOrder = 1002;
-// order available but user deleted the account
-const unAvailabelUser = 1003
+const knownOrder = 256;
+const unknownOrder = 10093;
 
 // TOKENS
-let adminCookie = '', regularCookie = '', adminToken = '', regularToken = '';
+let buyerCookie = '', sellerCookie = '', twoFAToken = '';
 
 
-    describe('Admin login', () => {
-      it('should return admin token', (done) => {
-        chai.request(app)
-          .post('/api/users/login')
-          .send(adminUser)
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            adminCookie = res.header['set-cookie'][0];
-            adminToken = res.body.Authorization;
-            console.log(adminCookie);
-            done();
+describe('Login to change order Status', () => {
+    describe('Buyer user login', () => {
+        it('should return 200', (done) => {
+            chai.request(app)
+            .post('/api/users/login')
+            .send(buyerUser)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                buyerCookie = res.header['set-cookie'][0]
+                done()
+            })
+        })
+    })
+
+    // SELLER LOGIN
+    describe('Login the seller and give seller cookie', () => {
+        describe('Seller login', () => {
+            it('should return a 307 status code', (done) => {
+              chai.request(app)
+                .post('/api/users/login')
+                .send(seller)
+                .end((err, res) => {
+                  expect(res).to.have.status(202);
+                  twoFAToken = res.body.token;
+                  done();
+                });
+            });
           });
-      });
-    });
+        
+          // CONFIRM TWO FACTOR AUTHENTICATION
+          describe('Confirm two factor authentication', () => {
+            it('should return a 200 status code', (done) => {
+              chai.request(app)
+                .get(`/api/users/login/${twoFAToken}`)
+                .end((err, res) => {
+                  expect(res).to.have.status(200);
+                  sellerCookie = res.header['set-cookie'][0]
+                  done();
+                });
+            });
+          });
+    })
+  
+})
+
+
+// test the order cancellation set
+describe('Order cancelled successfully', () => {
+    it('Should cancel the order', (done) => {
+        chai.request(app)
+        .put(`/api/orders/cancelled/${knownOrder}`)
+        .set('Cookie', buyerCookie)
+        .end((err, res) => {
+            expect(res).to.have.status(200);
+            done()
+        })
+    })
+})
+
 
 // after login let us deliver and cancel some orders
 
@@ -54,7 +100,7 @@ describe('Delivered Order', () => {
         it('should recognize invalid order id 404', (done) => {
             chai.request(app)
             .put(`/api/orders/delivered/${unknownOrder}`)
-            .set('cookie', adminCookie)
+            .set('cookie', sellerCookie)
             .end((err, res) => {
                 expect(res).to.have.status(404);
                 done()
@@ -68,7 +114,7 @@ describe('Delivered Order', () => {
         it('should update the status to delivered', (done) => {
             chai.request(app)
             .put(`/api/orders/delivered/${knownOrder}`)
-            .set('cookie', adminCookie)
+            .set('cookie', sellerCookie)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 done()
@@ -78,24 +124,18 @@ describe('Delivered Order', () => {
 })
 
 
-// test the order cancellation set
 
-describe('Cancel order and remark it as payed', () => {
-
-    describe('Order cancelled successfully', () => {
-        it('Should cancel the order', (done) => {
-            chai.request(app)
-            .put(`/api/orders/cancelled/${knownOrder}`)
-            .set('Cookie', adminCookie)
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                done()
-            })
+// test order on way
+describe('Order marked as on the way', () => {
+    it('Should mark order as on way', (done) => {
+        chai.request(app)
+        .put(`/api/orders/onWay/${orderOnWayId}`)
+        .set('Cookie', sellerCookie)
+        .end((err, res) => {
+            expect (res).to.have.status(200);
+            done()
         })
     })
-
 })
-
-
 
 

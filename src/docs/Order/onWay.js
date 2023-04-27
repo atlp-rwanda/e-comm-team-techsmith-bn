@@ -1,8 +1,8 @@
-const deliveredOrder = {
+const onWay = {
   // DEFINITION
   tags: ['Order'], // REQUIRED
-  description: 'flag the order as delivered', // REQUIRED
-  operationId: 'delivered order', // REQUIRED
+  description: 'flag order as on way', // REQUIRED
+  operationId: 'order on way', // REQUIRED
 
   // PARAMETERS
   parameters: [
@@ -12,7 +12,7 @@ const deliveredOrder = {
       schema: {
         $ref: '#components/schemas/id',
       },
-      description: 'ID for the order that was delivered',
+      description: 'ID for the order on the way',
       required: true,
     },
   ],
@@ -24,7 +24,7 @@ const deliveredOrder = {
   responses: {
     // SUCCESS
     200: {
-      description: 'Order was marked as delivered',
+      description: 'Order was marked as on way',
       content: {
         'application/json': {
           schema: {
@@ -39,7 +39,7 @@ const deliveredOrder = {
       content: {
         'application/json': {
           schema: {
-            message: 'Order not found or already delivered',
+            message: 'Order not found',
           },
         },
       },
@@ -80,4 +80,4 @@ const deliveredOrder = {
   },
 };
 
-export default deliveredOrder;
+export default onWay;

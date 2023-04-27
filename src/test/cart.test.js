@@ -13,6 +13,12 @@ const buyerLogin = {
     password: "Kevine@123",
 };
 
+const buyerLogin2={
+        
+  email: "irakozefrank@gmail.com",
+  password: "Demo@12345"
+
+  };
 /// COOKIE
 let buyerCookie = ''
 // BUYER LOGIN REQUEST
