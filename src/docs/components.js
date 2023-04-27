@@ -91,7 +91,7 @@ const components = {
         description: {
           $ref: '#/components/schemas/string',
         },
-        userId: {
+        sellerId: {
           $ref: '#components/schemas/id',
         },
         // EXPITY DATE
@@ -893,6 +893,49 @@ const components = {
         },
       },
     },
+    // CREATE PRODUCT AS AN ADMIN
+    CreateProductAdmin: {
+      type: 'object',
+      properties: {
+        // NAME
+        name: {
+          $ref: '#/components/schemas/name',
+        },
+        // IMAGE
+        image: {
+          type: 'array',
+          description: 'Minimum of 4 images, Maximum of 8 images',
+          example: '["https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png]',
+        },
+        // CONDITION
+        condition: {
+          $ref: '#/components/schemas/string',
+        },
+        // CATEGORY ID
+        categoryId: { $ref: '#/components/schemas/id' },
+        // PRICE
+        price: {
+          type: 'number',
+          description: 'Price of the product',
+          example: 720,
+        },
+        // DESCRIPTION
+        description: {
+          $ref: '#/components/schemas/string',
+        },
+        sellerId: {
+          type: 'number',
+          description: 'ID for the seller for which we are creating the product',
+          example: 36,
+        },
+        // EXPITY DATE
+        expiryDate: {
+          type: 'string',
+          description: 'Date when the product is going to expire',
+          example: '2021-07-01T12:00:00.000Z',
+        },
+      },
+    }
   },
 };
 export default components;

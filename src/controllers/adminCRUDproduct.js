@@ -17,8 +17,8 @@ class productController {
       description,
       expiryDate,
       condition,
+      sellerId,
     } = req.body;
-    const { id } = res.locals;
     try {
       const duplicateProduct = await product.findOne({
         where: { name },
@@ -35,7 +35,7 @@ class productController {
       }
       // ELSE CREATE NEW PRODUCT
       const newProduct = await product.create({
-        userId: id,
+        userId: sellerId,
         name,
         price,
         categoryId,

@@ -22,6 +22,7 @@ const goodProduct = {
     categoryId: 70,
     condition: "New",
     description: "New Samsung A10 released in 2021",
+    sellerId: 36,
     expiryDate: "2023-05-06T17:30:00.000Z"
 }
 const adminProduct = {
@@ -37,6 +38,7 @@ const adminProduct = {
         categoryId: 70,
         condition: "New",
         description: "New Samsung A10 released in 2021",
+        sellerId: 36,
         expiryDate: "2023-05-06T17:30:00.000Z"
     }
     //BAD PRODUCT
@@ -90,7 +92,8 @@ const productoUpdate = {
     ],
     categoryId: 50,
     price: 5000,
-    description: 'The fastest on baterry'
+    description: 'The fastest on baterry',
+    sellerId: 36
 }
 
 // SELLER LOGIN REQUEST
