@@ -44,6 +44,8 @@ const update={
   quantity:2,
 }
 
+const orderId = 267;
+
 let cookie=""
 // ADMIN CAN GET ALL ORDERS
 describe('Admin user', () => {
@@ -117,7 +119,7 @@ describe("CRUD order by buyer",()=>{
 
   it("Should be able to update order",(done)=>{
     chai.request(app)
-    .put("/api/orders/267")
+    .put(`/api/orders/${orderId}`)
     .send(update)
     .set('cookie',cookie)
     .end((err,res)=>{

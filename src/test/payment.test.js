@@ -6,15 +6,17 @@ chai.should();
 chai.use(chaiHttp);
 
 const buyerLogin = {
-    email: 'payee@gmail.com',
-    password: 'Password@00',
+  email: 'payee@gmail.com',
+  password: 'Password@00',
+};
+
+const userLogin = {
+    email: 'joshua@gmail.com',
+    password: 'Testing@123',
   },
-  userLogin = {
-    email: 'otheruser@gmail.com',
-    password: 'Password@00',
-  },
-  orderId = 1001,
-  otherOrderId = 1003,
+  orderExists = 1001,
+  orderId = 68,
+  otherOrderId = 266,
   card = {
     number: 4242424242424242,
     exp_month: 12,
@@ -22,8 +24,7 @@ const buyerLogin = {
     cvc: 123,
   };
 
-let buyerCookie = '',
-  userCookie = '';
+let buyerCookie = '', otherUserCookie = '';
 
 /**
  * USER LOGIN TESTS
@@ -43,7 +44,7 @@ describe('User login', () => {
         });
     });
   });
-  // USER LOGIN
+  // OTHER USER LOGIN
   describe('Given a user wants to login', () => {
     it('should login a user', (done) => {
       chai
@@ -51,8 +52,8 @@ describe('User login', () => {
         .post('/api/users/login')
         .send(userLogin)
         .end((err, res) => {
-          res.should.have.status(202);
-          userCookie = res.header['set-cookie'][0];
+          res.should.have.status(200);
+          otherUserCookie = res.header['set-cookie'][0];
           done();
         });
     });
@@ -68,11 +69,25 @@ describe('Payment Test', () => {
     it('should return conflict 409 order already paid', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${orderExists}/checkout`)
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
           res.should.have.status(409);
+          done();
+        });
+    });
+  });
+  // USER NOT BUYER
+  describe('Given a logged in user is not a buyer', () => {
+    it('should return error 403 forbidden', (done) => {
+      chai
+        .request(app)
+        .post(`/api/orders/${orderId}/checkout`)
+        .send({ card })
+        .set('cookie', otherUserCookie)
+        .end((err, res) => {
+          res.should.have.status(403);
           done();
         });
     });
@@ -82,7 +97,7 @@ describe('Payment Test', () => {
     it('should return error 404 order not found', (done) => {
       chai
         .request(app)
-        .post('/api/orders/100000/pay')
+        .post('/api/orders/100000/checkout')
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
@@ -96,7 +111,7 @@ describe('Payment Test', () => {
     it('should throw error of 401 unauthorized', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${orderId}/checkout`)
         .send(card)
         .end((err, res) => {
           res.should.have.status(401);
@@ -104,34 +119,33 @@ describe('Payment Test', () => {
         });
     });
   });
-  // USER LOGGED IN BUT NOT A BUYER
-  describe('Given a user is logged in but not a buyer', () => {
-    it('should return error 403 forbidden', (done) => {
+  // USER DOES NOT OWN ORDER
+  describe('Given a user does not own order', () => {
+    it('should throw error of 403 unauthorized', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${otherOrderId}/checkout`)
         .send(card)
-        .set('cookie', userCookie)
+        .set('cookie', buyerCookie)
         .end((err, res) => {
           res.should.have.status(403);
           done();
         });
     });
   });
-  // USER LOGGED IN BUT DOES NOT OWN ORDER
-    // describe('Given a user is logged in but does not own the order', () => {
-    //     it('should return error 403 forbidden', (done) => {
-    //         chai
-    //         .request(app)
-    //         .post(`/api/orders/${otherOrderId}/pay`)
-    //         .send(card)
-    //         .set('cookie', buyerCookie)
-    //         .end((err, res) => {
-    //             res.should.have.status(403);
-    //             done();
-    //         });
-    //     });
-    // });
+  // CLEANUP PAYMENT
+  describe('Clear payment after successful test', () => {
+    it('should return payment successful', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/payments/${orderId}`)
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
 });
 
 // GET ALL PAYMENTS

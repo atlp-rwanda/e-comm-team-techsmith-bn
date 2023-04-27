@@ -9,7 +9,7 @@ import isBuyer from '../middlewares/verifyIsBuyer';
 const router = express.Router();
 
 // CREATE A NEW PAYMENT
-router.post('/:id/pay', validatePayment, PaymentsController.createPayment);
+router.post('/:id/checkout', validatePayment, PaymentsController.createPayment);
 
 // GET ALL ORDERS
 router.get('/', verifyIsAdmin, OrderController.getOrders);

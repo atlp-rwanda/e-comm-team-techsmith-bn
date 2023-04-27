@@ -26,7 +26,7 @@ class cartController {
       const cartProductExists = await cart.findOne({
         where: { productId, userId },
       });
-      if (cartProductExists) {
+      if (!cartProductExists === false) {
         return res.status(409).json({
           message: 'Product already in cart',
         });
