@@ -10,8 +10,7 @@ const { expect } = chai;
 
 const goodProduct = {
     name: `product${makeid(10)}`,
-    image: [
-        "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: ["https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=80"
@@ -25,8 +24,7 @@ const goodProduct = {
 };
 const adminProduct = {
     name: `product${makeid(10)}`,
-    image: [
-        "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: ["https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=80"
@@ -42,10 +40,10 @@ const adminProduct = {
 const badProduct = {
     name: `product${makeid(10)}`,
     image: [
-        "https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg",
-        "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=80"
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
+        'https://www.pngwing.com/en/free-png-zbfan',
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
     ],
     price: 85000,
     condition: 'New',
@@ -91,8 +89,7 @@ const sellerCollection = [
 
 const productoUpdate = {
     name: 'productcqhwcvig',
-    image: [
-        "https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: ["https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800",
         "https://images.pexels.com/photos/1168940/pexels-photo-1168940.jpeg?auto=compress&cs=tinysrgb&w=80"
@@ -271,7 +268,7 @@ describe('Add  product', () => {
                     chai
                         .request(app)
                         .put('/api/products/-1')
-                        .send(adminProduct)
+                        .send(productoUpdate)
                         .set('cookie', sellerCookie)
                         .end((err, res) => {
                             expect(res).to.have.status(404);
@@ -525,7 +522,7 @@ describe('CRUD product by admin', () => {
             chai
                 .request(app)
                 .put('/api/admin/products/262')
-                .send(adminProduct)
+                .send(goodProduct)
                 .set('cookie', adminCookie)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
@@ -578,7 +575,7 @@ describe('Delete a specific  product', () => {
 });
 
 describe('get product from your collection', () => {
-    it('should returnn status code of 200', (done) => {
+    it('should return status code of 200', (done) => {
         chai
             .request(app)
             .get('/api/products/mySingleProduct/4')
@@ -625,7 +622,7 @@ describe('Update a product not in your collection', () => {
         chai
             .request(app)
             .put('/api/products/-1')
-            .send(adminProduct)
+            .send(goodProduct)
             .set('cookie', sellerCookie)
             .end((err, res) => {
                 expect(res).to.have.status(404);
