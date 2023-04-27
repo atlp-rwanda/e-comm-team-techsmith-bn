@@ -45,6 +45,7 @@ import createFeedback from './Feedback/createFeedback.js';
 import getFeedback from './Feedback/getfeedbacks.js';
 import getAllProductToWishlist from './Wishlist/getAllProductToWishlist.js';
 import deleteProductToWishlist from './Wishlist/deleteProductToWishlist.js';
+import updateItemInCart from './Cart/updateItemsInCart.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -182,9 +183,10 @@ const paths = {
   // ADDING ITEMS IN CART
   '/cart/{id}': {
     post: addItemInCart,
+    put: updateItemInCart,
   },
   // VIEWING AND CLEARING ITEMS IN CART
-  '/cart': {
+  '/cart/': {
     get: viewItemInCart,
     delete: clearItemsInCart,
   },

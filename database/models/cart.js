@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    totalPrice: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
   }, {
     sequelize,
     modelName: 'cart',

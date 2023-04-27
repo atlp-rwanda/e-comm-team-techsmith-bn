@@ -5,6 +5,7 @@ const validateProductInput = (schema) => (payload) =>
 const productSchema = Joi.object({
   name: Joi.string().trim().required(),
   price: Joi.number().min(1).required(),
+  quantity: Joi.number().min(1),
   categoryId: Joi.number().required(),
   description: Joi.string().trim().required(),
   condition: Joi.string().trim(),
@@ -14,7 +15,7 @@ const productSchema = Joi.object({
     .max(8)
     .unique(),
   expiryDate: Joi.date().iso().allow(null),
-  sellerId: Joi.number().required(),
+  sellerId: Joi.number(),
 });
 const validateInput = validateProductInput(productSchema);
 export default validateInput;

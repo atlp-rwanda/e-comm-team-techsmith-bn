@@ -43,7 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity:{
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      validate: {
+        min:1,
+      }
     },
     amount: {
       allowNull: false,

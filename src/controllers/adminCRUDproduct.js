@@ -11,6 +11,7 @@ class productController {
   static async addProduct(req, res) {
     const {
       name,
+      quantity,
       price,
       categoryId,
       image,
@@ -37,6 +38,7 @@ class productController {
       const newProduct = await product.create({
         userId: sellerId,
         name,
+        quantity,
         price,
         categoryId,
         description,
@@ -126,6 +128,7 @@ class productController {
   static async updateProduct(req, res) {
     const {
       name,
+      quantity,
       price,
       categoryId,
       image,
@@ -154,6 +157,7 @@ class productController {
       const updateProduct = await product.update(
         {
           name,
+          quantity,
           price,
           categoryId,
           image,

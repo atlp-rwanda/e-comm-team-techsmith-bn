@@ -16,7 +16,6 @@ const notOrdered = {
 }
 
 const orderedNotPaid = {
-    productId:2,
     rating:4,
     feedback:`${makeid(10)}`
 }

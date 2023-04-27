@@ -10,6 +10,12 @@ const components = {
         'ID for different modals including products, users, orders, roles,wishlist, etc.',
       example: 1,
     },
+    // QUANTITY
+    quantity: {
+      type: 'number',
+      description: 'quantity of products in the cart for the buyer',
+      example: 4,
+    },
     // TOKEN
     token: {
       type: 'string',
@@ -42,6 +48,14 @@ const components = {
       description: 'price of products',
       example: 4000,
     },
+    // TOTAL PRICE
+    totalPrice: {
+      type: 'number',
+      description:
+        ' total price of a product containing more quantity in the cart',
+      example: 10000,
+    },
+
     // IMAGE
     image: {
       type: 'string',
@@ -562,10 +576,7 @@ const components = {
         productId: {
           $ref: '#/components/schemas/id',
         },
-        userId: {
-          $ref: '#/components/schemas/id',
-        },
-        quantity: {
+        desiredQuantity: {
           type: 'number',
           description: 'quantity to be purchased',
           example: 2000,
@@ -584,11 +595,6 @@ const components = {
         quantity: {
           type: 'number',
           description: 'quantity to be purchased',
-          example: 2000,
-        },
-        amount: {
-          type: 'number',
-          description: 'Amount to be paid',
           example: 2000,
         },
       },
@@ -734,6 +740,15 @@ const components = {
         },
       },
     },
+    // UPDATE ITEMS
+    updateItem: {
+      type: 'object',
+      properties: {
+        desiredQuantity: {
+          $ref: '#/components/schemas/quantity',
+        },
+      },
+    },
     // VIEW CART
     retrieveResponse: {
       type: 'object',
@@ -741,6 +756,9 @@ const components = {
         // PRODUCT NAME
         name: {
           $ref: '#/components/schemas/name',
+        },
+        quantity: {
+          $ref: '#/components/schemas/quantity',
         },
         // PRICE
         price: {
@@ -905,7 +923,8 @@ const components = {
         image: {
           type: 'array',
           description: 'Minimum of 4 images, Maximum of 8 images',
-          example: '["https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png]',
+          example:
+            '["https://www.google.com/imgres?imgurl=https%3A%2F%2Fages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2F%2ages.unsplash.png","https://www.google.com/imgres?imgurl=https%3A%2FFimages.unsplash.png]',
         },
         // CONDITION
         condition: {
@@ -925,7 +944,8 @@ const components = {
         },
         sellerId: {
           type: 'number',
-          description: 'ID for the seller for which we are creating the product',
+          description:
+            'ID for the seller for which we are creating the product',
           example: 36,
         },
         // EXPITY DATE
@@ -935,7 +955,7 @@ const components = {
           example: '2021-07-01T12:00:00.000Z',
         },
       },
-    }
+    },
   },
 };
 export default components;

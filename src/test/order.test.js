@@ -27,21 +27,21 @@ const orderUser={
   password:'Kevine@123'
 }
 const order1= {
-  productId:115,
+  productId:568,
   userId:394, 
-  quantity:23,
-  amount:5000
+  desiredQuantity:1,
+  amount:900
  }
 const unvailableProduct={
   productId:23456778,
   userId:394, 
-  quantity:23,
+  desiredQuantity:23,
   amount:5000
 }
 
 
 const update={
-  quantity:10,
+  quantity:2,
 }
 
 let cookie=""
@@ -97,7 +97,7 @@ describe("CRUD order by buyer",()=>{
       .send(order1)
       .set('cookie',cookie)
       .end((err,res)=>{
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(201)
         done()
       })
     })
@@ -117,7 +117,7 @@ describe("CRUD order by buyer",()=>{
 
   it("Should be able to update order",(done)=>{
     chai.request(app)
-    .put("/api/orders/232")
+    .put("/api/orders/267")
     .send(update)
     .set('cookie',cookie)
     .end((err,res)=>{
@@ -128,7 +128,7 @@ describe("CRUD order by buyer",()=>{
 
   it("should be able to delete order",(done)=>{
     chai.request(app)
-    .delete('/api/orders/900')
+    .delete('/api/orders/999')
     .set('cookie',cookie)
     .end((err,res)=>{
       expect(res).to.have.status(404)
@@ -137,5 +137,4 @@ describe("CRUD order by buyer",()=>{
   })
 
 })
-
 

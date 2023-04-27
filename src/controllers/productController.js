@@ -18,6 +18,7 @@ class ProductController {
   static async addProduct(req, res) {
     const {
       name,
+      quantity,
       price,
       categoryId,
       image,
@@ -46,6 +47,7 @@ class ProductController {
       const newProduct = await product.create({
         userId: id,
         name,
+        quantity,
         price,
         categoryId,
         description,
