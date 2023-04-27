@@ -4,7 +4,27 @@ const getUsers = {
   operationId: 'getusers',
 
   // parameters
-  parameters: [],
+  parameters: [
+    {
+      name: 'page',
+      in: 'query',
+      description: 'Page number',
+      required: true,
+      schema: {
+        type: 'integer',
+      },
+    },
+    {
+      name: 'pageSize',
+      in: 'query',
+      description: 'Number of items per page',
+      required: false,
+      schema: {
+        type: 'integer',
+        default: 20,
+      },
+    },
+  ],
 
   // request body
   requestBody: {},

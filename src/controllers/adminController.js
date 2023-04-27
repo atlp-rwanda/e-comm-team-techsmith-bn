@@ -10,7 +10,24 @@ class adminControllers {
   // GET ALL USERS
   static async getUsers(req, res) {
     try {
-      const allUsers = await user.findAll({
+      const pageAsNumber = Number.parseInt(req.query.page, 10);
+      const sizeAsNumber = Number.parseInt(req.query.size, 10);
+
+      let page = 1;
+      if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+        page = pageAsNumber;
+      }
+
+      let size = 5;
+      if (
+        !Number.isNaN(sizeAsNumber) &&
+        sizeAsNumber > 0 &&
+        sizeAsNumber < 10
+      ) {
+        size = sizeAsNumber;
+      }
+      const offset = (page - 1) * size;
+      const allUsers = await user.findAndCountAll({
         include: {
           model: Role,
           as: 'role',
@@ -19,10 +36,30 @@ class adminControllers {
         attributes: {
           exclude: ['password'],
         },
+        limit: size,
+        offset,
       });
+      const totalPages = Math.ceil(allUsers.count / size);
+      const currentPage = page > totalPages ? totalPages : page;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === totalPages ? null : currentPage + 1;
+
+      if (allUsers.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ message: `There is no items found on page ${page}` });
+      }
       return res.status(200).json({
-        message: ' List of all users',
-        data: allUsers,
+        message: `List of all ${allUsers.count} users`,
+        data: {
+          totalItems: allUsers.count,
+          totalPages,
+          pageSize: size,
+          currentPage,
+          prevPage,
+          nextPage,
+          payments: allUsers.rows,
+        },
       });
     } catch (error) {
       return res.status(500).json({

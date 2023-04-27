@@ -91,11 +91,25 @@ class PaymentsController {
 
   // GET PAYMENTS
   static async getPayments(req, res) {
+    const pageAsNumber = Number.parseInt(req.query.page, 10);
+    const sizeAsNumber = Number.parseInt(req.query.size, 10);
+
+    let page = 1;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+      page = pageAsNumber;
+    }
+
+    let size = 5;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+      size = sizeAsNumber;
+    }
+    const offset = (page - 1) * size;
+
     try {
       // GET USER FROM LOCALS
       const { id } = res.locals;
       // GET PAYMENTS
-      const getPayments = await payment.findAll({
+      const getPayments = await payment.findAndCountAll({
         where: { userId: id },
         include: [
           {
@@ -104,11 +118,31 @@ class PaymentsController {
             attributes: ['amount', 'status'],
           },
         ],
+        limit: size,
+        offset,
       });
+      const totalPages = Math.ceil(getPayments.count / size);
+      const currentPage = page > totalPages ? totalPages : page;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === totalPages ? null : currentPage + 1;
+
+      if (getPayments.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ message: `There is no items found on page ${page}` });
+      }
       return res.status(200).json({
         ok: true,
-        message: 'Payments retrieved successfully',
-        data: getPayments,
+        message: `All ${getPayments.count} Payments retrieved successfully`,
+        data: {
+          totalItems: getPayments.count,
+          totalPages,
+          pageSize: size,
+          currentPage,
+          prevPage,
+          nextPage,
+          payments: getPayments.rows,
+        },
       });
     } catch (error) {
       return res.status(500).json({

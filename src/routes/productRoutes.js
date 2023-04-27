@@ -9,6 +9,7 @@ const router = express.Router();
 
 // GET ALL PRODUCTS
 router.get('/', checkIsLoggedIn, ProductController.findAllproducts);
+
 router.get('/inStock', ProductController.allAvailableProducts);
 router.get('/inMyStock', isSeller, ProductController.availableProducts);
 router.get('/myStock', isSeller, ProductController.myCollectionProducts);
