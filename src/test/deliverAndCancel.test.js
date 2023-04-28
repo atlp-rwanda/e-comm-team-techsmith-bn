@@ -116,7 +116,7 @@ describe('Delivered Order', () => {
             .put(`/api/orders/delivered/${knownOrder}`)
             .set('cookie', sellerCookie)
             .end((err, res) => {
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(401);
                 done()
             })
         })

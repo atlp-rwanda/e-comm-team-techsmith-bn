@@ -53,6 +53,17 @@ const addPayment = {
         },
       },
     },
+    // FORBIDDEN
+    403: {
+      description: 'Cannot pay for an order that does not belong to you',
+      content: {
+        'application/json': {
+          schema: {
+            message: 'You are not authorized to make this payment',
+          },
+        },
+      },
+    },
     // CONFLICT
     409: {
       description: 'Order already paid for',
