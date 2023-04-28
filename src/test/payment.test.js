@@ -68,7 +68,7 @@ describe('Payment Test', () => {
     it('should return conflict 409 order already paid', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${orderId}/checkout`)
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
@@ -82,7 +82,7 @@ describe('Payment Test', () => {
     it('should return error 404 order not found', (done) => {
       chai
         .request(app)
-        .post('/api/orders/100000/pay')
+        .post('/api/orders/100000/checkout')
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
@@ -96,7 +96,7 @@ describe('Payment Test', () => {
     it('should throw error of 401 unauthorized', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${orderId}/checkout`)
         .send(card)
         .end((err, res) => {
           res.should.have.status(401);
@@ -109,7 +109,7 @@ describe('Payment Test', () => {
     it('should return error 403 forbidden', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/pay`)
+        .post(`/api/orders/${orderId}/checkout`)
         .send(card)
         .set('cookie', userCookie)
         .end((err, res) => {

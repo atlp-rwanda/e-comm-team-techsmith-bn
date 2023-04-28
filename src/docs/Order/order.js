@@ -49,7 +49,8 @@ const getOrders = {
       content: {
         'application/json': {
           schema: {
-            message: 'You are not logged in',
+            message:
+              'You are not logged in Or you need to login as admin to perform this action',
           },
         },
       },

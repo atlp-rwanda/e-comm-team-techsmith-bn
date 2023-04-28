@@ -33,7 +33,7 @@ class delivery {
       }
 
       // CHECK IF THE ORDER WAS PAID
-      if (order.status !== 'paid') {
+      if (order.status !== 'onWay' || order.status !=='delivered') {
         return res.status(401).json({
           message: 'Order is not yet paid or already delivered!',
         });
