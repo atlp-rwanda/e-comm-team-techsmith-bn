@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const { Op } = Sequelize;
 
 const { review, order, product, payment, user } = db;
+const logger = require('./logger');
 
 class feedbackController {
   //   CREATING FEEDBACK
@@ -19,6 +20,9 @@ class feedbackController {
       // CHECKING IF THE USER HAS MADE AN ORDER
       const orderPlacement = await order.findOne({ where: { productId } });
       if (!orderPlacement) {
+        logger.feedbackLogger.error(
+          '/POST statusCode: 404 : No feedback made, user need to make order'
+        );
         return res.status(404).json({
           message: 'First make a order!',
         });
@@ -39,6 +43,9 @@ class feedbackController {
         ],
       });
       if (!paymentConfirmation) {
+        logger.feedbackLogger.error(
+          '/POST statusCode: 404 : No feedback made, user need to make payment'
+        );
         return res.status(404).json({
           message: 'First complete payment process!',
         });
@@ -52,13 +59,18 @@ class feedbackController {
         rating,
         feedback,
       });
-
+      logger.feedbackLogger.info(
+        '/POST statusCode: 201 :  feedback received successfully'
+      );
       return res.status(201).json({
         ok: true,
         message: 'Thanks for your feedback!',
         data: saveReview,
       });
     } catch (error) {
+      logger.feedbackLogger.error(
+        `/POST statusCode: 500 : No feedback made: ${error.message} `
+      );
       return res.status(500).json({
         message: error.message,
       });
@@ -72,6 +84,7 @@ class feedbackController {
       // CHECKING IF PRODUCT EXISTS
       const checkProduct = await product.findOne({ where: { id: pId } });
       if (!checkProduct) {
+        logger.productLogger.error('/GET statusCode: 404 : Item not found ');
         return res.status(404).json({
           message: 'Product does not exists!',
         });
@@ -82,6 +95,9 @@ class feedbackController {
         where: { productId: pId },
       });
       if (!paymentConfirmation) {
+        logger.feedbackLogger.error(
+          '/GET statusCode: 404 : No feedback found, product never been purchased'
+        );
         return res.status(404).json({
           message: 'The product has never been purchased',
         });
@@ -107,17 +123,25 @@ class feedbackController {
       });
       //   CHECKING IF THE BUYER GAVE FEEDBACK ON THE PRODUCT
       if (orders.length <= 0) {
+        logger.feedbackLogger.info(
+          '/GET statusCode: 200 : No feedback from customer found'
+        );
         return res.status(200).json({
           ok: true,
           message: 'We have no feedback from our customer yet!',
         });
       }
-
+      logger.feedbackLogger.info(
+        '/GET statusCode: 200 : Feedback fetched sucessfully'
+      );
       return res.status(200).json({
         ok: true,
         data: orders,
       });
     } catch (error) {
+      logger.productLogger.error(
+        ` / GET statusCode: 500: Fetching feedbacks failed: ${error.message}`
+      );
       return res.status(500).json({
         message: error.message,
       });

@@ -5,6 +5,8 @@ import db from '../../database/models/index.js';
 dotenv.config();
 // IMPORT MODEL PRODUCT
 const { product, cart } = db;
+const logger = require('./logger');
+
 class cartController {
   static async addToCart(req, res) {
     try {
@@ -17,6 +19,9 @@ class cartController {
 
       // CHECK IF PRODUCT IS NOT AVAILABLE
       if (!prod) {
+        logger.cartLogger.error(
+          '/POST statusCode: 404 :Item not found in stock '
+        );
         return res.status(404).json({
           message: 'Product not found',
         });
@@ -27,6 +32,9 @@ class cartController {
         where: { productId, userId },
       });
       if (!cartProductExists === false) {
+        logger.cartLogger.error(
+          '/POST statusCode: 409 :Duolicated fund in cart '
+        );
         return res.status(409).json({
           message: 'Product already in cart',
         });
@@ -38,11 +46,17 @@ class cartController {
       });
 
       // RETURN RESPONSE
+      logger.cartLogger.info(
+        '/POST statusCode: 201 :Item added in cart succesfully '
+      );
       res.status(201).json({
         message: 'Items are added successfully',
       });
       // CATCH ERROR
     } catch (error) {
+      logger.cartLogger.error(
+        `/POST statusCode: 500 :Adding Item in cart failed: ${error.message} `
+      );
       return res.status(500).json({
         status: 'Adding product into cart failed',
         message: error.message,
@@ -92,7 +106,9 @@ class cartController {
         price: item.product.price,
         image: item.product.image,
       }));
-
+      logger.cartLogger.info(
+        '/GET statusCode: 200 : Retrieved content in cart'
+      );
       res.status(200).json({
         ok: true,
         message: `All ${cartItems.count} Cart contents retrieved successfully`,
@@ -107,6 +123,9 @@ class cartController {
         },
       });
     } catch (error) {
+      logger.cartLogger.error(
+        `/GET statusCode: 500 : Fetching product in cart failed : ${error.message}`
+      );
       return res.status(500).json({
         status: 'Failed to retrieve cart contents',
         message: error.message,
@@ -122,11 +141,14 @@ class cartController {
       await cart.destroy({
         where: { userId },
       });
-
+      logger.cartLogger.info(
+        '/DELETE statusCode: 200 : Cart cleared succesfully'
+      );
       res.status(200).json({
         message: 'Cart cleared successfully',
       });
     } catch (error) {
+      logger.cartLogger.error('/DELETE statusCode: 500 : Clear cart failed');
       return res.status(500).json({
         status: 'Failed to clear cart',
         message: error.message,
@@ -147,6 +169,9 @@ class cartController {
         },
       });
       if (desiredQuantity > quantity) {
+        logger.cartLogger.info(
+          '/PUT  :User required more quantity than in stock'
+        );
         return res.json({
           Message: `The remaining quantity in stock is ${quantity}`,
         });
@@ -164,6 +189,7 @@ class cartController {
       });
 
       if (!cartItem) {
+        logger.cartLogger.error('/PUT statusCode: 404 : Cart item not found');
         return res.status(404).json({
           message: 'Cart item not found',
         });
@@ -193,12 +219,17 @@ class cartController {
         image: item.product.image,
       }));
       // console.log(updatedCartItem.desiredQuantity)
-
+      logger.cartLogger.info(
+        '/PUT statusCode: 200 : Cart item updated succesfully'
+      );
       res.status(200).json({
         message: 'Cart item updated successfully',
         cart: cartItems,
       });
     } catch (error) {
+      logger.cartLogger.info(
+        `/PUT statusCode: 500 : Updating cart failed : ${error.message}`
+      );
       return res.status(500).json({
         status: 'Failed to update cart item',
         message: error.message,

@@ -11,7 +11,7 @@ dotenv.config();
 
 // LOAD SECRET
 const { STRIPE_SECRET_KEY } = process.env;
-
+const logger = require('./logger');
 // CONFIGURE STRIPE
 const stripePayment = stripe(STRIPE_SECRET_KEY);
 
@@ -23,7 +23,7 @@ class PaymentsController {
     const { card } = req.body;
     try {
       // eslint-disable-next-line
-      console.log(findProduct, findOrder, findUser);
+            console.log(findProduct, findOrder, findUser);
       // CREATE STRIPE TOKEN
       const stripeToken = await stripePayment.tokens.create({
         card,
@@ -71,6 +71,9 @@ class PaymentsController {
         );
         const { status } = updateOrder;
         const { name, email } = findUser;
+        logger.paymentLogger(
+          '/POST statusCode: 201 : Payment completed successfully'
+        );
         return res.status(201).json({
           ok: true,
           message: 'Payment successfully added and order status updated',
@@ -83,6 +86,7 @@ class PaymentsController {
         });
       }
     } catch (error) {
+      logger.orderLogger.error('/POST statusCode: 500 :Payment failed');
       return res.status(500).json({
         message: error.message,
       });

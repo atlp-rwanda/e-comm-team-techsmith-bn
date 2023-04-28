@@ -4,6 +4,7 @@ import { validateEmail, validatePassword } from '../utils/userValidation.js';
 
 // LOAD MODELS FROM DATABASE
 const { user, role: Role } = db;
+const logger = require('./logger');
 
 /* ADMIN CONTROLLER */
 class adminControllers {
@@ -45,10 +46,16 @@ class adminControllers {
       const nextPage = currentPage === totalPages ? null : currentPage + 1;
 
       if (allUsers.rows.length === 0) {
+        logger.userLogger.info(
+          ' /GET statusCode: 404 : No users found on a page '
+        );
         return res
           .status(404)
           .json({ message: `There is no items found on page ${page}` });
       }
+      logger.userLogger.info(
+        ' /GET statusCode: 200 : List of users on a page '
+      );
       return res.status(200).json({
         message: `List of all ${allUsers.count} users`,
         data: {
@@ -62,6 +69,7 @@ class adminControllers {
         },
       });
     } catch (error) {
+      logger.userLogger.error(` /GET statusCode: 500 :${error.message}`);
       return res.status(500).json({
         message: error.message,
       });
@@ -79,15 +87,19 @@ class adminControllers {
 
       // condition
       if (!userToBeDeleted) {
+        logger.userLogger.error(' /DELETE statusCode: 404 : User not found');
         return res.status(404).json({
           message: `user with id: ${id} is not found`,
         });
       }
-
+      logger.userLogger.error(' /GET statusCode: 204 : User deleted by admin');
       return res.status(204).json({
         message: `User with id: ${id} is deleted`,
       });
     } catch (error) {
+      logger.userLogger.error(
+        ` /DELETE statusCode: 500 : Delete user by Admin failed ${error.message}`
+      );
       return res.status(500).json({
         message: error.message,
       });
@@ -103,6 +115,7 @@ class adminControllers {
       const validPassword = validatePassword(password);
       // INVALID EMAIL
       if (!validEmail || !validPassword) {
+        logger.userLogger.error(' /POST statusCode: 400 : Invalid credentials');
         return res.status(400).json({
           message: 'Invalid email or password',
         });
@@ -113,6 +126,7 @@ class adminControllers {
       // check if user exist
       const userExists = await user.findOne({ where: { email } });
       if (userExists) {
+        logger.userLogger.error(' /GET statusCode: 409 : User already exists');
         return res.status(409).json({
           message: 'User already exists',
           user: userExists,
@@ -137,12 +151,15 @@ class adminControllers {
       });
 
       const { password: userPassword, ...userDetails } = newUser.dataValues;
-
+      logger.userLogger.info(' /POST statusCode: 201 : User created');
       return res.status(201).json({
         message: 'User created successfully',
         data: userDetails,
       });
     } catch (error) {
+      logger.userLogger.error(
+        ` /POST statusCode: 500  : Create user failed ${error.message}`
+      );
       return res.status(500).json({ message: error.message });
     }
   }
@@ -164,16 +181,20 @@ class adminControllers {
       );
 
       if (!userUpdated) {
+        logger.userLogger.error(' /PUT statusCode: 404 : User not found');
         return res.status(404).json({
           message: `user with id: ${id} is not found`,
         });
       }
-
+      logger.userLogger.info(' /PUT statusCode: 200 : User updated');
       return res.status(200).json({
         message: `User with id:${id} is updated successfully`,
         data: userUpdated,
       });
     } catch (error) {
+      logger.userLogger.error(
+        ` /PUT statusCode: 500 : User not updated ${error.message}`
+      );
       return res.status(500).json({
         message: error.message,
       });

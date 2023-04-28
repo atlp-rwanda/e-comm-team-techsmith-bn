@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { getToken } from '../utils/cookies.js';
+import logger from '../controllers/logger.js';
 
 // LOAD ENVIRONMENT VARIABLES
 const { USER_SECRET: secret } = process.env;
@@ -10,6 +11,9 @@ const isSeller = async (req, res, next) => {
     const token = getToken(req);
     // CHECK IF TOKEN IS NOT VALID
     if (!token) {
+      logger.userLogger.error(
+        '/POST statusCode: 401 : Unathorised access, Login required'
+      );
       return res.status(401).json({
         message: 'Unauthorized access. Please login!',
       });
@@ -18,6 +22,9 @@ const isSeller = async (req, res, next) => {
     const { id, role } = jwt.verify(token, secret);
     // CHECK IF USER IS NOT A SELLER
     if (role !== 2) {
+      logger.userLogger.error(
+        '/POST statusCode: 403 : Unathorised user need to access a route'
+      );
       return res.status(403).json({
         message:
           'Unauthorized access. Only seller is allowed to perform this action!',
@@ -27,6 +34,9 @@ const isSeller = async (req, res, next) => {
     res.locals = { id, role };
     next();
   } catch (error) {
+    logger.userLogger.error(
+      `/POST statusCode: 500 : Login failed ${error.message} `
+    );
     res.status(500).json({
       message: error.message,
     });

@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 
 import { user as User } from '../../database/models';
 
+const logger = require('./logger');
+
 dotenv.config();
 
 // Define the nodemailer transporter object
@@ -32,6 +34,7 @@ async function sendResetEmail(user) {
   };
   await transporter.sendMail(mailOptions);
 }
+
 function verifyResetToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.USER_SECRET, (err, decoded) => {
@@ -56,6 +59,9 @@ async function requestReset(req, res) {
   const { email } = req.body;
   const foundUser = await User.findOne({ where: { email } });
   if (!foundUser) {
+    logger.userLogger.error(
+      '/PUT statusCode: 404 : Email TO RESET password not found'
+    );
     return res.status(404).json({
       error: 'Email not found',
     });
@@ -66,6 +72,7 @@ async function requestReset(req, res) {
   res.cookie('token', token, { httpOnly: true, maxAge: 3600, path: '/' });
   await foundUser.save();
   await sendResetEmail(foundUser);
+  logger.userLogger.error('/PUT statusCode: 200 : Password reset email sent');
   return res.status(200).json({ message: 'Password reset email sent' });
 }
 async function processReset(req, res) {
@@ -75,17 +82,24 @@ async function processReset(req, res) {
     const email = await verifyResetToken(token);
     const foundUser = await User.findOne({ where: { email } });
     if (!foundUser) {
+      logger.userLogger.error(
+        '/PUT statusCode: 404 : Email to reset password not found'
+      );
       return res.status(404).json({
         error: req.t('error'),
       });
     }
 
     await resetPassword(email, password);
+    logger.userLogger.info(
+      '/PUT statusCode: 200 : Password reset completed successfully'
+    );
     return res.status(200).json({
       ok: true,
       message: 'Password reset successfully',
     });
   } catch (err) {
+    logger.userLogger.error('/PUT statusCode: 400 : Invalid token provided');
     return res.status(400).json({
       error: 'Invalid token',
     });

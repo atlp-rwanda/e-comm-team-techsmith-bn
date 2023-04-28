@@ -7,7 +7,7 @@ import { registerMessageTemplate, nodeMail } from '../utils/emails.js';
 const { user } = db;
 
 const { USER_SECRET: secret } = process.env;
-
+const logger = require('./logger');
 //  REGISTER USER
 const registerUser = async (req, res) => {
   // TOKEN
@@ -73,6 +73,9 @@ const registerUser = async (req, res) => {
       );
       //  Return User
       const { password: userPassword, ...userDetails } = newUser.dataValues;
+      logger.userLogger.info(
+        '/POST statusCode: 201 : User account created successfully '
+      );
       return res.status(201).json({
         ok: true,
         message: 'User created successfully',
@@ -83,18 +86,27 @@ const registerUser = async (req, res) => {
     /*  Retrun error if email or password is invalid */
     // Invalid Email
     if (!validEmail) {
+      logger.userLogger.error(
+        '/POST statusCode: 400 : Invalid email provided '
+      );
       return res.status(400).json({
         message: 'Invalid email',
       });
     }
     // INVALID PASSWORD
     if (!validPassword) {
+      logger.userLogger.error(
+        '/POST statusCode: 400 : Invalid password provided '
+      );
       return res.status(400).json({
         message: 'Invalid password',
       });
     }
   } catch (error) {
     // CATCH ERROR
+    logger.userLogger.error(
+      `/POST statusCode: 500 : Creating user account  failed: ${error.message} `
+    );
     return res.status(500).json({
       message: error.message,
       ok: false,
