@@ -5,7 +5,7 @@ import { getToken } from '../utils/cookies';
 dotenv.config();
 
 // verify if the user is the admin using the token in cookies
-export default async (req, res, next) => {
+const isAdmin = async (req, res, next) => {
   try {
     const { cookie } = req.headers;
     // IF NO COOKIE IS FOUND
@@ -39,3 +39,4 @@ export default async (req, res, next) => {
     next();
   }
 };
+export default isAdmin;

@@ -962,6 +962,39 @@ const components = {
         },
       },
     },
+    sellerStats: {
+      type: 'object',
+      properties: {
+        start: {
+          type: 'string',
+          example: '2023-04-10',
+        },
+        end: {
+          type: 'string',
+          example: '2023-04-30',
+        },
+      },
+    },
+    StatsResponse: {
+      type: 'object',
+      properties: {
+        numOrders: {
+          type: 'number',
+        },
+        totalRevenue: {
+          type: 'number',
+        },
+        productSold: {
+          type: 'number',
+        },
+        moneyMade: {
+          type: 'number',
+        },
+        topSellingProduct: {
+          type: 'object',
+        },
+      },
+    },
   },
 };
 export default components;

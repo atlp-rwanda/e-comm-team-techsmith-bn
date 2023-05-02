@@ -5,7 +5,7 @@ const validateProductInput = (schema) => (payload) =>
 const productSchema = Joi.object({
   name: Joi.string().trim().required(),
   price: Joi.number().min(1).required(),
-  quantity: Joi.number().min(1),
+  quantity: Joi.number().min(1).required(),
   categoryId: Joi.number().required(),
   description: Joi.string().trim().required(),
   condition: Joi.string().trim(),

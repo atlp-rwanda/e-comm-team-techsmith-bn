@@ -47,6 +47,7 @@ import getAllProductToWishlist from './Wishlist/getAllProductToWishlist.js';
 import deleteProductToWishlist from './Wishlist/deleteProductToWishlist.js';
 import updateItemInCart from './Cart/updateItemsInCart.js';
 import onWay from './Order/onWay.js';
+import sellerStats from './Statistics/sellerStats.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -201,6 +202,9 @@ const paths = {
   '/feedback/{pId}': {
     get: getFeedback,
     post: createFeedback,
+  },
+  '/statistics/seller': {
+    post: sellerStats,
   },
 };
 

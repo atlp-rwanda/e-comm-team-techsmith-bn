@@ -6,7 +6,8 @@ import cors from 'cors';
 import path from 'path';
 import moment from 'moment';
 import passport from 'passport';
-import cookieSession from 'cookie-session';
+// import cookieSession from 'cookie-session';
+import session from 'express-session';
 import socketio from 'socket.io';
 import allRoutes from './routes/allRoutes.js';
 import db from '../database/models/index.js';
@@ -37,10 +38,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
 app.use('/chat', express.static(views));
 
+// app.use(
+//   cookieSession({
+//     maxAge: 24 * 60 * 60 * 1000,
+//     keys: [process.env.SESSIONCOOKIE],
+//   })
+// );
 app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.SESSIONCOOKIE],
+  session({
+    secret: [process.env.SESSIONCOOKIE],
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
   })
 );
 app.use(passport.initialize());

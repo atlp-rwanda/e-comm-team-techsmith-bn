@@ -20,7 +20,9 @@ const goodProduct = {
   categoryId: 70,
   condition: 'New',
   description: 'New Samsung A10 released in 2021',
+  quantity:20,
   sellerId: 36,
+  quantity:5,
   expiryDate: '2023-05-06T17:30:00.000Z',
 };
 const adminProduct = {
@@ -34,7 +36,9 @@ const adminProduct = {
   price: 85000,
   categoryId: 70,
   condition: 'New',
+  quantity:5,
   description: 'New Samsung A10 released in 2021',
+  quantity:20,
   sellerId: 36,
   expiryDate: '2023-05-06T17:30:00.000Z',
 };
@@ -49,6 +53,7 @@ const badProduct = {
   ],
   price: 85000,
   condition: 'New',
+  quantity:20,
   description: 'New Samsung A10 released in 2021',
   expiryDate: '2023-05-06T17:30:00.000Z',
 };
@@ -70,24 +75,7 @@ const adminLogin = {
   password: 'Testing@123',
 };
 
-// SELLER COLLECTION
-const sellerCollection = [
-  { id: 81 },
-  { id: 82 },
-  { id: 83 },
-  { id: 84 },
-  { id: 85 },
-  { id: 86 },
-  { id: 92 },
-  { id: 87 },
-  { id: 88 },
-  { id: 89 },
-  { id: 90 },
-  { id: 91 },
-  { id: 93 },
-  { id: 94 },
-  { id: 95 },
-];
+
 
 const productoUpdate = {
   name: 'productcqhwcvig',
@@ -99,6 +87,7 @@ const productoUpdate = {
   ],
   categoryId: 50,
   price: 5000,
+  quantity:5,
   description: 'The fastest on baterry',
   sellerId: 36,
 };

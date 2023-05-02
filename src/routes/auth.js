@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-google-oauth2';
 import dotenv from 'dotenv';
-
+import jwt from 'jsonwebtoken';
 import db from '../../database/models/index.js';
 
 const googleStrategy = Strategy;
@@ -80,6 +80,7 @@ router.get(
   <h2>YOUR EMAIL IS ${req.user.email}</h2>
   <h2>YOUR ROLE ID IS ${req.user.roleId}</h2>
   <h2>YOUR STATUS IS ${req.user.isActive}</h2>`);
+  res.cookie('Authorised', jwt.sign({ id: req.user.id }, process.env.USER_SECRET, { expiresIn: '1h' }));
   }
 );
 

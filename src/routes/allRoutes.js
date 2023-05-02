@@ -11,6 +11,7 @@ import wishlistRoute from './wishlistRoute.js';
 import cartRoute from './cartRoute.js';
 import paymentRouter from './paymentRoute.js';
 import feedbackroute from './reviewRoute.js';
+import sellerStatisticsRouter from './sellerStatisticsRoute.js';
 // SETUP ROUTER
 const router = express.Router();
 
@@ -26,5 +27,6 @@ router.use('/wishlist', wishlistRoute);
 router.use('/cart', cartRoute);
 router.use('/payments', paymentRouter);
 router.use('/feedback', feedbackroute);
+router.use('/statistics', sellerStatisticsRouter);
 
 export default router;

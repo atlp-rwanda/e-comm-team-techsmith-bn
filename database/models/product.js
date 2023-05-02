@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
       product.hasMany(models.order, {
+        
         onDelete: 'CASCADE',
       });
       product.belongsToMany(models.category, {

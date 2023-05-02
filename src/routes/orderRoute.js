@@ -2,7 +2,7 @@ import express from 'express';
 import validatePayment from '../middlewares/validatePayment';
 import PaymentsController from '../controllers/paymentsController';
 import OrderController from '../controllers/orderController.js';
-import verifyIsAdmin from '../middlewares/verifyIsAdmin.js';
+import isAdmin from '../middlewares/verifyIsAdmin.js';
 import delivery from '../controllers/deliveredOrderController.js';
 import isBuyer from '../middlewares/verifyIsBuyer.js';
 import isSeller from '../middlewares/verifyIsSeller';
@@ -14,7 +14,7 @@ const router = express.Router();
 router.post('/:id/checkout', validatePayment, PaymentsController.createPayment);
 
 // GET ALL ORDERS
-router.get('/', verifyIsAdmin, OrderController.getOrders);
+router.get('/', isAdmin, OrderController.getOrders);
 
 // GET SINGLE ORDER
 router.get('/single/:orderId', isBuyer, OrderController.singleOrder);
@@ -27,20 +27,14 @@ router.put('/onWay/:id', isSeller, delivery.deliveryMoving);
 // CREATING ORDER
 router.post('/', isBuyer, OrderController.createOrder);
 
-// UPDATING ORDER
-router.put('/:oId/user/:uId', isBuyer, OrderController.updateOrder);
-
-// DELETEING ORDER
-router.delete('/:oId/user/:uId', isBuyer, OrderController.deleteOrder);
-
 router.get('/status', (req, res) => res.render('status'));
 
 // GET SINGLE ORDER
 router.get('/single/:orderId', isBuyer, OrderController.singleOrder);
 
 // FLAG ORDER AS DELIVERED
-router.put('/delivered/:id', verifyIsAdmin, delivery.deliverOrder);
-router.put('/cancelled/:id', verifyIsAdmin, delivery.cancelDelivery);
+router.put('/delivered/:id', isAdmin, delivery.deliverOrder);
+router.put('/cancelled/:id', isAdmin, delivery.cancelDelivery);
 
 // CREATING ORDER
 router.post('/', isBuyer, OrderController.createOrder);
@@ -48,7 +42,7 @@ router.post('/', isBuyer, OrderController.createOrder);
 // UPDATING ORDER
 router.put('/:oId', isBuyer, OrderController.updateOrder);
 
-// DELETEING ORDER
+// DELETING ORDER
 router.delete('/:oId', isBuyer, OrderController.deleteOrder);
 
 router.get('/stat', (req, res) => {
