@@ -6,6 +6,7 @@ import { nodeMail, twoFAMessageTemplate } from '../utils/emails.js';
 
 dotenv.config();
 const { USER_SECRET: secret } = process.env;
+const logger = require('./logger');
 
 const { user, role } = db;
 
@@ -26,12 +27,15 @@ class loginController {
       });
       // IF USER DOES NOT EXIST
       if (!findUser) {
+        logger.userLogger.error(' /GET statusCode: 404 : User not found');
         return res.status(404).json({
           message: 'User not found',
         });
       }
       const checkPassword = await bcrypt.compare(password, findUser.password);
+
       // IF USER IS A SELLER AND PASSWORD IS CORRECT
+
       if (checkPassword && findUser.roleId === 2) {
         const token = jwt.sign({ email: findUser.email }, secret, {
           expiresIn: '1h',
@@ -47,6 +51,7 @@ class loginController {
           httpOnly: true,
           maxAge: 3600,
         });
+        logger.userLogger.warn(' /POST 202: Account verification');
         return res.status(202).json({
           message: 'Please check your email to verify your continue login',
           token,
@@ -69,17 +74,21 @@ class loginController {
           roleId,
           ...userDetails
         } = findUser.dataValues;
+        logger.userLogger.info(' /POST 200: Successful log in');
         return res.status(200).json({
           message: 'You have logged in successfully',
           Authorization: token,
           user: userDetails,
         });
       }
-
+      logger.userLogger.error(' /POST statusCode: 400 : Invalid credentials');
       return res.status(400).json({
         message: 'Email or password not valid',
       });
     } catch (error) {
+      logger.userLogger.error(
+        ` /POST statusCode : 500 : Login failed =>${error.message}`
+      );
       return res.status(500).json({
         message: error.message,
       });
@@ -91,6 +100,7 @@ class loginController {
     const { token } = req.params;
     try {
       if (!token) {
+        logger.userLogger.info(' /POST statusCode : 400  Token expired');
         return res.status(400).json({
           message: 'Token may have expired. Please login again',
         });
@@ -122,12 +132,14 @@ class loginController {
         ...userDetails
       } = findUser.dataValues;
       // RETURN USER DETAILS
+      logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
       return res.status(200).json({
         message: 'Login successfully',
         Authorization: userToken,
         user: userDetails,
       });
     } catch (error) {
+      logger.userLogger.error(` statuCode: 500 : 2FA failed -${error.message}`);
       return res.status(500).json({
         message: error.message,
       });

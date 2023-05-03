@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 
 const { execute } = require('@getvim/execute');
+const logger = require('../controllers/logger');
 
 dotenv.config();
 
@@ -11,10 +12,12 @@ function restoring() {
     `PGPASSWORD="${DB_PASSWORD}" pg_restore -C -d postgres ${DB_NAME}.pgsql`
   )
     .then(async () => {
-      console.log('Database restore complete');
+      logger.databaseLogger.info('Database restore complete');
     })
     .catch((err) => {
-      console.log('error', err);
+      logger.databaseLogger.error(
+        `/  Database restore failed : ${err.message}`
+      );
     });
 }
 

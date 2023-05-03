@@ -1,0 +1,24 @@
+2023-05-02T23:07:08.307Z [INFO]: /PUT statusCode: 200 : User cancelled succesfully
+2023-05-02T23:07:08.609Z [ERROR]: /PUT statusCode: 404 : Order to be delvered does not exist
+2023-05-02T23:07:09.528Z [WARN]: /PUT statusCode: 200 marked as onWay succesfully 
+2023-05-02T23:07:51.335Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-05-02T23:07:53.236Z [INFO]: /POST statusCode: 404 : Product not found
+2023-05-02T23:07:54.758Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-05-02T23:07:55.063Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-05-02T23:07:55.369Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-05-02T23:20:52.238Z [INFO]: /PUT statusCode: 200 : User cancelled succesfully
+2023-05-02T23:20:52.592Z [ERROR]: /PUT statusCode: 404 : Order to be delvered does not exist
+2023-05-02T23:20:53.567Z [WARN]: /PUT statusCode: 200 marked as onWay succesfully 
+2023-05-02T23:21:42.245Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-05-02T23:21:44.233Z [INFO]: /POST statusCode: 404 : Product not found
+2023-05-02T23:21:46.507Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-05-02T23:21:46.832Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-05-02T23:21:47.158Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-05-03T06:30:44.614Z [INFO]: /PUT statusCode: 200 : User cancelled succesfully
+2023-05-03T06:30:45.194Z [ERROR]: /PUT statusCode: 404 : Order to be delvered does not exist
+2023-05-03T06:30:46.392Z [WARN]: /PUT statusCode: 200 marked as onWay succesfully 
+2023-05-03T06:32:40.960Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-05-03T06:32:45.735Z [INFO]: /POST statusCode: 404 : Product not found
+2023-05-03T06:32:48.329Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-05-03T06:32:48.717Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-05-03T06:32:49.048Z [INFO]: /GET statusCode: 404 :Specific order found 

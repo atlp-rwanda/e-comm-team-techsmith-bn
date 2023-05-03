@@ -21,7 +21,7 @@ class newsletterSubscribe {
           message: 'Invalid email',
         });
       }
-      // CHECK IF SUBSCRIPTION ALREADY EXISTS
+      //  CHECK IF   SUBSCRIPTION ALREADY EXISTS
       const subscriptionExists = await subscription.findOne({
         where: { email: userEmail },
       });
