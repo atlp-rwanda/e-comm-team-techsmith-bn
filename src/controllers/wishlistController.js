@@ -100,7 +100,7 @@ class wishlistController {
 
       if (wishlistProd.rows.length === 0) {
         return res
-          .status(404)
+          .status(200)
           .json({ message: `There is no items found on page ${page}` });
       }
       // RETURN RESPONSE

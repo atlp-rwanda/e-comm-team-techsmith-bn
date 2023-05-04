@@ -21,7 +21,10 @@ const orderedPaid = {
   rating: 4,
   feedback: `${makeid(10)}`,
 };
-
+const orderedPaidButerror = {
+  ratingss: 4,
+  feedbacksdfg: `${makeid(10)}`,
+};
 const loginUser = {
   email: 'ikevine@gmail.com',
   password: 'Kevine@123',
@@ -62,11 +65,22 @@ describe('Sending ratings and feedback by buyer', () => {
         done();
       });
   });
+  it('Buyer should provide available product in the order list', (done) => {
+    chai
+      .request(app)
+      .post('/api/feedback/4')
+      .send(orderedPaidButerror)
+      .set('cookie', cookie)
+      .end((err, res) => {
+        expect(res).to.have.status(500);
+        done();
+      });
+  });
 
   it('Buyer should provide available product in the payment list', (done) => {
     chai
       .request(app)
-      .post('/api/feedback/2')
+      .post('/api/feedback/568')
       .send(orderedNotPaid)
       .set('cookie', cookie)
       .end((err, res) => {

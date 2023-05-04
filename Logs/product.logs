@@ -291,3 +291,472 @@
 2023-05-04T20:35:52.958Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
 2023-05-04T20:35:57.618Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
 2023-05-04T20:35:58.030Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T09:19:08.579Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T09:19:09.016Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T09:19:28.063Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T09:19:41.935Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T09:19:42.333Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T09:19:42.741Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T09:20:03.844Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T09:20:04.699Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T09:20:05.125Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T09:20:05.524Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T09:20:05.994Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T09:20:06.858Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T09:20:07.271Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T09:20:20.116Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T09:20:20.576Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T09:20:20.993Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T09:20:21.808Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T09:20:22.250Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T09:20:22.630Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T09:20:23.422Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T09:20:24.256Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T09:20:25.285Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T09:20:26.240Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T09:20:26.725Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T09:20:27.543Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T09:20:28.327Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T09:20:29.155Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T09:20:29.585Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T10:03:58.068Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T10:03:58.481Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T10:04:16.774Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T10:04:30.531Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T10:04:30.920Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T10:04:31.309Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T10:04:52.842Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T10:04:53.627Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T10:04:54.030Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T10:04:54.406Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T10:04:54.829Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T10:04:55.706Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T10:04:56.088Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T10:05:06.638Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T10:05:07.091Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T10:05:07.467Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T10:05:08.219Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T10:05:08.604Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T10:05:08.988Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T10:05:09.768Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T10:05:10.553Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T10:05:11.455Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T10:05:12.320Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T10:05:12.722Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T10:05:13.503Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T10:05:14.250Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T10:05:15.101Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T10:05:15.501Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:25:29.951Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:25:30.422Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:25:53.111Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T11:26:09.250Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T11:26:09.731Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:26:10.176Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:26:35.307Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T11:26:36.224Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:26:36.676Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:26:37.121Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:26:37.749Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:26:38.663Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:26:39.132Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:26:54.979Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T11:26:55.481Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:26:55.932Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:26:56.862Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T11:26:57.310Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:26:57.775Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:26:58.662Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T11:26:59.590Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:27:01.471Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T11:27:02.239Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T11:27:02.729Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:27:03.622Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T11:27:04.538Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T11:27:05.515Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:27:05.964Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:50:09.242Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:50:09.663Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:50:34.332Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T11:50:51.830Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T11:50:52.243Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:50:52.689Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:51:14.791Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T11:51:15.763Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:51:16.171Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:51:16.578Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:51:17.056Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:51:17.979Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:51:18.381Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:51:36.106Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T11:51:36.590Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:51:37.001Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:51:37.808Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T11:51:38.214Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:51:38.620Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:51:39.456Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T11:51:40.349Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:51:41.460Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T11:51:42.380Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T11:51:42.845Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:51:43.697Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T11:51:44.507Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T11:51:45.358Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:51:45.765Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:55:36.664Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:55:37.071Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T11:56:02.492Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T11:56:20.577Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T11:56:20.993Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:56:21.403Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:56:47.685Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T11:56:48.556Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:56:48.979Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:56:49.444Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:56:49.875Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:56:50.677Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:56:51.157Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:57:04.946Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T11:57:05.433Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T11:57:05.841Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T11:57:06.790Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T11:57:07.201Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T11:57:07.597Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T11:57:08.402Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T11:57:09.262Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T11:57:10.345Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T11:57:11.191Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T11:57:11.640Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T11:57:12.444Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T11:57:13.276Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T11:57:14.166Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T11:57:14.566Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T15:55:12.499Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T15:55:12.847Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T15:55:48.717Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T15:56:13.213Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T15:56:13.540Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T15:56:13.867Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T15:56:30.667Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T15:56:31.277Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T15:56:31.577Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T15:56:31.875Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T15:56:32.209Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T15:56:32.851Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T15:56:33.157Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T15:56:45.327Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T15:56:45.750Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T15:56:46.054Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T15:56:46.660Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T15:56:46.963Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T15:56:47.265Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T15:56:47.869Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T15:56:48.473Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T15:56:49.167Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T15:56:49.809Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T15:56:50.167Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T15:56:50.761Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T15:56:51.358Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T15:56:51.959Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T15:56:52.264Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:01:26.572Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:01:26.876Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:02:01.585Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T16:02:26.858Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T16:02:27.169Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:02:27.472Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:02:44.631Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T16:02:45.252Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:02:45.567Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:02:45.962Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:02:46.307Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:02:46.949Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:02:47.328Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:02:53.393Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T16:02:53.747Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:02:54.052Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:02:54.659Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T16:02:54.964Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:02:55.272Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:02:55.960Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T16:02:56.387Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:03:00.959Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T16:03:01.311Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T16:03:01.658Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:03:02.302Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T16:03:02.947Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T16:03:03.589Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:03:03.916Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:27:21.172Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:27:21.468Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:28:00.259Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T16:28:37.573Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T16:28:37.883Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:28:38.184Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:28:54.933Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T16:28:55.736Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:28:56.050Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:28:56.348Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:28:56.682Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:28:57.294Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:28:57.600Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:29:09.274Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T16:29:09.624Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:29:09.922Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:29:10.530Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T16:29:10.833Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:29:11.139Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:29:11.743Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T16:29:12.363Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:29:13.001Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T16:29:13.632Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T16:29:13.954Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:29:14.684Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T16:29:16.021Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T16:29:16.657Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:29:16.963Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:45:21.253Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:45:21.564Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:45:55.675Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T16:46:19.828Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T16:46:20.152Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:46:20.478Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:46:37.808Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T16:46:38.419Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:46:38.730Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:46:39.045Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:46:39.372Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:46:39.985Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:46:40.291Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:46:47.163Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T16:46:47.509Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:46:47.808Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:46:48.405Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T16:46:48.709Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:46:49.017Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:46:49.658Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T16:46:49.992Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:46:51.561Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T16:46:51.948Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T16:46:52.296Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:46:52.931Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T16:46:53.562Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T16:46:54.197Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:46:54.597Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:52:53.078Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:52:53.395Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T16:53:40.750Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T16:54:07.916Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T16:54:08.217Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:54:08.515Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:54:28.635Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T16:54:29.237Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:54:29.545Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:54:29.843Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:54:30.179Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:54:30.782Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:54:31.088Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:54:37.793Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T16:54:38.265Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T16:54:38.582Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T16:54:39.187Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T16:54:39.498Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T16:54:39.811Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T16:54:40.544Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T16:54:40.905Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T16:54:43.568Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T16:54:44.070Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T16:54:44.425Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T16:54:45.104Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T16:54:45.757Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T16:54:46.357Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T16:54:46.666Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:31:01.994Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:31:02.316Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:31:38.058Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T17:32:01.746Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T17:32:02.069Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:32:02.394Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:32:20.073Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T17:32:20.684Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:32:20.991Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:32:21.289Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:32:21.622Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:32:22.228Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:32:22.534Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:32:28.520Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T17:32:28.858Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:32:29.161Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:32:29.760Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T17:32:30.067Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:32:30.372Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:32:30.976Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T17:32:31.292Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:32:31.712Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T17:32:32.054Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T17:32:32.381Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:32:32.973Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T17:32:33.562Z [ERROR]: /GET statusCode: 404 :Item not found  in stock
+2023-05-04T17:32:34.165Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:32:34.470Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:40:44.657Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T17:41:40.213Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T17:47:33.412Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:47:33.752Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:48:13.209Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T17:48:37.961Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T17:48:38.289Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:48:38.610Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:48:58.389Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T17:48:59.005Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:48:59.317Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:48:59.620Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:48:59.959Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:49:00.575Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:49:00.885Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:49:09.641Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T17:49:09.994Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:49:10.293Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:49:10.898Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T17:49:11.203Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:49:11.511Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:49:12.114Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T17:49:12.132Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T17:49:12.742Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:49:13.429Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T17:49:14.070Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T17:49:14.394Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:49:14.989Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T17:49:15.293Z [ERROR]: /GET statusCode: 500 : get a product in my collection failed: Cannot read properties of undefined (reading 'dataValues')
+2023-05-04T17:49:15.982Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:49:16.362Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:53:34.113Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:53:34.454Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T17:54:10.690Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T17:54:38.270Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T17:54:38.599Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:54:38.925Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:54:56.561Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T17:54:57.164Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:54:57.475Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:54:57.779Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:54:58.114Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:54:58.716Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:54:59.034Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:55:05.734Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T17:55:06.077Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T17:55:06.380Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T17:55:06.978Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T17:55:07.279Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T17:55:07.584Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T17:55:08.188Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T17:55:08.204Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T17:55:08.530Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T17:55:10.412Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T17:55:10.815Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T17:55:11.166Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T17:55:11.803Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T17:55:12.123Z [ERROR]: /GET statusCode: 500 : get a product in my collection failed: Cannot read properties of undefined (reading 'dataValues')
+2023-05-04T17:55:12.778Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T17:55:13.097Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:17:01.596Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T18:17:01.915Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T18:17:39.364Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T18:18:05.582Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T18:18:05.969Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T18:18:06.357Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T18:18:24.663Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T18:18:25.743Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T18:18:26.069Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T18:18:26.381Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T18:18:26.990Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:18:27.609Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T18:18:27.914Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:18:40.553Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T18:18:40.912Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T18:18:41.211Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T18:18:41.816Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T18:18:42.128Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T18:18:42.428Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T18:18:43.025Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T18:18:43.039Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T18:18:43.645Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T18:18:44.325Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T18:18:44.980Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T18:18:45.298Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:18:45.969Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T18:18:46.268Z [ERROR]: /GET statusCode: 500 : get a product in my collection failed: Cannot read properties of undefined (reading 'dataValues')
+2023-05-04T18:18:46.886Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T18:18:47.185Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:49:28.403Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T18:49:28.724Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T18:50:04.192Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T18:50:29.537Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T18:50:29.873Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T18:50:30.198Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T18:50:48.570Z [INFO]: /GET statusCode: 200 : Product expiration check completed
+2023-05-04T18:50:49.221Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T18:50:49.550Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T18:50:49.869Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T18:50:50.227Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:50:50.873Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T18:50:51.200Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:50:59.188Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T18:50:59.598Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T18:50:59.979Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T18:51:00.756Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T18:51:01.142Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T18:51:01.530Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T18:51:02.310Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T18:51:02.333Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T18:51:03.105Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T18:51:05.515Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T18:51:05.951Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T18:51:06.363Z [ERROR]: /DELETE statusCode: 404 :Item not found in a seller collection 
+2023-05-04T18:51:07.010Z [INFO]: /GET statusCode: 200 : Fetch a product from mine is successful 
+2023-05-04T18:51:07.331Z [ERROR]: /GET statusCode: 500 : get a product in my collection failed: Cannot read properties of undefined (reading 'dataValues')
+2023-05-04T18:51:07.986Z [ERROR]: / PUT statusCode: 200: Product details edited successfully
+2023-05-04T18:51:08.303Z [ERROR]: /PUT statusCode: 404 :Item not found in a seller collection 
+2023-05-04T21:23:17.099Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:23:17.580Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:24:44.916Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T21:25:29.510Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T21:25:29.984Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T21:25:30.570Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T21:25:31.600Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T21:25:43.186Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T21:26:01.509Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T21:26:01.896Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T21:26:02.250Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T21:26:02.968Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T21:26:03.324Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T21:26:03.688Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T21:26:04.412Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T21:26:04.420Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T21:26:05.140Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T21:26:05.742Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T21:26:06.531Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T21:31:45.444Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:31:45.823Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:34:23.333Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:34:23.795Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T21:35:39.179Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-05-04T21:36:24.062Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T21:36:24.426Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-05-04T21:36:24.789Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T21:36:25.151Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T21:36:33.642Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T21:36:48.704Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-05-04T21:36:49.117Z [INFO]: /GET statusCode: 200 : a product found
+2023-05-04T21:36:49.489Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-05-04T21:36:50.222Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-05-04T21:36:50.596Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-05-04T21:36:50.961Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-05-04T21:36:51.708Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-05-04T21:36:51.717Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-05-04T21:36:52.465Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-05-04T21:36:53.610Z [INFO]: /GET statusCode: 200 : Available  Products in collection fetched 
+2023-05-04T21:36:54.381Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-05-04T22:07:18.878Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T22:07:19.251Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-05-04T22:08:32.855Z [ERROR]: /POST statusCode: 404 : Product not found

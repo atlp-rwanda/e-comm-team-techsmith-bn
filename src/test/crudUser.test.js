@@ -56,6 +56,24 @@ describe('CRUD users by admin', () => {
     });
   });
 
+  // STATUS CODE OF 500 NEED TO BE TESTED
+  
+  // THE STATUS CODE OF 404 ALSO NEED TO BE DONE
+
+
+  describe('Admin want to get all user but on unexisting page ', () => {
+    it('Should not get any user and return error 404', (done) => {
+      chai
+        .request(app)
+        .get('/api/admin/users?page=5000')
+        .set('cookie', cookie)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+  });
+
   // CREATE NEW USER
   describe('Given a user is an admin', () => {
     it('Should create a new user', (done) => {
@@ -70,6 +88,27 @@ describe('CRUD users by admin', () => {
         });
     });
   });
+
+
+  // THE STATUS CODE OF 401 SHOULD BE TESTED
+  
+  describe('An Invalid user want to login', () => {
+    it('Should not create create a new user and get 401', (done) => {
+      chai
+        .request(app)
+        .post('/api/admin/users')
+        .send(!user)
+        .set('cookie', cookie)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          done();
+        });
+    });
+  });
+
+  // THE STATUS CODE OF 409 SHOULD BE TESTED
+
+
 
   // UPDATE USER
   describe('Given a user is an admin', () => {
@@ -86,6 +125,9 @@ describe('CRUD users by admin', () => {
     });
   });
 
+
+
+
   // DELETE NON-EXISTING USER
   describe('Given a user is an admin and is trying to delete a non-existing user', () => {
     it('Should not delete a user and return error 404', (done) => {
@@ -99,4 +141,21 @@ describe('CRUD users by admin', () => {
         });
     });
   });
+})
+
+// user routes
+describe('Getting one user', () => {
+  // GET ALL USERS
+  describe(' should be able to get a user', () => {
+    it('user should be able to get a user', (done) => {
+      chai
+        .request(app)
+        .get('/api/users/394')
+        .set('cookie', cookie)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  })
 });
