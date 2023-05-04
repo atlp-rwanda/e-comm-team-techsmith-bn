@@ -13,12 +13,14 @@ const buyerLogin = {
     email: 'otheruser@gmail.com',
     password: 'Password@00',
   },
-  orderId = 1001,
-  otherOrderId = 1003,
+  orderPaidFor = 1001,
+  unavailableOrder = -1,
+  doesNotOwnOrder = 408,
+  orderId = 442,
   card = {
     number: 4242424242424242,
     exp_month: 12,
-    exp_year: 2022,
+    exp_year: 2025,
     cvc: 123,
   };
 
@@ -43,7 +45,7 @@ describe('User login', () => {
         });
     });
   });
-  // USER LOGIN
+  // OTHER USER LOGIN (NOT BUYER)
   describe('Given a user wants to login', () => {
     it('should login a user', (done) => {
       chai
@@ -68,7 +70,7 @@ describe('Payment Test', () => {
     it('should return conflict 409 order already paid', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/checkout`)
+        .post(`/api/orders/${orderPaidFor}/checkout`)
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
@@ -91,12 +93,26 @@ describe('Payment Test', () => {
         });
     });
   });
+  // USER DOES NOT OWN ORDER
+  describe('Given a user does not own order', () => {
+    it('should return error 403 forbidden', (done) => {
+      chai
+        .request(app)
+        .post(`/api/orders/${doesNotOwnOrder}/checkout`)
+        .send(card)
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(403);
+          done();
+        });
+    });
+  });
   // USER NOT LOGGED IN
   describe('Given a user is not logged in', () => {
     it('should throw error of 401 unauthorized', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/checkout`)
+        .post(`/api/orders/${orderPaidFor}/checkout`)
         .send(card)
         .end((err, res) => {
           res.should.have.status(401);
@@ -109,7 +125,7 @@ describe('Payment Test', () => {
     it('should return error 403 forbidden', (done) => {
       chai
         .request(app)
-        .post(`/api/orders/${orderId}/checkout`)
+        .post(`/api/orders/${unavailableOrder}/checkout`)
         .send(card)
         .set('cookie', userCookie)
         .end((err, res) => {
@@ -118,11 +134,43 @@ describe('Payment Test', () => {
         });
     });
   });
+
+  // INVALID CARD PROVIDED
+  describe('Given an invalid card is provided', () => {
+    it('should return error 500 from Stripe', (done) => {
+      chai
+        .request(app)
+        .post(`/api/orders/${orderId}/checkout`)
+        .send({
+          number: 'Invalid card number',
+          exp_month: 'Invalid month',
+          exp_year: 2022,
+          cvc: 1234,
+        })
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(500);
+          done();
+        });
+    });
+  });
+
+  // DELETE PAYMENT USING ORDER ID
+  describe('Given a buyer wants to delete a payment', () => {
+    it('should delete a payment', (done) => {
+      chai
+        .request(app)
+        .delete(`/api/payments/${orderId}`)
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
   
 });
 
-// GET ALL PAYMENTS
-describe('Get all payments', () => {
   // GET ALL PAYMENTS
   describe('Given a buyer wants to get all payments they have completed', () => {
     it('should return all payments', (done) => {
@@ -136,4 +184,3 @@ describe('Get all payments', () => {
         });
     });
   });
-});

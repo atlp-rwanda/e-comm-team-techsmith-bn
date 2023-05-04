@@ -21,9 +21,4 @@ function restoring() {
     });
 }
 
-// In case you want to restore your database uncomment the next line
-// for the function to be invoked
-
-// restoring()
-
 export default restoring;

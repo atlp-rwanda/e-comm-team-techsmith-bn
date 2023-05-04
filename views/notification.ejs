@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/socket.io/socket.io.js"></script>
+  <title>NOTIFICATION</title>
+</head>
+
+<style>
+  .notification {
+    display: flex;
+    background: rgb(203, 250, 203);
+    padding: 5px;
+    border-radius: 14px;
+    width: 60%;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+  }
+
+  .notification h1 {
+    padding: 0 5px;
+  }
+
+  .message a {
+    text-align: center;
+    text-decoration: underline;
+    color: green;
+    padding-bottom: -20px;
+  }
+
+  @media (min-width: 600px) {
+    .notification {
+      width: 30%
+    }
+  }
+
+  body {
+    overflow: hidden;
+  }
+</style>
+
+<body>
+
+
+  </div>
+
+  <script>
+    // success message function
+
+      function showNotification(title, body, duration) {
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.classList.add("notification");
+        notification.innerHTML = `
+            <h1>TS</h1>
+            <div class="message">
+            <a href="#">${title}</a>
+            <p class="message">
+                ${body}
+            </p>
+            </div>
+        `;
+
+      // Append notification to document body
+      document.body.appendChild(notification);
+
+      // Animate notification in
+      notification.style.transform = "translate(100%, 100%)";
+      notification.style.opacity = "0";
+      setTimeout(() => {
+        notification.style.transform = "translate(0, 0)";
+        notification.style.opacity = "1";
+      }, 1000); // wait 1s before animating in
+
+      // Set timeout to remove notification after 5 seconds
+      setTimeout(() => {
+        notification.style.transform = "translate(100%, 100%)";
+        notification.style.opacity = "0";
+        setTimeout(() => {
+          notification.remove();
+        }, 1000); // wait 1s for animation to finish
+      }, duration); // show notification for 5 seconds
+    }
+
+
+    // Then socket events and their things
+    const socket = io();
+
+    // PRODUCTS' EXPIRATION
+    socket.on('productExpired', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+    // CREATE PRODUCT SUCCESS
+    socket.on('createProductSuccess', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+    // CREATE PRODUCT ERROR
+    socket.on('createProductError', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+    // DELETE PRODUCT SUCESS
+    socket.on('deleteProductSuccess', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+    // DELETE PRODUCT ERROR
+    socket.on('deleteProductError', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+    // UPDATE PRODUCT SUCCESS
+    socket.on('updateProductSuccess', (data) => {
+      console.log(data)
+      showNotification(data.title, data.body, 10000)
+    })
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

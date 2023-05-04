@@ -613,7 +613,7 @@ describe('Product not found', () => {
         chai
             .request(app)
             .get('/api/products/mySingleProduct/21')
-            .set('Cookie', sellerCookie)
+            .set('cookie', sellerCookie)
             .end((err, res) => {
                 expect(res).to.have.status(404);
                 done();
