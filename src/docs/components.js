@@ -33,7 +33,7 @@ const components = {
     string: {
       type: 'string',
       description: 'Any string attribute',
-      example: 'description, condition, name, place, etc.',
+      example: 'Name, Email, Noun, Text, Etc.',
     },
     // NAME
     name: {
@@ -60,6 +60,13 @@ const components = {
       description:
         ' total price of a product containing more quantity in the cart',
       example: 10000,
+    },
+
+    // NUMBER
+    number: {
+      type: 'number',
+      description: 'Any number attribute',
+      example: 1,
     },
 
     // IMAGE
@@ -992,6 +999,43 @@ const components = {
         },
         topSellingProduct: {
           type: 'object',
+        },
+      },
+    },
+    /**
+     * NOTIFICATION
+     */
+    // NOTIFICATION RESPONSE
+    notificationResponse: {
+      type: 'object',
+      properties: {
+        // ID
+        id: {
+          $ref: '#/components/schemas/id',
+        },
+        // USER ID
+        userId: {
+          $ref: '#/components/schemas/id',
+        },
+        // STATUS
+        status: {
+          $ref: '#/components/schemas/number',
+        },
+        // TITLE
+        title: {
+          $ref: '#/components/schemas/string',
+        },
+        // BODY
+        body: {
+          $ref: '#/components/schemas/string',
+        },
+        // CREATED AT
+        createdAt: {
+          $ref: '#/components/schemas/createdAt',
+        },
+        // UPDATED AT
+        updatedAt: {
+          $ref: '#/components/schemas/updatedAt',
         },
       },
     },

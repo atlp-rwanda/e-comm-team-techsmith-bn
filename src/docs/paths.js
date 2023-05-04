@@ -48,6 +48,13 @@ import deleteProductToWishlist from './Wishlist/deleteProductToWishlist.js';
 import updateItemInCart from './Cart/updateItemsInCart.js';
 import onWay from './Order/onWay.js';
 import sellerStats from './Statistics/sellerStats.js';
+import {
+  deleteSingle,
+  getAll,
+  getUnread,
+  readAll,
+  readSingle,
+} from './Notification/Notifications.js';
 
 const paths = {
   // REQUEST RESET PASSWORD
@@ -205,6 +212,26 @@ const paths = {
   },
   '/statistics/seller': {
     post: sellerStats,
+  },
+  /**
+   *  NOTIFICATION
+   */
+  // GET ALL NOTIFICATIONS
+  '/notify': {
+    get: getAll,
+  },
+  // GET UNREAD NOTIFICATIONS
+  '/notify/unread': {
+    get: getUnread,
+  },
+  // MARK NOTIFICATION AS READ
+  '/notify/read': {
+    get: readAll,
+  },
+  // READ AND DELETE A SINGLE NOTIFICATION
+  '/notify/{id}': {
+    put: readSingle,
+    delete: deleteSingle,
   },
 };
 

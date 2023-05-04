@@ -32,6 +32,10 @@ const tags = [
     name: 'Feedback',
     description: 'API for feedbacks in the E-Commerce app',
   },
+  {
+    name: 'Notification',
+    description: 'API for notifications in the E-Commerce app',
+  },
 ];
 
 export default tags;
