@@ -2,7 +2,7 @@
 
 "Shop with ease and confidence - Your ultimate online shopping destination!"
 
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:) [![Maintainability](https://api.codeclimate.com/v1/badges/435d504b3502012f6c44/maintainability)](https://codeclimate.com/github/atlp-rwanda/e-comm-team-techsmith-bn/maintainability)
 
 ## Introduction
 
