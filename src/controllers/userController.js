@@ -54,7 +54,10 @@ class userController {
       });
       // CATCH ERRORS
     } catch (error) {
-      return error.message;
+      return res.status(500).json({
+        ok: false,
+        message:error.message
+      });
     }
   }
 

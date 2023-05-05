@@ -42,6 +42,23 @@ const adminProduct = {
     sellerId: 36,
     expiryDate: '2023-05-06T17:30:00.000Z',
 };
+const adminBadProduct = {
+    namess: `product${makeid(10)}`,
+    imagess: [
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
+        'https://www.pngwing.com/en/free-png-zbfan',
+        'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
+    ],
+    price: 85000,
+    categoryId: 70,
+    condition: 'New',
+    quantity: 5,
+    description: 'New Samsung A10 released in 2021',
+    quantity: 20,
+    sellerId: 36,
+    expiryDate: '2023-05-06T17:30:00.000Z',
+};
 // BAD PRODUCT
 const badProduct = {
     name: `product${makeid(10)}`,
@@ -439,6 +456,7 @@ describe('CRUD product by admin', () => {
                     done();
                 });
         });
+      
     });
 
     // GET A SPECIFIC PRODUCT
@@ -533,6 +551,20 @@ describe('CRUD product by admin', () => {
                     expect(res).to.have.status(404);
                     done();
                 });
+        });
+    });
+    // PROVIDING WITH MISSING INFORAMTION
+    describe('Given a user is an admin and is trying to create with missing product', () => {
+        it('Should not create with missing criteria', (done) => {
+            chai
+            .request(app)
+            .post('/api/admin/products')
+            .send(adminBadProduct)
+            .set('cookie', adminCookie)
+            .end((err, res) => {
+                expect(res).to.have.status(500);
+                done();
+            });
         });
     });
 });

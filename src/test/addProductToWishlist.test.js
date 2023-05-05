@@ -21,7 +21,7 @@ describe('Buyer user', () => {
         .send(buyerLogin)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          buyerCookie=res.header['set-cookie'][0]
+          buyerCookie = res.header['set-cookie'][0];
           done();
           });
        });

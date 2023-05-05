@@ -7,9 +7,16 @@ chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const user = {
+const newUser = {
   name: 'Test',
   email: `${makeid(5)}@gmail.com`,
+  
+  role: 1,
+  password: 'Testing123',
+};
+const user = {
+  namess: 'Test',
+  emailss: `${makeid(5)}@gmail.com`,
   role: 1,
   password: 'Testing123',
 };
@@ -29,6 +36,7 @@ const userInvalidEmail = {
 };
 
 describe('Signup Test', () => {
+
   // INVALID EMAIL OR PASSWORD
   describe('No email or password provided', () => {
     it('Should return a 400 status code indicating bad request', (done) => {
@@ -52,6 +60,20 @@ describe('Signup Test', () => {
         .send(userExists)
         .end((err, res) => {
           expect(res).to.have.status(409);
+          done();
+        });
+    });
+  });
+
+   // IF A USER ALREADY EXISTS
+   describe('User already exists', () => {
+    it('Should return a 500 status code indicating conflict', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/signup')
+        .send(user)
+        .end((err, res) => {
+          expect(res).to.have.status(500);
           done();
         });
     });

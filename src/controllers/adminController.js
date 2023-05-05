@@ -93,7 +93,7 @@ class adminControllers {
         });
       }
       logger.userLogger.error(' /GET statusCode: 204 : User deleted by admin');
-      return res.status(204).json({
+      return res.status(200).json({
         message: `User with id: ${id} is deleted`,
       });
     } catch (error) {
@@ -115,8 +115,8 @@ class adminControllers {
       const validPassword = validatePassword(password);
       // INVALID EMAIL
       if (!validEmail || !validPassword) {
-        logger.userLogger.error(' /POST statusCode: 400 : Invalid credentials');
-        return res.status(400).json({
+        logger.userLogger.error(' /POST statusCode: 401 : Invalid credentials');
+        return res.status(401).json({
           message: 'Invalid email or password',
         });
       }
