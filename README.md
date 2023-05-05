@@ -1,9 +1,12 @@
 # e-comm-team-techsmith-bn
 
+"Shop with ease and confidence - Your ultimate online shopping destination!"
+
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/e-comm-team-techsmith-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/e-comm-team-techsmith-bn?branch=develop) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/e-comm-team-techsmith-bn/tree/develop`:)
+
 ## Introduction
 
-This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith. Some of the key features of this library will be the ability to add, edit, and delete books, as well as search for books by title, author, or genre, among others features
+This web application ```e-comm-team-techsmith-bn``` is being built by Techsmith. It allows customers to browse products, add them to a cart or wishlist, and checkout securely. It also includes a backend admin panel for managing products, orders, and customers. It's designed to be easily customizable and scalable to fit a variety of sellers and buyers ' needs.
 
 ## Index
 
@@ -14,12 +17,11 @@ This is a Library Project ```e-comm-team-techsmith-bn``` being done by Techsmith
 * [Development](#development)
     - [Pre-requisites](#pre-requisites)
     - [File Structure](#structure)
+    - [Testing](#testing)
 * [community](#community)
     - [Contribution](#contribution)
     - [Branches](#branches)
 * [License](#license)
-
-
 
 ## Usage  <a name="usage"></a>
 
@@ -55,12 +57,12 @@ Navigate to ```127.0.0.1:$port/api/docs``` on your browser. The swagger document
 * Nodejs version 18.x
 * Docker
 * Postgres
-* ``` others will be mentioned later ```
+* Sequelize ORM
+* Mocha
 
 ### File Structure <a name="structure"> </a>
 
 * ```src``` : Out of setup all the other new files are supposed to be added inside this folder. 
-
 
 * ```gitignore:```This file is used to exclude files or directories from being tracked by Git. This is particularly useful for sensitive or irrelevant files that don't need to be uploaded to a remote repository.
 * ```eslintrc.json:```This file is used to configure the ESLint code linter, which helps to catch and fix errors and inconsistencies in the JavaScript code.
@@ -75,6 +77,11 @@ Navigate to ```127.0.0.1:$port/api/docs``` on your browser. The swagger document
 * ```views:``` This folder is used to store the HTML templates used to generate the user interface of the application. These templates may be rendered by a server-side rendering engine or by the client-side JavaScript code.
 * ```package.json:``` This file is used by package managers like ```npm and yarn``` to store information about this project. In other words this json file stores metadata.
 * ```README.md: ``` this file is updated often and it stores the description about this project.
+
+### Testing <a name="testing"></a>
+
+The developer needs to run tests to ensure that the setup was correctly implemented.
+To test the endpoints run ```npm run test``` in the terminal
 
 ## Community <a name="community"></a>
 
