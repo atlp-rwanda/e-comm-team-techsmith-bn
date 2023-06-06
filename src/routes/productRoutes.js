@@ -1,14 +1,13 @@
 import express from 'express';
 import ProductController from '../controllers/productController.js';
 import isSeller from '../middlewares/verifyIsSeller';
-import checkIsLoggedIn from '../middlewares/checkIsLoggedIn.js';
 import isBuyer from '../middlewares/verifyIsBuyer.js';
 
 // SETUP ROUTER
 const router = express.Router();
 
 // GET ALL PRODUCTS
-router.get('/', checkIsLoggedIn, ProductController.findAllproducts);
+router.get('/',  ProductController.findAllproducts);
 
 router.get('/inStock', ProductController.allAvailableProducts);
 router.get('/inMyStock', isSeller, ProductController.availableProducts);

@@ -7,9 +7,9 @@ const logger = require('../controllers/logger');
 // verify if the user is the admin using the token in cookies
 const isAdmin = async (req, res, next) => {
   try {
-    const { cookie } = req.headers;
+    const { cookie, authorization } = req.headers;
     // IF NO COOKIE IS FOUND
-    if (!cookie) {
+    if (!cookie && !authorization) {
       logger.userLogger.error(
         '/POST statusCode: 401 : Unauthorized access, Login required'
       );

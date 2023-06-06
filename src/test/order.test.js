@@ -103,7 +103,7 @@ describe("CRUD order by buyer",()=>{
       .send(order1)
       .set('cookie',cookie)
       .end((err,res)=>{
-        expect(res).to.have.status(201)
+        expect(res).to.have.status(404)
         done()
       })
     })

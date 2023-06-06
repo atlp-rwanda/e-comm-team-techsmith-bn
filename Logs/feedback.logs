@@ -34,3 +34,28 @@
 2023-05-04T23:30:48.307Z [INFO]: /POST statusCode: 201 :  feedback received successfully
 2023-05-04T23:30:48.677Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
 2023-05-04T23:30:49.120Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-05T19:43:50.355Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-05T19:43:50.605Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-05T19:43:51.091Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-05T19:43:51.577Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-06T05:51:25.945Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-06T05:51:26.199Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-06T05:51:26.685Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-06T05:51:27.166Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-06T06:05:26.475Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-06T06:05:26.720Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-06T06:05:27.208Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-06T06:05:27.698Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-06T06:31:55.351Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-06T06:31:55.595Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-06T06:31:56.075Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-06T06:31:56.550Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-06T07:28:51.351Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-06T07:28:51.610Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-06T07:28:52.128Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-06T07:28:52.637Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
