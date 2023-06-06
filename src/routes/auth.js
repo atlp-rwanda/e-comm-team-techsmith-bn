@@ -26,7 +26,7 @@ passport.use(
     {
       // options for google authentifications
       callbackURL:
-        'https://e-comm-team-techsmith-bn-staging.onrender.com/api/auth/google/redirect',
+        'https://e-comm-team-techsmith-bn-staging-fmp3.onrender.com/api/auth/google/redirect',
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
     },
@@ -89,11 +89,7 @@ router.get(
         expiresIn: '1h',
       })
     );
-    res.send(`
-  <h1>WELCOME TO THE PROFILE PAGE OF ${req.user.name}</h1> 
-  <h2>YOUR EMAIL IS ${req.user.email}</h2>
-  <h2>YOUR ROLE ID IS ${req.user.roleId}</h2>
-  <h2>YOUR STATUS IS ${req.user.isActive}</h2>`);
+    res.redirect('https://e-comm-team-techsmith-fn.vercel.app/')
   }
 );
 
