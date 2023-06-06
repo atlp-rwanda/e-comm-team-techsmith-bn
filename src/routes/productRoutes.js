@@ -7,7 +7,7 @@ import isBuyer from '../middlewares/verifyIsBuyer.js';
 const router = express.Router();
 
 // GET ALL PRODUCTS
-router.get('/',  ProductController.findAllproducts);
+router.get('/', ProductController.findAllproducts);
 
 router.get('/inStock', ProductController.allAvailableProducts);
 router.get('/inMyStock', isSeller, ProductController.availableProducts);

@@ -9,24 +9,30 @@ const googleStrategy = Strategy;
 const router = express.Router();
 
 const { user } = db;
+const temp = [];
 dotenv.config();
-const { CLIENTID, CLIENTSECRET, GOOGLEDEFAULTPASSWORD } = process.env;
+
+const { CLIENTID, CLIENTSECRET, CALLBACKURL, FRONTENDURL } = process.env;
 /* eslint-disable */
 passport.serializeUser((user, done) => {
   done(null, user.googleId);
 });
 /* eslint-disable */
 passport.deserializeUser(async (id, done) => {
-  await user.findOne({ where: { id } }).then((user) => {
-    done(null, user);
-  });
+  console.log('Deserializing user with ID:', id);
+  try {
+    const currentUser = await user.findOne({ where: { id } });
+    done(null, currentUser);
+  } catch (err) {
+    done(err);
+  }
 });
 passport.use(
   new googleStrategy(
     {
       // options for google authentifications
       callbackURL:
-        'https://e-comm-team-techsmith-bn-staging-fmp3.onrender.com/api/auth/google/redirect',
+        `${CALLBACKURL}/api/auth/google/redirect`,
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
     },
@@ -38,6 +44,7 @@ passport.use(
           where: { email: profile.email },
         });
         if (currentUser) {
+          
           // already have this user
           if (currentUser.googleId === null) {
             await user.update(
@@ -49,21 +56,9 @@ passport.use(
             done(null, currentUser);
           }
         } else {
-          // if not, create user in our db
-          const newUser = await user.create({
-            name: profile.displayName,
-            email: profile.email,
-            password: GOOGLEDEFAULTPASSWORD,
-            googleId: profile.id,
-            roleId: 2,
-            isActive: true,
-            gender: 'unknwon',
-            birthDate: new Date(),
-            preferredLanguage: 'rw',
-            preferredCurrency: 'RWF',
-            physicalAddress: 'Rwanda',
-          });
-          done(null, newUser);
+              temp.push(profile.email)
+              temp.push(profile.displayName)
+              done(null, false);
         }
       } catch (err) {
         done(err);
@@ -79,18 +74,39 @@ router.get(
 
 router.get(
   '/google/redirect',
-  passport.authenticate('google', {
-    failureRedirect: '/api/users/login',
-  }),
-  (req, res) => {
-    res.cookie(
-      'Authorised',
-      jwt.sign({ id: req.user.id }, process.env.USER_SECRET, {
-        expiresIn: '1h',
-      })
-    );
-    res.redirect('https://e-comm-team-techsmith-fn.vercel.app/')
+  (req, res, next) => {
+    passport.authenticate('google', (err, user) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        const  emailRedirect=temp[0]
+        const nameRedirect=temp[1]
+
+        const redirectUrl = `${FRONTENDURL}/signup/google?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
+
+        return res.redirect(redirectUrl);
+      }
+
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+
+        const token = jwt.sign(
+          { id: user.email, roleId: user.roleId },
+          process.env.USER_SECRET,
+          { expiresIn: '1h' }
+        );
+
+        const redirectUrl = `${FRONTENDURL}/?token=${token}`;
+
+        return res.redirect(redirectUrl);
+      });
+    })(req, res, next);
   }
 );
+
 
 export default router;
