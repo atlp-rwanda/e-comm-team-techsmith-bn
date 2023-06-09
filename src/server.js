@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -6,7 +5,6 @@ import cors from 'cors';
 import path from 'path';
 import moment from 'moment';
 import passport from 'passport';
-// import cookieSession from 'cookie-session';
 import session from 'express-session';
 import socketio from 'socket.io';
 import allRoutes from './routes/allRoutes.js';
@@ -31,7 +29,7 @@ const app = express();
 // SET DEFALULT ENGINE FOR TESING
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({ origin: '*' }));

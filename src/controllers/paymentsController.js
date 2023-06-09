@@ -129,7 +129,7 @@ class PaymentsController {
 
       if (getPayments.rows.length === 0) {
         return res
-          .status(404)
+          .status(200)
           .json({ message: `There is no items found on page ${page}` });
       }
       return res.status(200).json({

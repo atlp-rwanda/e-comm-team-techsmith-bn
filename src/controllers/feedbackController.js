@@ -1,4 +1,5 @@
 import db from '../../database/models/index.js';
+import { getPagination, getPagingData } from '../utils/pagination.js';
 
 const Sequelize = require('sequelize');
 
@@ -80,9 +81,14 @@ class feedbackController {
   // GETTING FEEDBACK ON A PRODUCT
   static async allFeedback(req, res) {
     const { pId } = req.params;
+    const { size, page } = req.query;
+    const { limit } = getPagination(page, size || 10);
+
     try {
       // CHECKING IF PRODUCT EXISTS
-      const checkProduct = await product.findOne({ where: { id: pId } });
+      const checkProduct = await product.findOne({
+        where: { id: pId },
+      });
       if (!checkProduct) {
         logger.productLogger.error('/GET statusCode: 404 : Item not found ');
         return res.status(404).json({
@@ -103,8 +109,9 @@ class feedbackController {
         });
       }
 
-      const orders = await review.findAll({
+      const orders = await review.findAndCountAll({
         where: { productId: pId },
+        limit,
         attributes: {
           exclude: ['userId', 'productId', 'CreatedAt', 'UpdatedAt'],
         },
@@ -136,7 +143,7 @@ class feedbackController {
       );
       return res.status(200).json({
         ok: true,
-        data: orders,
+        data: getPagingData(orders, page, limit),
       });
     } catch (error) {
       logger.productLogger.error(
