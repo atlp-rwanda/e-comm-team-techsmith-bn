@@ -164,3 +164,26 @@
 2023-06-06T07:30:36.277Z [ERROR]: /DELETE statusCode: 404 :Order not found 
 2023-06-06T07:30:36.554Z [INFO]: /GET statusCode: 404 :Specific order found 
 2023-06-06T07:31:04.546Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-10T00:37:48.479Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-10T00:53:33.103Z [INFO]: /POST statusCode: 500 : Making order failed: notNull Violation: order.quantity cannot be null
+2023-06-10T00:54:02.555Z [ERROR]: /POST statusCode: 400 : User require more quantity than in Qty in the stock
+2023-06-10T00:54:11.430Z [INFO]: /POST statusCode: 404 : Product not found
+2023-06-10T00:56:13.667Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-10T01:35:04.572Z [INFO]: /PUT statusCode: 200 : User cancelled order succesfully
+2023-06-10T01:35:04.842Z [ERROR]: /PUT statusCode: 404 : Order to be delivered does not exist
+2023-06-10T01:35:05.117Z [ERROR]: /PUT statusCode: 401 : User tries to mark order as deliverd twice, or mark unpaid order as delivered
+2023-06-10T01:35:05.702Z [WARN]: /PUT statusCode: 200 :Order marked as onWay succesfully 
+2023-06-10T01:35:50.530Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-06-10T01:35:52.833Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-06-10T01:35:53.113Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-06-10T01:35:53.408Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-06-10T01:36:02.181Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-10T02:10:37.844Z [INFO]: /PUT statusCode: 200 : User cancelled order succesfully
+2023-06-10T02:10:38.115Z [ERROR]: /PUT statusCode: 404 : Order to be delivered does not exist
+2023-06-10T02:10:38.390Z [ERROR]: /PUT statusCode: 401 : User tries to mark order as deliverd twice, or mark unpaid order as delivered
+2023-06-10T02:10:38.962Z [WARN]: /PUT statusCode: 200 :Order marked as onWay succesfully 
+2023-06-10T02:11:19.817Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-06-10T02:11:22.106Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-06-10T02:11:22.383Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-06-10T02:11:22.653Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-06-10T02:11:31.991Z [ERROR]: /POST statusCode: 500 :Payment failed

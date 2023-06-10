@@ -39,7 +39,10 @@ jobs:
             SENDGRID_API_KEY: $SENDGRID_API_KEY
             SENDGRID_EMAIL: $SENDGRID_EMAIL
             NODE_ENV: $NODE_ENV
-            COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN  
+            COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN
+            CLOUDINARY_CLOUD_NAME: $CLOUDINARY_CLOUD_NAME
+            CLOUDINARY_API_KEY: $CLOUDINARY_API_KEY
+            CLOUDINARY_API_SECRET: $CLOUDINARY_API_SECRET
       - run:
           command: npm ci
           name: Install Packages

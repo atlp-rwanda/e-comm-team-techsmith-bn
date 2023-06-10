@@ -401,3 +401,105 @@
 2023-06-06T07:33:19.984Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
 2023-06-06T07:33:20.241Z [INFO]: /GET statusCode: 200 : All products are sold
 2023-06-06T07:33:20.507Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-09T23:25:00.269Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:25:00.578Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:26:16.888Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:26:17.198Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:27:20.167Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:27:20.530Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:28:54.477Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:28:54.791Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:29:29.786Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:29:30.100Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:30:44.571Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:30:44.890Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:31:42.228Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:31:42.558Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:32:25.937Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:32:26.293Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:33:31.452Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-09T23:33:31.759Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T00:50:25.731Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T00:50:46.365Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T00:51:03.814Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T00:51:42.828Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T01:35:15.406Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-10T01:35:15.682Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-10T01:35:51.404Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T01:35:51.674Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T01:36:09.983Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:36:09.984Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:36:10.286Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T01:36:12.061Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:36:12.061Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:37:08.321Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T01:38:15.805Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-10T01:38:16.107Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-10T01:38:16.386Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-10T01:38:16.972Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-10T01:38:17.550Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-10T01:38:17.821Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T01:38:18.410Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-10T01:38:18.418Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-10T01:38:18.699Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T01:38:18.971Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-10T01:38:19.271Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-10T01:46:47.385Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-10T01:47:08.717Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T01:47:09.011Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T01:53:17.059Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:53:17.061Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:54:29.442Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:54:29.443Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:54:29.729Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T01:54:31.574Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:54:31.575Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:55:27.222Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T01:56:33.902Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-10T01:56:34.213Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-10T01:56:34.491Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-10T01:56:35.077Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-10T01:56:35.666Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-10T01:56:35.940Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T01:56:36.521Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-10T01:56:36.531Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-10T01:56:36.815Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T01:56:37.085Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-10T01:56:37.371Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-10T01:58:37.532Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:58:37.533Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:59:53.968Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T01:59:53.969Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T02:01:52.563Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T02:01:52.564Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T02:03:53.125Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-10T02:04:59.079Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T02:04:59.081Z [ERROR]: /POST statCode: 500 : [object Object]
+2023-06-10T02:06:50.143Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:06:50.456Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:08:32.963Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:08:33.283Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:09:33.031Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:09:33.344Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:09:33.617Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-10T02:10:48.161Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-10T02:10:48.428Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-10T02:11:20.690Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T02:11:20.959Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-10T02:11:40.366Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:11:40.680Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-10T02:11:40.960Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T02:11:41.247Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-10T02:12:38.765Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T02:13:47.516Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-10T02:13:47.816Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-10T02:13:48.087Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-10T02:13:48.670Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-10T02:13:48.957Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-10T02:13:49.228Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-10T02:13:49.806Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-10T02:13:49.816Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-10T02:13:50.359Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-10T02:13:50.628Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-10T02:13:51.178Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-10T08:20:59.684Z [ERROR]:  / GET statusCode: 500: Fetching feedbacks failed: product.findAndCountOne is not a function

@@ -13,7 +13,7 @@ const buyerLogin = {
     email: 'otheruser@gmail.com',
     password: 'Password@00',
   },
-  orderPaidFor = 1001,
+  orderPaidFor = 497,
   unavailableOrder = -1,
   doesNotOwnOrder = 408,
   orderId = 442,

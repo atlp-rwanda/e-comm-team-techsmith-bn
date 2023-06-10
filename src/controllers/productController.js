@@ -5,6 +5,7 @@ import getExpiryDateAndId from '../utils/getIdAndDate.js';
 import { io } from '../server.js';
 import Notification from './notificationController.js';
 import validateProductSearchInput from '../utils/productSearch.js';
+import uploads from '../utils/uploads.js';
 
 const Sequelize = require('sequelize');
 const logger = require('./logger');
@@ -63,6 +64,15 @@ class ProductController {
           return err;
         }
       }
+
+      // UPLOAD TO CLOUDINARY
+      const imageUrls = await Promise.all(
+        image.map(async (img) => {
+          const imageUrl = await uploads(img, 'products');
+          return imageUrl.url;
+        })
+      );
+
       // ELSE CREATE NEW PRODUCT
       const newProduct = await product.create({
         userId: id,
@@ -72,7 +82,7 @@ class ProductController {
         categoryId,
         description,
         expiryDate,
-        image,
+        image: imageUrls,
         condition,
         include: {
           model: user,
@@ -113,7 +123,7 @@ class ProductController {
       io.emit('createProductError', error.message);
       return res.status(500).json({
         status: 'Adding product failed',
-        message: error.message,
+        message: error,
       });
     }
   }

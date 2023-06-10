@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
       product.hasMany(models.order, {
-        
         onDelete: 'CASCADE',
       });
-      product.belongsToMany(models.category, {
-        through: 'productCategory',
+      product.belongsTo(models.category, {
+        as: 'categories',
+        foreignKey: 'categoryId',
       });
       product.hasMany(models.review,{
         onDelete:'CASCADE'
