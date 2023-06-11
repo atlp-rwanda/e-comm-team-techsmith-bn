@@ -7,7 +7,6 @@ import db from '../../database/models/index.js';
 
 const googleStrategy = Strategy;
 const router = express.Router();
-
 const { user } = db;
 const temp = [];
 dotenv.config();
@@ -27,6 +26,7 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
 passport.use(
   new googleStrategy(
     {
@@ -84,7 +84,7 @@ router.get(
         const  emailRedirect=temp[0]
         const nameRedirect=temp[1]
 
-        const redirectUrl = `${FRONTENDURL}/signup/google?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
+        const redirectUrl = `${FRONTENDURL}/signup?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
 
         return res.redirect(redirectUrl);
       }
