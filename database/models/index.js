@@ -8,7 +8,6 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config')[env];
 const db = {};
-
 const sequelize = new Sequelize(
   process.env.DB_URL || config.database_url,
   {
@@ -16,7 +15,6 @@ const sequelize = new Sequelize(
     host: config.host
   }
 );
-
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -37,7 +35,6 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

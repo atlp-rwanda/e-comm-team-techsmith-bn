@@ -7,7 +7,6 @@ import db from '../../database/models/index.js';
 
 const googleStrategy = Strategy;
 const router = express.Router();
-
 const { user } = db;
 const temp = [];
 dotenv.config();
@@ -27,6 +26,7 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
 passport.use(
   new googleStrategy(
     {
@@ -66,12 +66,10 @@ passport.use(
     }
   )
 );
-
 router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-
 router.get(
   '/google/redirect',
   (req, res, next) => {
@@ -84,16 +82,14 @@ router.get(
         const  emailRedirect=temp[0]
         const nameRedirect=temp[1]
 
-        const redirectUrl = `${FRONTENDURL}/signup/google?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
+        const redirectUrl = `${FRONTENDURL}/signup?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
 
         return res.redirect(redirectUrl);
       }
-
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
-
         const token = jwt.sign(
           { id: user.email, roleId: user.roleId },
           process.env.USER_SECRET,
@@ -107,6 +103,4 @@ router.get(
     })(req, res, next);
   }
 );
-
-
 export default router;
