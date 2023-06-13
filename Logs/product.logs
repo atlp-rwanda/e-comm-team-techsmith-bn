@@ -503,6 +503,7 @@
 2023-06-10T02:13:50.628Z [INFO]: /GET statusCode: 200 : All products are sold
 2023-06-10T02:13:51.178Z [INFO]: /GET statusCode: 200 : All Products fetched 
 2023-06-10T08:20:59.684Z [ERROR]:  / GET statusCode: 500: Fetching feedbacks failed: product.findAndCountOne is not a function
+<<<<<<< HEAD
 2023-06-21T03:02:23.285Z [ERROR]: /GET statusCode: 404 : Item not found 
 2023-06-21T03:02:23.567Z [ERROR]: /GET statusCode: 404 : Item not found 
 2023-06-21T03:03:10.420Z [ERROR]: /POST statusCode: 404 : Product not found
@@ -566,3 +567,46 @@
 2023-06-21T04:50:34.684Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
 2023-06-21T04:50:35.144Z [INFO]: /GET statusCode: 200 : All products are sold
 2023-06-21T04:50:35.413Z [INFO]: /GET statusCode: 200 : All Products fetched 
+=======
+2023-06-20T19:29:13.668Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-20T19:29:13.914Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-20T19:30:32.331Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-20T19:30:32.594Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-20T19:31:07.204Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-20T19:31:07.205Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-20T19:31:07.547Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-20T19:31:08.677Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-20T19:31:08.677Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-20T19:32:13.433Z [ERROR]: /GET statusCode: 500 : Fetching available products failed : Operation timeout
+2023-06-20T19:33:15.302Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-20T19:33:15.635Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-20T19:33:15.883Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-20T19:33:16.418Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-20T19:33:16.907Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-20T19:33:17.164Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-20T19:33:17.702Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-20T19:33:17.730Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-20T19:33:18.305Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-20T19:33:18.586Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-20T19:33:19.093Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-20T20:14:28.706Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-20T20:14:28.990Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-20T20:15:20.694Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-20T20:15:20.986Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-20T20:15:49.293Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-20T20:15:49.538Z [INFO]: /POST statusCode: 201 : user succesfully created product
+2023-06-20T20:15:49.815Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-20T20:15:50.062Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-20T20:16:43.452Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-20T20:17:50.384Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-20T20:17:50.672Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-20T20:17:50.901Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-20T20:17:51.348Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-20T20:17:51.575Z [ERROR]: /POST statusCode: 409 : Duplicate found
+2023-06-20T20:17:51.803Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-20T20:17:52.252Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-20T20:17:52.276Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-20T20:17:52.724Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-20T20:17:52.962Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-20T20:17:53.413Z [INFO]: /GET statusCode: 200 : All Products fetched 
+>>>>>>> bug(resetPassword):reset-Password-fixing

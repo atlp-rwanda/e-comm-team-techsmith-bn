@@ -106,7 +106,7 @@ class Notification {
       });
       // IF NOTIFICATION DOES NOT EXIST
       if (!singleNotification) {
-        return res.status(404).json({ error: 'Notification not found' });
+        return res.status(404).json({ message: 'Notification not found' });
       }
       // DELETE NOTIFICATION
       const deletedNotification = await notification.destroy({ where: { id } });
