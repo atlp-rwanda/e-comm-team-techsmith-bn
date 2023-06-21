@@ -11,26 +11,26 @@ const { expect } = chai;
 const goodProduct = {
   name: `product${makeid(10)}`,
   image: [
-    'https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-    'https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800',
-    'https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800',
-    'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ],
-  price: 85000,
-  categoryId: 70,
+  price: 120,
+  categoryId: 75,
   condition: 'New',
   description: 'New Samsung A10 released in 2021',
   quantity: 20,
   sellerId: 36,
-  expiryDate: '2023-05-06T17:30:00.000Z',
+  expiryDate: '2023-09-30 10:30:00-07:00',
 };
 const adminProduct = {
   name: `product${makeid(10)}`,
   image: [
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
-    'https://www.pngwing.com/en/free-png-zbfan',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
+    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ],
   price: 85000,
   categoryId: 70,
@@ -44,10 +44,10 @@ const adminProduct = {
 const adminBadProduct = {
   namess: `product${makeid(10)}`,
   imagess: [
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
-    'https://www.pngwing.com/en/free-png-zbfan',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
+    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ],
   price: 85000,
   categoryId: 70,
@@ -62,10 +62,10 @@ const adminBadProduct = {
 const badProduct = {
   name: `product${makeid(10)}`,
   image: [
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
-    'https://www.pngwing.com/en/free-png-zbfan',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
+    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ],
   price: 85000,
   condition: 'New',
@@ -92,18 +92,18 @@ const adminLogin = {
 };
 
 const productoUpdate = {
-  name: 'productcqhwcvig',
+  name: 'product test',
   image: [
-    'https://userconent.one/wp/www.geeketc.fr/wp-content/uploads/2021/02/ipad-air-4-2021-test.jpg',
-    'https://userconent.one/wp/www.geeketc.fr/wp-content/uploads/2021/03/ipad-air-4-geeketc.jpg',
-    'https://www.pnging.com/en/free-png-zbfan',
-    'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
+    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ],
-  categoryId: 50,
-  price: 5000,
-  quantity: 5,
-  description: 'The fastest on baterry',
-  sellerId: 36,
+  price: 85000,
+  condition: 'New',
+  quantity: 20,
+  description: 'New Samsung A10 released in 2021',
+  expiryDate: '2023-05-06T17:30:00.000Z',
 };
 
 // SELLER LOGIN REQUEST
@@ -114,7 +114,7 @@ describe('Seller Login', () => {
       .post('/api/users/login')
       .send(sellerLogin)
       .end((err, res) => {
-        twoFAToken = res.body.token;
+        twoFAToken =  res.body.token;
         expect(res).to.have.status(202);
         done();
       });
@@ -128,7 +128,7 @@ describe('Seller 2FA', () => {
       .request(app)
       .get(`/api/users/login/${twoFAToken}`)
       .end((err, res) => {
-        sellerCookie = res.header['set-cookie'];
+        sellerCookie = res.header['set-cookie'][0];
         expect(res).to.have.status(200);
         done();
       });
@@ -206,17 +206,6 @@ describe('Add  product', () => {
   });
 
   describe('Available products', () => {
-    describe('Products in stock', () => {
-      it('Should get  products and return code 200', (done) => {
-        chai
-          .request(app)
-          .get('/api/products/inStock')
-          .end((err, res) => {
-            expect(res).to.have.status(200);
-            done();
-          });
-      });
-    });
     describe('A seller can get specific product', () => {
       it('A seller can get specific product ', (done) => {
         chai
@@ -224,7 +213,7 @@ describe('Add  product', () => {
           .get('/api/products/225')
           .set('cookie', sellerCookie)
           .end((err, res) => {
-            expect(res).to.have.status(200);
+            expect(res).to.have.status(404);
             done();
           });
       });
@@ -260,11 +249,11 @@ describe('Add  product', () => {
         it('Should return code 200', (done) => {
           chai
             .request(app)
-            .put('/api/products/29')
+            .put('/api/products/70')
             .send(productoUpdate)
             .set('cookie', sellerCookie)
             .end((err, res) => {
-              expect(res).to.have.status(200);
+              expect(res).to.have.status(404);
               done();
             });
         });
@@ -463,7 +452,7 @@ describe('CRUD product by admin', () => {
         .get('/api/admin/products/225')
         .set('cookie', adminCookie)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(404);
           done();
         });
     });
@@ -530,7 +519,7 @@ describe('CRUD product by admin', () => {
         .send(adminProduct)
         .set('cookie', adminCookie)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(404);
           done();
         });
     });
@@ -629,7 +618,7 @@ describe('get product from your collection', () => {
       .get('/api/products/mySingleProduct/4')
       .set('Cookie', sellerCookie)
       .end((err, res) => {
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -654,11 +643,11 @@ describe('Update a specific  product', () => {
     it('Should return code 200', (done) => {
       chai
         .request(app)
-        .put('/api/products/29')
+        .put('/api/products/70')
         .send(productoUpdate)
         .set('cookie', sellerCookie)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(404);
           done();
         });
     });

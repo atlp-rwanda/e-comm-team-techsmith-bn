@@ -10,5 +10,6 @@ router.post('/:id', isBuyer, wishlistController.addTowishlist);
 router.get('/', isBuyer, wishlistController.getWishlist);
 router.delete('/', isBuyer, wishlistController.deleteWishlist);
 router.delete('/:id', isBuyer, wishlistController.deleteSingleProduct);
+router.get('/allWishlists', wishlistController.getAllWishlist);
 
 export default router;

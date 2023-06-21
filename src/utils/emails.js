@@ -123,6 +123,11 @@ You may access your receipt on the link below:
   
 Thank you for choosing Techsmiths Ecommerce
   `;
+const remindPasswordChangeMessage = (name) => `
+  Dear ${name},
+  You are recieving this email for security reason.It's been 30 days since you have changed your password,we recommend you to change it to keep your account secured.
+  Thank you.
+  `;
 
 /* SENDGRID EMAIL */
 const sendEmail = async (email, name, heading, messageTemplate, token) => {
@@ -183,4 +188,5 @@ export {
   nodeMail,
   productIsExpired,
   paymentSuccessfulMessage,
+  remindPasswordChangeMessage,
 };

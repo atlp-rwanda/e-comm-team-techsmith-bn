@@ -126,6 +126,67 @@ class wishlistController {
     }
   }
 
+  // GET ALL WISHLISTS
+  static async getAllWishlist(req, res) {
+    const pageAsNumber = Number.parseInt(req.query.page, 10);
+    const sizeAsNumber = Number.parseInt(req.query.size, 10);
+
+    let page = 1;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 1) {
+      page = pageAsNumber;
+    }
+
+    let size = 20;
+    if (!Number.isNaN(sizeAsNumber) && sizeAsNumber > 0 && sizeAsNumber < 10) {
+      size = sizeAsNumber;
+    }
+    const offset = (page - 1) * size;
+    try {
+      // GET WISHLIST
+      const wishlistProd = await wishlist.findAndCountAll({
+        include: [
+          {
+            model: product,
+            as: 'product',
+            attributes: ['name', 'price', 'image'],
+          },
+        ],
+        limit: size,
+        offset,
+      });
+      const totalPages = Math.ceil(wishlistProd.count / size);
+      const currentPage = page > totalPages ? totalPages : page;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === totalPages ? null : currentPage + 1;
+
+      if (wishlistProd.rows.length === 0) {
+        return res
+          .status(200)
+          .json({ message: `There is no items found on page ${page}` });
+      }
+      // RETURN RESPONSE
+      res.status(200).json({
+        ok: true,
+        message: `Products in wishlist ${wishlistProd.count} `,
+        data: {
+          totalItems: wishlistProd.count,
+          totalPages,
+          pageSize: size,
+          currentPage,
+          prevPage,
+          nextPage,
+          availableProducts: wishlistProd.rows,
+        },
+      });
+      // CATCH ERROR
+    } catch (error) {
+      return res.status(500).json({
+        status: 'Getting wishlist failed',
+        message: error.message,
+      });
+    }
+  }
+
   // DELETE SINGLE PRODUCT FROM WISHLIST
   static async deleteSingleProduct(req, res) {
     try {

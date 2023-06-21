@@ -96,7 +96,7 @@ router.get(
           { expiresIn: '1h' }
         );
 
-        const redirectUrl = `${FRONTENDURL}/?token=${token}`;
+        const redirectUrl = `${FRONTENDURL}?token=${token}`;
 
         return res.redirect(redirectUrl);
       });

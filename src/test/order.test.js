@@ -27,6 +27,7 @@ const orderUser={
   email:'ikevine@gmail.com',
   password:'Kevine@123'
 }
+
 const order1= {
   productId:568,
   userId:394, 
@@ -45,8 +46,8 @@ const update={
   quantity:2,
 }
 
-const orderId = 267;
-const singleOrderId = 256; 
+const orderId = 518;
+const singleOrderId = 518; 
 
 
 let cookie=""

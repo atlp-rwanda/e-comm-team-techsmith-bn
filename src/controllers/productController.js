@@ -573,6 +573,7 @@ class ProductController {
       description,
       expiryDate,
       condition,
+      quantity,
     } = req.body;
     try {
       // GET PRODUCT ID FROM THE PARAMS
@@ -599,13 +600,26 @@ class ProductController {
       if (error) {
         return res.status(400).json({ message: error.details[0].message });
       }
+
+      let imageUrls = null;
+      // UPLOAD TO CLOUDINARY
+      if (image) {
+        imageUrls = await Promise.all(
+          image.map(async (img) => {
+            const imageUrl = await uploads(img, 'products');
+            return imageUrl.url;
+          })
+        );
+      }
+
       // IF INPUTS ARE VALIDATED, UPDATE PRODUCT
       const updateProduct = await product.update(
         {
           name,
           price,
-          categoryId,
-          image,
+          quantity,
+          categoryId: categoryId || productExist.categoryId,
+          image: imageUrls || productExist.image,
           description,
           expiryDate,
           condition,

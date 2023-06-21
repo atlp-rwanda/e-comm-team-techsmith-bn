@@ -1,11 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-
-import { user as User } from '../../database/models';
+import db, { user as User } from '../../database/models';
+import { nodeMail, remindPasswordChangeMessage } from '../utils/emails';
 
 const logger = require('./logger');
+
+const { Op } = Sequelize;
 
 dotenv.config();
 
@@ -22,8 +25,8 @@ async function sendResetEmail(user) {
   const token = jwt.sign({ email: user.email }, process.env.USER_SECRET, {
     expiresIn: '1h',
   });
-
-  const resetLink = `${process.env.HOST}/reset-password/${token}`;
+  const newToken = token.replace(/\./g, '-');
+  const resetLink = `${process.env.HOST}/reset-password/${newToken}`;
   const mailOptions = {
     to: user.email,
     from: `ATLP E-commerce <${process.env.RESET_EMAIL}>`,
@@ -63,7 +66,7 @@ async function requestReset(req, res) {
       '/PUT statusCode: 404 : Email TO RESET password not found'
     );
     return res.status(404).json({
-      error: 'Email not found',
+      message: 'Email not found',
     });
   }
   const token = jwt.sign({ email }, process.env.USER_SECRET, {
@@ -101,8 +104,44 @@ async function processReset(req, res) {
   } catch (err) {
     logger.userLogger.error('/PUT statusCode: 400 : Invalid token provided');
     return res.status(400).json({
-      error: 'Invalid token',
+      message: 'Invalid token',
     });
   }
 }
-export { requestReset, processReset };
+async function checkExpired(req, res) {
+  try {
+    const { user } = db;
+    // Retrieve users whose last password update time is greater than 30 days
+    const usersToRemind = await user.findAll({
+      where: {
+        passcodeModifiedAt: {
+          [Op.lt]: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+        },
+      },
+      attributes: ['email', 'name'],
+    });
+    const emailsAndNames = usersToRemind.map(({ email, name }) => ({
+      email,
+      name,
+    }));
+
+    // Send email to each user in the array of emailsAndNames
+    emailsAndNames.forEach(async (element) => {
+      await nodeMail(
+        element.email,
+        element.name,
+        'Update your password',
+        remindPasswordChangeMessage
+      );
+    });
+    return res.json({
+      message: 'Emails were sent successfully',
+      usersToRemind: emailsAndNames,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+}
+export { requestReset, processReset, checkExpired };
