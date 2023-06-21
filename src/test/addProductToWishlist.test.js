@@ -90,7 +90,21 @@ describe(' product already in wishlist', () => {
     });
   });
 });
-// DELETE PRODUCT FROM WISHLIST
+
+// DELETE SINGLE PRODUCT FROM WISHLIST
+describe('delete single prouduct from wishlist', () => {
+  it('should return status code 200', (done) => {
+    chai.request(app)
+    .delete('/api/wishlist/50')
+    .set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    });
+  })
+})
+
+// DELETE ALL PRODUCT FROM WISHLIST
 describe('deleting all products in wishlist', () => {
   it('should delete all products in wishlist and http code 200', (done) => {
     chai
@@ -102,4 +116,6 @@ describe('deleting all products in wishlist', () => {
         done();
       });
   });
+
+
 });

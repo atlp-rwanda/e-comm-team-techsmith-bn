@@ -50,8 +50,9 @@ Thank you.
 
 const twoFAMessageTemplate = (name, token) => `
 Dear ${name},
-You have requested to enable two factor authentication on your account. Please click on the link below to confirm your request.
-${host}/api/users/login/${token}
+You have requested to enable two factor authentication on your account. please use the token below to confirm your identity.
+${token}   
+Copy and paste the token above to the input field on the page.
 If you did not request for two factor authentication, please contact our support team.
 Thank you.
 `;

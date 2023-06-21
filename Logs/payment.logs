@@ -78,3 +78,12 @@
 2023-06-10T02:11:29.340Z [ERROR]: /POST statusCode: 404 : Order to be paid not found
 2023-06-10T02:11:29.837Z [ERROR]: /POST statusCode: 403 : User tries to pay unauthorised order
 2023-06-10T02:11:29.841Z [ERROR]: /POST statusCode: 401 : Login required to make payment
+2023-06-21T03:03:21.028Z [ERROR]: /POST statusCode: 404 : Order to be paid not found
+2023-06-21T03:03:21.605Z [ERROR]: /POST statusCode: 403 : User tries to pay unauthorised order
+2023-06-21T03:03:21.610Z [ERROR]: /POST statusCode: 401 : Login required to make payment
+2023-06-21T03:11:05.732Z [ERROR]: /POST statusCode: 404 : Order to be paid not found
+2023-06-21T03:11:06.331Z [ERROR]: /POST statusCode: 403 : User tries to pay unauthorised order
+2023-06-21T03:11:06.336Z [ERROR]: /POST statusCode: 401 : Login required to make payment
+2023-06-21T04:48:20.224Z [ERROR]: /POST statusCode: 404 : Order to be paid not found
+2023-06-21T04:48:20.708Z [ERROR]: /POST statusCode: 403 : User tries to pay unauthorised order
+2023-06-21T04:48:20.714Z [ERROR]: /POST statusCode: 401 : Login required to make payment

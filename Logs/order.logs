@@ -187,3 +187,30 @@
 2023-06-10T02:11:22.383Z [ERROR]: /DELETE statusCode: 404 :Order not found 
 2023-06-10T02:11:22.653Z [INFO]: /GET statusCode: 404 :Specific order found 
 2023-06-10T02:11:31.991Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-21T03:02:10.646Z [INFO]: /PUT statusCode: 200 : User cancelled order succesfully
+2023-06-21T03:02:10.955Z [ERROR]: /PUT statusCode: 404 : Order to be delivered does not exist
+2023-06-21T03:02:11.242Z [ERROR]: /PUT statusCode: 401 : User tries to mark order as deliverd twice, or mark unpaid order as delivered
+2023-06-21T03:02:12.287Z [WARN]: /PUT statusCode: 200 :Order marked as onWay succesfully 
+2023-06-21T03:03:09.343Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-06-21T03:03:12.394Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-06-21T03:03:12.710Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-06-21T03:03:12.995Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-06-21T03:03:24.814Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-21T03:09:46.772Z [INFO]: /PUT statusCode: 200 : User cancelled order succesfully
+2023-06-21T03:09:47.066Z [ERROR]: /PUT statusCode: 404 : Order to be delivered does not exist
+2023-06-21T03:09:47.366Z [ERROR]: /PUT statusCode: 401 : User tries to mark order as deliverd twice, or mark unpaid order as delivered
+2023-06-21T03:09:47.952Z [WARN]: /PUT statusCode: 200 :Order marked as onWay succesfully 
+2023-06-21T03:10:54.758Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-06-21T03:10:57.309Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-06-21T03:10:57.702Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-06-21T03:10:58.009Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-06-21T03:11:08.619Z [ERROR]: /POST statusCode: 500 :Payment failed
+2023-06-21T04:47:02.465Z [INFO]: /PUT statusCode: 200 : User cancelled order succesfully
+2023-06-21T04:47:02.717Z [ERROR]: /PUT statusCode: 404 : Order to be delivered does not exist
+2023-06-21T04:47:02.963Z [ERROR]: /PUT statusCode: 401 : User tries to mark order as deliverd twice, or mark unpaid order as delivered
+2023-06-21T04:47:03.456Z [WARN]: /PUT statusCode: 200 :Order marked as onWay succesfully 
+2023-06-21T04:48:07.357Z [INFO]: /GET statusCode: 200 : Orders fetched successfully
+2023-06-21T04:48:09.395Z [INFO]: /PUT statusCode: 404 : Order successfully updated 
+2023-06-21T04:48:09.641Z [ERROR]: /DELETE statusCode: 404 :Order not found 
+2023-06-21T04:48:09.888Z [INFO]: /GET statusCode: 404 :Specific order found 
+2023-06-21T04:48:22.799Z [ERROR]: /POST statusCode: 500 :Payment failed
