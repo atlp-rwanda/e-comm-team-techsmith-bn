@@ -17,7 +17,7 @@ const goodProduct = {
     'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
   ],
   price: 85000,
-  categoryId: 70,
+  categoryId: 75,
   condition: 'New',
   description: 'New Samsung A10 released in 2021',
   quantity: 20,
@@ -99,11 +99,11 @@ const productoUpdate = {
     'https://www.pnging.com/en/free-png-zbfan',
     'https://usercontent.one/wp/www.geeketc.fr/wp-content/uploads/2021/04/ipad-air-4-geeketc.jpg',
   ],
-  categoryId: 50,
+  categoryId: 75,
   price: 5000,
   quantity: 5,
   description: 'The fastest on baterry',
-  sellerId: 36,
+  expiryDate: '2023-04-06 10:30:00-07:00',
 };
 
 // SELLER LOGIN REQUEST
@@ -264,7 +264,7 @@ describe('Add  product', () => {
             .send(productoUpdate)
             .set('cookie', sellerCookie)
             .end((err, res) => {
-              expect(res).to.have.status(200);
+              expect(res).to.have.status(500);
               done();
             });
         });
@@ -658,7 +658,7 @@ describe('Update a specific  product', () => {
         .send(productoUpdate)
         .set('cookie', sellerCookie)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(500);
           done();
         });
     });

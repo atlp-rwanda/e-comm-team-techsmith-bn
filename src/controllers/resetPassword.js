@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-
 import { user as User } from '../../database/models';
 
 const logger = require('./logger');
@@ -22,8 +21,8 @@ async function sendResetEmail(user) {
   const token = jwt.sign({ email: user.email }, process.env.USER_SECRET, {
     expiresIn: '1h',
   });
-
-  const resetLink = `${process.env.HOST}/reset-password/${token}`;
+  const newToken = token.replace(/\./g, '-');
+  const resetLink = `${process.env.HOST}/reset-password/${newToken}`;
   const mailOptions = {
     to: user.email,
     from: `ATLP E-commerce <${process.env.RESET_EMAIL}>`,
@@ -63,7 +62,7 @@ async function requestReset(req, res) {
       '/PUT statusCode: 404 : Email TO RESET password not found'
     );
     return res.status(404).json({
-      error: 'Email not found',
+      message: 'Email not found',
     });
   }
   const token = jwt.sign({ email }, process.env.USER_SECRET, {
@@ -101,7 +100,7 @@ async function processReset(req, res) {
   } catch (err) {
     logger.userLogger.error('/PUT statusCode: 400 : Invalid token provided');
     return res.status(400).json({
-      error: 'Invalid token',
+      message: 'Invalid token',
     });
   }
 }
