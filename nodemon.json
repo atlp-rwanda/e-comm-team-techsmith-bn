@@ -1,0 +1,8 @@
+{
+    "watch": ["src"],
+    "ext": "js,json",
+    "execMap": {
+      "js": "babel-node"
+    }
+  }
+  

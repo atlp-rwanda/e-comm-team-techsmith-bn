@@ -78,7 +78,7 @@ const twoFactorAuthentication = {
     {
       name: 'token',
       in: 'path',
-      description: 'Token sent to seller email',
+      description: 'Token sent to seller email using nodemailer',
       required: true,
       schema: {
         $ref: '#/components/schemas/token',

@@ -120,7 +120,7 @@ class adminControllers {
           message: 'Invalid email or password',
         });
       }
-
+      // COMPARE PASSWORD
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // check if user exist
