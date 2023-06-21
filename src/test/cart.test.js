@@ -83,6 +83,19 @@ describe('Getting all products in cart', () => {
   });
 });
 
+// DELETING A PRODUCT IN CART
+describe('Deleting a product in cart', () => {
+  it('should delete a product in cart and http code 200', (done) => {  
+    chai.request(app).delete('/api/cart/16').set('cookie', buyerCookie)
+    .end((err, res) => {
+      expect(res).to.have.status(200)
+      done();
+    });
+  }
+  );
+})
+
+// CLEARING ALL PRODUCTS IN CART
 describe('clearing all products in cart', () => {
   it('should delete all products in cart and http code 200', (done) => {
     chai.request(app).delete('/api/cart').set('cookie', buyerCookie)

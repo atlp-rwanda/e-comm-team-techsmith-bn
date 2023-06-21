@@ -503,3 +503,66 @@
 2023-06-10T02:13:50.628Z [INFO]: /GET statusCode: 200 : All products are sold
 2023-06-10T02:13:51.178Z [INFO]: /GET statusCode: 200 : All Products fetched 
 2023-06-10T08:20:59.684Z [ERROR]:  / GET statusCode: 500: Fetching feedbacks failed: product.findAndCountOne is not a function
+2023-06-21T03:02:23.285Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T03:02:23.567Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T03:03:10.420Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T03:03:10.708Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T03:03:32.596Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:03:32.597Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:03:32.927Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T03:03:33.822Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:03:33.823Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:04:36.983Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T03:05:50.156Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-21T03:05:50.491Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-21T03:05:50.782Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-21T03:05:51.390Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T03:05:51.988Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T03:05:52.277Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T03:05:52.872Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-21T03:05:52.885Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-21T03:05:53.473Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T03:05:53.764Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-21T03:05:54.338Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-21T03:09:59.980Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T03:10:00.277Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T03:10:55.802Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T03:10:56.100Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T03:11:16.348Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:11:16.349Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:11:16.665Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T03:11:17.542Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:11:17.542Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T03:12:20.607Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T03:13:38.796Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-21T03:13:39.587Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-21T03:13:40.078Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-21T03:13:41.070Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T03:13:42.063Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T03:13:42.344Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T03:13:42.969Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-21T03:13:42.984Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-21T03:13:43.691Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T03:13:44.108Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-21T03:13:44.984Z [INFO]: /GET statusCode: 200 : All Products fetched 
+2023-06-21T04:47:16.639Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T04:47:16.884Z [ERROR]: /GET statusCode: 404 : Item not found 
+2023-06-21T04:48:08.154Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T04:48:08.404Z [ERROR]: /POST statusCode: 404 : Product not found
+2023-06-21T04:48:33.678Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T04:48:33.679Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T04:48:34.307Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T04:48:35.094Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T04:48:35.094Z [ERROR]: /POST statCode: 500 : Must supply api_key
+2023-06-21T04:49:31.765Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T04:50:32.097Z [INFO]: /GET statusCode: 200 : All Products fetched by Admin
+2023-06-21T04:50:32.390Z [INFO]: /GET statusCode: 200 : a product found
+2023-06-21T04:50:32.636Z [ERROR]: /GET statusCode: 404 :Item not found in database
+2023-06-21T04:50:33.119Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T04:50:33.646Z [INFO]: /POST statusCode: 201 : Admin succesfully created product
+2023-06-21T04:50:33.898Z [ERROR]: /POST statusCode: 400 : "categoryId" is required
+2023-06-21T04:50:34.380Z [ERROR]:  / PUT statusCode: 200: Product details with id=262 edited successfully by Admin 
+2023-06-21T04:50:34.400Z [ERROR]: /POST statCode: 500 : WHERE parameter "name" has invalid "undefined" value
+2023-06-21T04:50:34.684Z [INFO]: /GET statusCode: 200 : Available  Products fetched 
+2023-06-21T04:50:35.144Z [INFO]: /GET statusCode: 200 : All products are sold
+2023-06-21T04:50:35.413Z [INFO]: /GET statusCode: 200 : All Products fetched 

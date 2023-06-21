@@ -98,3 +98,47 @@
 2023-06-10T02:10:23.756Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
 2023-06-10T02:10:24.041Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
 2023-06-10T02:10:24.310Z [INFO]: /DELETE statusCode: 200 : Cart cleared succesfully
+2023-06-21T03:01:50.382Z [ERROR]: /POST statusCode: 404 :Item not found in stock 
+2023-06-21T03:01:51.286Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T03:01:51.878Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
+2023-06-21T03:01:52.186Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T03:01:52.465Z [INFO]: /DELETE statusCode: 200 : Cart cleared succesfully
+2023-06-21T03:09:27.921Z [ERROR]: /POST statusCode: 404 :Item not found in stock 
+2023-06-21T03:09:28.767Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T03:09:29.346Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
+2023-06-21T03:09:29.649Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T03:09:29.949Z [INFO]: /DELETE statusCode: 200 : Cart cleared succesfully
+2023-06-21T03:54:20.542Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:04:20.115Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:06:01.863Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:06:47.345Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:09:29.293Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:11:49.666Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:12:27.454Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:13:22.918Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:19:13.655Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:19.216Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:22.593Z [ERROR]: /POST statusCode: 404 :Item not found in stock 
+2023-06-21T04:19:26.601Z [ERROR]: /POST statusCode: 404 :Item not found in stock 
+2023-06-21T04:19:30.495Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:35.580Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:38.948Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:40.938Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:42.880Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:19:47.142Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:20:20.945Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:21:01.944Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:40:10.844Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:41:06.403Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:41:06.686Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:44:38.158Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:44:38.672Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
+2023-06-21T04:44:39.420Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:45:09.800Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:45:10.346Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
+2023-06-21T04:45:10.621Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:46:11.782Z [ERROR]: /POST statusCode: 404 :Item not found in stock 
+2023-06-21T04:46:12.521Z [INFO]: /POST statusCode: 201 :Item added in cart succesfully 
+2023-06-21T04:46:13.002Z [ERROR]: /POST statusCode: 409 :Duolicated fund in cart 
+2023-06-21T04:46:13.248Z [INFO]: /GET statusCode: 200 : Retrieved content in cart
+2023-06-21T04:46:13.977Z [INFO]: /DELETE statusCode: 200 : Cart cleared succesfully

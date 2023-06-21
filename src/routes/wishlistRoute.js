@@ -9,5 +9,6 @@ const router = express.Router();
 router.post('/:id', isBuyer, wishlistController.addTowishlist);
 router.get('/', isBuyer, wishlistController.getWishlist);
 router.delete('/', isBuyer, wishlistController.deleteWishlist);
+router.delete('/:id', isBuyer, wishlistController.deleteSingleProduct);
 
 export default router;

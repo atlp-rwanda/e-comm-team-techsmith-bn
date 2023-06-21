@@ -84,3 +84,18 @@ notNull Violation: review.feedback cannot be null
 2023-06-10T08:27:23.499Z [INFO]: /GET statusCode: 200 : Feedback fetched sucessfully
 2023-06-10T08:27:50.839Z [INFO]: /GET statusCode: 200 : Feedback fetched sucessfully
 2023-06-10T08:28:12.032Z [INFO]: /GET statusCode: 200 : Feedback fetched sucessfully
+2023-06-21T03:02:21.583Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-21T03:02:21.881Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-21T03:02:22.447Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-21T03:02:23.006Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-21T03:09:58.119Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-21T03:09:58.450Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-21T03:09:59.073Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-21T03:09:59.636Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment
+2023-06-21T04:47:15.184Z [INFO]: /POST statusCode: 201 :  feedback received successfully
+2023-06-21T04:47:15.428Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make order
+2023-06-21T04:47:15.912Z [ERROR]: /POST statusCode: 500 : No feedback made: notNull Violation: review.rating cannot be null,
+notNull Violation: review.feedback cannot be null 
+2023-06-21T04:47:16.393Z [ERROR]: /POST statusCode: 404 : No feedback made, user need to make payment

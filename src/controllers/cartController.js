@@ -89,7 +89,7 @@ class cartController {
           {
             model: product,
             as: 'product',
-            attributes: ['name', 'price', 'image'],
+            attributes: ['id', 'name', 'price', 'image'],
           },
         ],
         limit: size,
@@ -102,6 +102,7 @@ class cartController {
       const nextPage = currentPage === totalPages ? null : currentPage + 1;
 
       const cartProducts = cartItems.rows.map((item) => ({
+        productId: item.product.id,
         name: item.product.name,
         price: item.product.price,
         image: item.product.image,
@@ -144,13 +145,46 @@ class cartController {
       logger.cartLogger.info(
         '/DELETE statusCode: 200 : Cart cleared succesfully'
       );
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Cart cleared successfully',
       });
     } catch (error) {
       logger.cartLogger.error('/DELETE statusCode: 500 : Clear cart failed');
       return res.status(500).json({
         status: 'Failed to clear cart',
+        message: error.message,
+      });
+    }
+  }
+
+  // DELETE SINGLE ITEM FROM CART
+  static async deleteSingleItem(req, res) {
+    try {
+      const { id: userId } = res.locals;
+      const { id: productId } = req.params;
+
+      // CHECK IF THE PRDUCT EXISTS IN THE CART
+      const cartItem = await cart.findOne({
+        where: { productId, userId },
+      });
+
+      if (!cartItem) {
+        return res.status(404).json({
+          message: 'Product does not exist in cart',
+        });
+      }
+
+      // DELETE THE ITEM
+      await cart.destroy({
+        where: { productId, userId },
+      });
+
+      return res.status(200).json({
+        ok: true,
+        message: 'product successfully deleted from cart',
+      });
+    } catch (error) {
+      return res.status(500).json({
         message: error.message,
       });
     }
