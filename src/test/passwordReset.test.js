@@ -96,4 +96,11 @@ describe('testing password reset', () => {
         chai.expect(res).to.have.status(404);
       });
   });
+  it('should check for expired password', () => {
+    request(app)
+      .get('/api/password/checkExpired')
+      .end((error, res) => {
+        chai.expect(res).to.have.status(200);
+      });
+  });
 });

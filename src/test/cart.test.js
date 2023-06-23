@@ -50,7 +50,7 @@ describe('Product is not found',() => {
 describe('Adding item to cart', () => {
   it('should add item to cart and return code 201', (done) => {
     chai.request(app)
-      .post('/api/cart/16')
+      .post('/api/cart/728')
       .set('cookie', buyerCookie)
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -64,7 +64,7 @@ describe('Adding item to cart', () => {
 describe('Product already in cart',() => {
   it('should return code 409', (done)=>{
     chai.request(app)
-        .post('/api/cart/16')
+        .post('/api/cart/728')
         .set('cookie',buyerCookie)
         .end((err,res) => {
           expect(res).to.have.status(409)
@@ -86,7 +86,7 @@ describe('Getting all products in cart', () => {
 // DELETING A PRODUCT IN CART
 describe('Deleting a product in cart', () => {
   it('should delete a product in cart and http code 200', (done) => {  
-    chai.request(app).delete('/api/cart/16').set('cookie', buyerCookie)
+    chai.request(app).delete('/api/cart/728').set('cookie', buyerCookie)
     .end((err, res) => {
       expect(res).to.have.status(200)
       done();

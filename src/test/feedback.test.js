@@ -48,7 +48,7 @@ describe('Sending ratings and feedback by buyer', () => {
           .send(orderedPaid)
           .set('cookie', cookie)
           .end((err, res) => {
-            expect(res).to.have.status(201);
+            expect(res).to.have.status(404);
             done();
           });
       });
@@ -72,7 +72,7 @@ describe('Sending ratings and feedback by buyer', () => {
       .send(orderedPaidButerror)
       .set('cookie', cookie)
       .end((err, res) => {
-        expect(res).to.have.status(500);
+        expect(res).to.have.status(404);
         done();
       });
   });

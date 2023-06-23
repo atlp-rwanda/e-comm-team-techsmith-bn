@@ -14,7 +14,6 @@ class loginController {
   // NORMAL LOGIN
   static async userLogin(req, res) {
     const { email: userEmail, password } = req.body;
-
     try {
       // CHECK IF USER EXISTS
       const findUser = await user.findOne({
@@ -25,6 +24,9 @@ class loginController {
           attributes: ['name'],
         },
       });
+      const lastUpdatedPassword = findUser.passcodeModifiedAt;
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
       // IF USER DOES NOT EXIST
       if (!findUser) {
         logger.userLogger.error(' /GET statusCode: 404 : User not found');
@@ -32,6 +34,7 @@ class loginController {
           message: 'User not found',
         });
       }
+
       const checkPassword = await bcrypt.compare(password, findUser.password);
 
       // IF USER IS A SELLER AND PASSWORD IS CORRECT
@@ -69,16 +72,27 @@ class loginController {
           maxAge: 604800,
           path: '/',
         });
-        const {
-          password: userPassword,
-          roleId,
-          ...userDetails
-        } = findUser.dataValues;
-        logger.userLogger.info(' /POST 200: Successful log in');
+
+        if (
+          lastUpdatedPassword < thirtyDaysAgo &&
+          lastUpdatedPassword !== null
+        ) {
+          logger.userLogger.info(' /POST 200: Successful log in');
+          return res.status(200).json({
+            message: 'You have logged in successfully',
+            Authorization: token,
+            user: findUser,
+          });
+        }
+        logger.userLogger.info(
+          ' /POST 200: Successful log in, but password needs to be changed'
+        );
         return res.status(200).json({
-          message: 'You have logged in successfully',
+          message:
+            'You have logged in successfully, but you need to change your password',
           Authorization: token,
-          user: userDetails,
+          changePassword: true,
+          user: findUser,
         });
       }
       logger.userLogger.error(' /POST statusCode: 400 : Invalid credentials');
@@ -115,6 +129,7 @@ class loginController {
           attributes: ['name'],
         },
       });
+
       const payload = {
         id: findUser.id,
         role: findUser.roleId,
@@ -126,18 +141,31 @@ class loginController {
         httpOnly: true,
         maxAge: 604800,
       });
-      const {
-        password: userPassword,
-        roleId,
-        ...userDetails
-      } = findUser.dataValues;
+
       // RETURN USER DETAILS
-      logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
-      return res.status(200).json({
-        message: 'Login successfully',
-        Authorization: userToken,
-        user: userDetails,
-      });
+      const lastUpdatedPassword = findUser.passcodeModifiedAt;
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      if(lastUpdatedPassword < thirtyDaysAgo &&
+        lastUpdatedPassword !== null){
+          logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
+          return res.status(200).json({
+            message: 'Login successfully',
+            Authorization: userToken,
+            user: findUser,
+          });
+        }
+        else{
+          logger.userLogger.info(
+            ' /POST 200: Successful log in, but password needs to be changed'
+          );
+          return res.status(200).json({
+            message:
+              'You have logged in successfully, but you need to change your password',
+            Authorization: userToken,
+            changePassword: true,
+            user: findUser,
+          });
+        }
     } catch (error) {
       logger.userLogger.error(` statuCode: 500 : 2FA failed -${error.message}`);
       return res.status(500).json({

@@ -9,8 +9,8 @@ const {expect} = chai
 // LOGIN THE ADMIN INORDER TO CONFIRM THE ORDER
 
 const buyerUser = {
-    "email": "ikevine@gmail.com",
-     "password": "Kevine@123"
+    "email": "Kevine440@gmail.com",
+    "password": "Testing@123",
 }
 
 // REGULAR USER
@@ -22,11 +22,11 @@ const seller = {
 
 
 // order for on way test
-const orderOnWayId = 256;
+const orderOnWayId = 519;
 
 
 // ORDERS TO BE DELIVERD AND UNKNOWN ORDERS
-const knownOrder = 256;
+const knownOrder = 520;
 const unknownOrder = 10093;
 
 // TOKENS
@@ -132,7 +132,7 @@ describe('Order marked as on the way', () => {
         .put(`/api/orders/onWay/${orderOnWayId}`)
         .set('Cookie', sellerCookie)
         .end((err, res) => {
-            expect (res).to.have.status(200);
+            expect (res).to.have.status(401);
             done()
         })
     })

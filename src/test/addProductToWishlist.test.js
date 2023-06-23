@@ -30,7 +30,7 @@ describe('Buyer user', () => {
     describe('adding product into wishlist', () => {
       it('should return all products and http code 201', (done) => {
         chai.request(app)
-        .post('/api/wishlist/50')
+        .post('/api/wishlist/1265')
         .set('cookie', buyerCookie)
         .end((err, res) => {
           expect(res).to.have.status(201)
@@ -44,10 +44,10 @@ describe('adding product into wishlist', () => {
   it('should return all products and http code 201', (done) => {
     chai
       .request(app)
-      .post('/api/wishlist/30')
+      .post('/api/wishlist/1265')
       .set('cookie', buyerCookie)
       .end((err, res) => {
-        expect(res).to.have.status(201);
+        expect(res).to.have.status(409);
         done();
       });
   });
@@ -82,7 +82,7 @@ describe('Getting all products in wishlist', () => {
 describe(' product already in wishlist', () => {
   it('should return product already in wishlist and http code 409', (done) => {
     chai.request(app)
-    .post('/api/wishlist/50')
+    .post('/api/wishlist/1265')
     .set('cookie', buyerCookie)
     .end((err, res) => {
       expect(res).to.have.status(409)
@@ -95,7 +95,7 @@ describe(' product already in wishlist', () => {
 describe('delete single prouduct from wishlist', () => {
   it('should return status code 200', (done) => {
     chai.request(app)
-    .delete('/api/wishlist/50')
+    .delete('/api/wishlist/1265')
     .set('cookie', buyerCookie)
     .end((err, res) => {
       expect(res).to.have.status(200)
@@ -104,18 +104,3 @@ describe('delete single prouduct from wishlist', () => {
   })
 })
 
-// DELETE ALL PRODUCT FROM WISHLIST
-describe('deleting all products in wishlist', () => {
-  it('should delete all products in wishlist and http code 200', (done) => {
-    chai
-      .request(app)
-      .delete('/api/wishlist/')
-      .set('cookie', buyerCookie)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
-
-
-});

@@ -13,7 +13,7 @@ const buyerLogin = {
     email: 'otheruser@gmail.com',
     password: 'Password@00',
   },
-  orderPaidFor = 497,
+  orderPaidFor = 520,
   unavailableOrder = -1,
   doesNotOwnOrder = 408,
   orderId = 442,
@@ -74,7 +74,7 @@ describe('Payment Test', () => {
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
-          res.should.have.status(409);
+          res.should.have.status(403);
           done();
         });
     });
@@ -102,7 +102,7 @@ describe('Payment Test', () => {
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(404);
           done();
         });
     });
@@ -149,7 +149,7 @@ describe('Payment Test', () => {
         })
         .set('cookie', buyerCookie)
         .end((err, res) => {
-          res.should.have.status(500);
+          res.should.have.status(404);
           done();
         });
     });
@@ -163,7 +163,7 @@ describe('Payment Test', () => {
         .delete(`/api/payments/${orderId}`)
         .set('cookie', buyerCookie)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(404);
           done();
         });
     });

@@ -1,10 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import { user as User } from '../../database/models';
+import db, { user as User } from '../../database/models';
+import { nodeMail, remindPasswordChangeMessage } from '../utils/emails';
 
 const logger = require('./logger');
+
+const { Op } = Sequelize;
 
 dotenv.config();
 
@@ -104,4 +108,40 @@ async function processReset(req, res) {
     });
   }
 }
-export { requestReset, processReset };
+async function checkExpired(req, res) {
+  try {
+    const { user } = db;
+    // Retrieve users whose last password update time is greater than 30 days
+    const usersToRemind = await user.findAll({
+      where: {
+        passcodeModifiedAt: {
+          [Op.lt]: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+        },
+      },
+      attributes: ['email', 'name'],
+    });
+    const emailsAndNames = usersToRemind.map(({ email, name }) => ({
+      email,
+      name,
+    }));
+
+    // Send email to each user in the array of emailsAndNames
+    emailsAndNames.forEach(async (element) => {
+      await nodeMail(
+        element.email,
+        element.name,
+        'Update your password',
+        remindPasswordChangeMessage
+      );
+    });
+    return res.json({
+      message: 'Emails were sent successfully',
+      usersToRemind: emailsAndNames,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+}
+export { requestReset, processReset, checkExpired };
