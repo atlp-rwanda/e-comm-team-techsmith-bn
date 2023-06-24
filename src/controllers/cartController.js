@@ -51,6 +51,7 @@ class cartController {
       );
       res.status(201).json({
         message: 'Items are added successfully',
+        product: prod,
       });
       // CATCH ERROR
     } catch (error) {
@@ -182,6 +183,7 @@ class cartController {
       return res.status(200).json({
         ok: true,
         message: 'product successfully deleted from cart',
+        id: productId,
       });
     } catch (error) {
       return res.status(500).json({

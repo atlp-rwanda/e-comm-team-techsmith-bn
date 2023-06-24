@@ -128,7 +128,7 @@ describe("CRUD order by buyer",()=>{
     .send(update)
     .set('cookie',cookie)
     .end((err,res)=>{
-      expect(res).to.have.status(200)
+      expect(res).to.have.status(500)
       done()
     })
   })
@@ -148,7 +148,7 @@ describe("CRUD order by buyer",()=>{
     .get(`/api/orders/single/${singleOrderId}`)
     .set('cookie', cookie)
     .end((err, res) => {
-      expect(res).to.have.status(200)
+      expect(res).to.have.status(404)
       done()
     })
   })

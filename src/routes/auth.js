@@ -91,12 +91,12 @@ router.get(
           return next(err);
         }
         const token = jwt.sign(
-          { id: user.email, roleId: user.roleId },
+          { email: user.email, roleId: user.roleId, userName: user.name,userId:user.id },
           process.env.USER_SECRET,
           { expiresIn: '1h' }
         );
 
-        const redirectUrl = `${FRONTENDURL}?token=${token}`;
+        const redirectUrl = `${FRONTENDURL}/login?token=${token}`;
 
         return res.redirect(redirectUrl);
       });
