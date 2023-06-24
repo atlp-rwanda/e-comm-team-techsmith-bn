@@ -9,8 +9,8 @@ const {expect} = chai
 // LOGIN THE ADMIN INORDER TO CONFIRM THE ORDER
 
 const buyerUser = {
-    "email": "Kevine440@gmail.com",
-    "password": "Testing@123",
+    "email": "ikevine@gmail.com",
+    "password": "Kevine@123"
 }
 
 // REGULAR USER
@@ -26,7 +26,7 @@ const orderOnWayId = 519;
 
 
 // ORDERS TO BE DELIVERD AND UNKNOWN ORDERS
-const knownOrder = 533;
+const knownOrder = 562;
 const unknownOrder = 10093;
 
 // TOKENS
@@ -86,7 +86,7 @@ describe('Order cancelled successfully', () => {
         .put(`/api/orders/cancelled/${knownOrder}`)
         .set('Cookie', buyerCookie)
         .end((err, res) => {
-            expect(res).to.have.status(401);
+            expect(res).to.have.status(200);
             done()
         })
     })

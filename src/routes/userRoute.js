@@ -10,6 +10,7 @@ import isActive from '../middlewares/activeUser.js';
 import changeRole from '../controllers/roleController.js';
 import wishlistController from '../controllers/wishlistController.js';
 import isBuyer from '../middlewares/verifyIsBuyer.js';
+import contactForm from '../controllers/contactController.js';
 
 const router = express.Router();
 
@@ -60,3 +61,7 @@ export default router;
 // disable and enable user
 router.put('/disable/:id', isAdmin, dis_enableController.disableUser);
 router.put('/enable/:id', isAdmin, dis_enableController.enableUser);
+
+// SEND A MESSAGE IN CONTACT FORM
+
+router.post('/contact', contactForm);
