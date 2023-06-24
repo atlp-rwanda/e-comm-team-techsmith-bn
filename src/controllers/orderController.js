@@ -1,4 +1,5 @@
 import db from '../../database/models/index.js';
+import { getPagination, getPagingData } from '../utils/pagination.js';
 import validateQuantity from '../utils/validateQuantity.js';
 
 const { order, product, user } = db;
@@ -306,7 +307,7 @@ class OrderController {
           {
             model: product,
             as: 'product',
-            attributes: ['name'],
+            attributes: ['name', 'image', 'price', 'quantity'],
           },
         ],
       });
@@ -323,6 +324,64 @@ class OrderController {
         ok: true,
         message: 'Order found',
         data: singleOrder,
+      });
+    } catch (e) {
+      logger.orderLogger.error(
+        '/GET statusCode: 500 : Getting single order failed'
+      );
+      return res.status(500).json({
+        ok: false,
+        error: e.message,
+      });
+    }
+  }
+
+  // GET ALL ORDERS OF A USER
+  static async userOrders(req, res) {
+    try {
+      const { id: userId } = res.locals;
+      const { page, size } = req.query;
+
+      const { limit } = getPagination(page, size);
+
+      const userOrders = await order.findAndCountAll({
+        where: {
+          userId,
+        },
+        limit,
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email', 'telephone'],
+          },
+          {
+            model: product,
+            as: 'product',
+            attributes: [
+              'name',
+              'categoryId',
+              'price',
+              'image',
+              'description',
+              'quantity',
+            ],
+          },
+        ],
+      });
+
+      if (!userOrders) {
+        logger.orderLogger.error('/GET statusCode: 404 :Order not found ');
+        return res.status(404).json({
+          message:
+            'Order does not exist! Please contact the us for further inquiries',
+        });
+      }
+      logger.orderLogger.info('/GET statusCode: 404 :Specific order found ');
+      return res.status(200).json({
+        ok: true,
+        message: 'Order found',
+        data: getPagingData(userOrders, page, limit),
       });
     } catch (e) {
       logger.orderLogger.error(

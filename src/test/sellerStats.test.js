@@ -33,7 +33,7 @@ describe('Seller login', () => {
     it('Confirm 2FA and return seller cookie', (done) => {
       chai
         .request(app)
-        .get(`/api/users/login/${twoFAToken}`)
+        .get(`/api/users/login/${twoFAToken}/?email=${seller.email}`)
         .end((err, res) => {
           sellerCookie = res.header['set-cookie'];
           expect(res).to.have.status(200);

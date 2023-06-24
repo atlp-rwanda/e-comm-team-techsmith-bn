@@ -48,7 +48,7 @@ describe('Seller login', () => {
     it('should return a success code 200 after successful authentication', (done) => {
       chai
         .request(app)
-        .get(`/api/users/login/${token}`)
+        .get(`/api/users/login/${token}/?email=${seller.email}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           sellerCookie = res.header['set-cookie'][0];

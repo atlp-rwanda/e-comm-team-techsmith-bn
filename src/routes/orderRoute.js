@@ -13,6 +13,9 @@ const router = express.Router();
 // CREATE A NEW PAYMENT
 router.post('/:id/checkout', validatePayment, PaymentsController.createPayment);
 
+// MAKE MULTIPLE PAYMENTS
+router.post('/checkout', isBuyer, PaymentsController.createBulkPayment);
+
 // GET ALL ORDERS
 router.get('/', isAdmin, OrderController.getOrders);
 
@@ -44,6 +47,9 @@ router.put('/:oId', isBuyer, OrderController.updateOrder);
 
 // DELETING ORDER
 router.delete('/:oId', isBuyer, OrderController.deleteOrder);
+
+// GET ALL ORDERS FOR A USER
+router.get('/user', isBuyer, OrderController.userOrders);
 
 router.get('/stat', (req, res) => {
   io.emit('hello_mess', 'Hello there I am io');

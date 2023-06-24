@@ -148,7 +148,7 @@ class wishlistController {
           {
             model: product,
             as: 'product',
-            attributes: ['name', 'price', 'image'],
+            attributes: ['name', 'price', 'image', 'categoryId'],
           },
         ],
         limit: size,

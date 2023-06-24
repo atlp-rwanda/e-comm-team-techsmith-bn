@@ -145,11 +145,18 @@ class ProductController {
     const offset = (page - 1) * size;
     try {
       const products = await product.findAndCountAll({
-        include: {
-          model: user,
-          as: 'user',
-          attributes: ['name', 'email'],
-        },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: ['name', 'email'],
+          },
+          {
+            model: category,
+            as: 'categories',
+            attributes: ['name'],
+          },
+        ],
         limit: size,
         offset,
       });
@@ -737,6 +744,13 @@ class ProductController {
                 { price },
               ],
             },
+            include: [
+              {
+                model: category,
+                as: 'categories',
+                attributes: ['name'],
+              },
+            ],
           });
 
           if (products.length <= 0) {
@@ -784,26 +798,56 @@ class ProductController {
                 { price },
               ],
             },
+            include: [
+              {
+                model: category,
+                as: 'categories',
+                attributes: ['name'],
+              },
+            ],
           });
 
-          if (products.length <= 0) {
-            res.status(404).json({
+          if (products.length === 0) {
+            return res.status(200).json({
               status: 'None',
               message: 'no product found',
             });
-          } else {
-            res.status(200).json({
-              status: 'lIST OF PRODUCTS',
-              message: ` ${products.length} products found`,
-              data: products,
-            });
           }
+          return res.status(200).json({
+            status: 'lIST OF PRODUCTS',
+            message: ` ${products.length} products found`,
+            data: products,
+          });
         }
       } catch (error) {
         res
           .status(500)
           .json({ status: 'Getting product failure', message: error });
       }
+    }
+  }
+
+  // DELETE FAULTY PRODUCTS
+  static async deleteFaultyProducts(req, res) {
+    try {
+      const products = await product.findAll();
+
+      products.forEach(async (singleProduct) => {
+        if (singleProduct.image.join().includes('pexels')) {
+          await singleProduct.destroy();
+          console.log('deleted', singleProduct);
+        }
+      });
+
+      // RETURN response
+      return res.status(200).json({
+        message: 'Faulty products retrieved successfully',
+        data: products,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
     }
   }
 }

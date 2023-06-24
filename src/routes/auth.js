@@ -31,8 +31,7 @@ passport.use(
   new googleStrategy(
     {
       // options for google authentifications
-      callbackURL:
-        `${CALLBACKURL}/api/auth/google/redirect`,
+      callbackURL: `${CALLBACKURL}/api/auth/google/redirect`,
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
     },
@@ -44,7 +43,6 @@ passport.use(
           where: { email: profile.email },
         });
         if (currentUser) {
-          
           // already have this user
           if (currentUser.googleId === null) {
             await user.update(
@@ -56,9 +54,9 @@ passport.use(
             done(null, currentUser);
           }
         } else {
-              temp.push(profile.email)
-              temp.push(profile.displayName)
-              done(null, false);
+          temp.push(profile.email);
+          temp.push(profile.displayName);
+          done(null, false);
         }
       } catch (err) {
         done(err);
@@ -70,37 +68,41 @@ router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-router.get(
-  '/google/redirect',
-  (req, res, next) => {
-    passport.authenticate('google', (err, user) => {
+router.get('/google/redirect', (req, res, next) => {
+  passport.authenticate('google', (err, user) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      const emailRedirect = temp[0];
+      const nameRedirect = temp[1];
+
+      const redirectUrl = `${FRONTENDURL}/signup?email=${encodeURIComponent(
+        emailRedirect
+      )}&name=${encodeURIComponent(nameRedirect)}`;
+
+      return res.redirect(redirectUrl);
+    }
+    req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
+      const token = jwt.sign(
+        {
+          email: user.email,
+          role: user.roleId,
+          userName: user.name,
+          userId: user.id,
+        },
+        process.env.USER_SECRET,
+        { expiresIn: '1h' }
+      );
 
-      if (!user) {
-        const  emailRedirect=temp[0]
-        const nameRedirect=temp[1]
+      const redirectUrl = `${FRONTENDURL}/login?token=${token}`;
 
-        const redirectUrl = `${FRONTENDURL}/signup?email=${encodeURIComponent(emailRedirect)}&name=${encodeURIComponent(nameRedirect)}`;
-
-        return res.redirect(redirectUrl);
-      }
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        const token = jwt.sign(
-          { email: user.email, roleId: user.roleId, userName: user.name,userId:user.id },
-          process.env.USER_SECRET,
-          { expiresIn: '1h' }
-        );
-
-        const redirectUrl = `${FRONTENDURL}/login?token=${token}`;
-
-        return res.redirect(redirectUrl);
-      });
-    })(req, res, next);
-  }
-);
+      return res.redirect(redirectUrl);
+    });
+  })(req, res, next);
+});
 export default router;

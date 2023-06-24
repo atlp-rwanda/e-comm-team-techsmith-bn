@@ -54,7 +54,7 @@ class userController {
     } catch (error) {
       return res.status(500).json({
         ok: false,
-        message:error.message
+        message: error.message,
       });
     }
   }
@@ -129,14 +129,12 @@ class userController {
           oldPassword,
           foundUser.password
         );
-       
 
         if (checkPassword) {
           if (newPassword === confPassword) {
             const hashNewPassword = await bcrypt.hash(newPassword, 10);
             await user.update(
-              { password: hashNewPassword,
-                passcodeModifiedAt: currentDate },
+              { password: hashNewPassword, passcodeModifiedAt: currentDate },
 
               {
                 where: {
@@ -160,7 +158,7 @@ class userController {
         message: 'User does not exists or make sure you are logged in',
       });
     } catch (error) {
-      return res.status(500).json({message:error.message});
+      return res.status(500).json({ message: error.message });
     }
   }
 }

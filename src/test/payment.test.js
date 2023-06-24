@@ -22,10 +22,32 @@ const buyerLogin = {
     exp_month: 12,
     exp_year: 2025,
     cvc: 123,
+  },
+  otherBuyerLogin = {
+    email: 'Kevine440@gmail.com',
+    password: 'Testing@123',
+  };
+
+  const multipleOrders = {
+    ordersCheckout: {
+    ids: [530, 529, 532],
+    amount: 480,
+    user: {
+      name: 'Test',
+      email: 'Kevine440@gmail.com',
+    }},
+    card: {
+      number: 4242424242424242,
+      exp_month: 12,
+      exp_year: 2025,
+      cvc: 123,
+    }
   };
 
 let buyerCookie = '',
-  userCookie = '';
+  userCookie = '',
+  otherBuyerCookie = '',
+  token = '';
 
 /**
  * USER LOGIN TESTS
@@ -45,6 +67,20 @@ describe('User login', () => {
         });
     });
   });
+  // OTHER BUYER LOIGN
+  describe('Given a buyer wants to login', () => {
+    it('should login a user', (done) => {
+      chai
+        .request(app)
+        .post('/api/users/login')
+        .send(otherBuyerLogin)
+        .end((err, res) => {
+          res.should.have.status(200);
+          otherBuyerCookie = res.header['set-cookie'][0];
+          done();
+        });
+    });
+  });
   // OTHER USER LOGIN (NOT BUYER)
   describe('Given a user wants to login', () => {
     it('should login a user', (done) => {
@@ -54,6 +90,20 @@ describe('User login', () => {
         .send(userLogin)
         .end((err, res) => {
           res.should.have.status(202);
+          token = res.body.token;
+          done();
+        });
+    });
+  });
+
+  // OTHER USER 2FA
+  describe('Given a user wants to complete 2FA', () => {
+    it('should complete 2FA', (done) => {
+      chai
+        .request(app)
+        .get(`/api/users/login/${token}/?email=${userLogin.email}`)
+        .end((err, res) => {
+          res.should.have.status(200);
           userCookie = res.header['set-cookie'][0];
           done();
         });
@@ -180,6 +230,21 @@ describe('Payment Test', () => {
         .set('cookie', buyerCookie)
         .end((err, res) => {
           res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  // MAKE BULK PAYMENTS
+  describe('Given a buyer wants to make bulk payments', () => {
+    it('should make bulk payments', (done) => {
+      chai
+        .request(app)
+        .post('/api/orders/checkout')
+        .send(multipleOrders)
+        .set('cookie', buyerCookie)
+        .end((err, res) => {
+          res.should.have.status(201);
           done();
         });
     });
