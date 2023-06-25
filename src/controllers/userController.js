@@ -14,8 +14,6 @@ class userController {
   // LOGOUT
   static logoutController = async (req, res) => {
     const cookie = getCookie(req);
-    /* eslint-disable */
-    console.log(req.headers, cookie);
     try {
       if (!cookie) {
         return res.status(401).json({
@@ -122,6 +120,7 @@ class userController {
   static async updatePass(req, res) {
     try {
       const { email, oldPassword, newPassword, confPassword } = req.body;
+      const currentDate = new Date();
       // Checking if the email value provided is found in the database
       const foundUser = await user.findOne({ where: { email } });
       if (foundUser) {
@@ -130,12 +129,15 @@ class userController {
           oldPassword,
           foundUser.password
         );
+       
 
         if (checkPassword) {
           if (newPassword === confPassword) {
             const hashNewPassword = await bcrypt.hash(newPassword, 10);
             await user.update(
-              { password: hashNewPassword },
+              { password: hashNewPassword,
+                passcodeModifiedAt: currentDate },
+
               {
                 where: {
                   email,
@@ -158,7 +160,7 @@ class userController {
         message: 'User does not exists or make sure you are logged in',
       });
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json({message:error.message});
     }
   }
 }

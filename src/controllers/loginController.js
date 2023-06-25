@@ -74,7 +74,7 @@ class loginController {
         });
 
         if (
-          lastUpdatedPassword < thirtyDaysAgo &&
+          lastUpdatedPassword > thirtyDaysAgo &&
           lastUpdatedPassword !== null
         ) {
           logger.userLogger.info(' /POST 200: Successful log in');
@@ -145,27 +145,25 @@ class loginController {
       // RETURN USER DETAILS
       const lastUpdatedPassword = findUser.passcodeModifiedAt;
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-      if(lastUpdatedPassword < thirtyDaysAgo &&
-        lastUpdatedPassword !== null){
-          logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
-          return res.status(200).json({
-            message: 'Login successfully',
-            Authorization: userToken,
-            user: findUser,
-          });
-        }
-        else{
-          logger.userLogger.info(
-            ' /POST 200: Successful log in, but password needs to be changed'
-          );
-          return res.status(200).json({
-            message:
-              'You have logged in successfully, but you need to change your password',
-            Authorization: userToken,
-            changePassword: true,
-            user: findUser,
-          });
-        }
+      if (lastUpdatedPassword > thirtyDaysAgo && lastUpdatedPassword !== null) {
+        logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
+        return res.status(200).json({
+          message: 'Login successfully',
+          Authorization: userToken,
+          user: findUser,
+        });
+      }
+
+      logger.userLogger.info(
+        ' /POST 200: Successful log in, but password needs to be changed'
+      );
+      return res.status(200).json({
+        message:
+          'You have logged in successfully, but you need to change your password',
+        Authorization: userToken,
+        changePassword: true,
+        user: findUser,
+      });
     } catch (error) {
       logger.userLogger.error(` statuCode: 500 : 2FA failed -${error.message}`);
       return res.status(500).json({

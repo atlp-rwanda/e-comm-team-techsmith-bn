@@ -7,8 +7,6 @@ const isActive = async (req, res, next) => {
   try {
     // GET EMAIL FROM REQUEST BODY
     const { email } = req.body;
-    // eslint-disable-next-line no-console
-    console.log(email);
     const userExist = await user.findOne({
       where: { email },
     });

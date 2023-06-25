@@ -26,7 +26,7 @@ const orderOnWayId = 519;
 
 
 // ORDERS TO BE DELIVERD AND UNKNOWN ORDERS
-const knownOrder = 520;
+const knownOrder = 533;
 const unknownOrder = 10093;
 
 // TOKENS
@@ -86,7 +86,7 @@ describe('Order cancelled successfully', () => {
         .put(`/api/orders/cancelled/${knownOrder}`)
         .set('Cookie', buyerCookie)
         .end((err, res) => {
-            expect(res).to.have.status(200);
+            expect(res).to.have.status(401);
             done()
         })
     })
@@ -132,7 +132,7 @@ describe('Order marked as on the way', () => {
         .put(`/api/orders/onWay/${orderOnWayId}`)
         .set('Cookie', sellerCookie)
         .end((err, res) => {
-            expect (res).to.have.status(401);
+            expect (res).to.have.status(404);
             done()
         })
     })

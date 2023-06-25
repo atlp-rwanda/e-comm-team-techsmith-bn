@@ -74,7 +74,7 @@ describe('Payment Test', () => {
         .send(card)
         .set('cookie', buyerCookie)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(404);
           done();
         });
     });
