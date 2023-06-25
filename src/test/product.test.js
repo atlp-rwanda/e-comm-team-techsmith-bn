@@ -11,10 +11,10 @@ const { expect } = chai;
 const goodProduct = {
   name: `product${makeid(10)}`,
   image: [
-    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687472057/products/pexels-photo-376464_opmwxp.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687460791/products/qpww5y9guwavcx29bl3p.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687460791/products/rbsfje0ufqchiwptioi0.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687452780/products/pexels-photo-1139556_ss8bv5.jpg"
   ],
   price: 120,
   categoryId: 75,
@@ -27,10 +27,10 @@ const goodProduct = {
 const adminProduct = {
   name: `product${makeid(10)}`,
   image: [
-    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687450070/products/cmnbhoq3qqo9tdznu1yd.png",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687449713/products/dwmrjvdfx1lmnwdgjwd4.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687473517/ecommerce/hero-2_fe47un.webp",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687473516/ecommerce/hero-4_lcvnsq.avif"
   ],
   price: 85000,
   categoryId: 70,
@@ -44,10 +44,10 @@ const adminProduct = {
 const adminBadProduct = {
   namess: `product${makeid(10)}`,
   imagess: [
-    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687473516/ecommerce/hero-1_j41qfu.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1685021867/ecommerce/nike-just-do-it_o3i0pz.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1684829244/ecommerce/homeImage_zcbm0y.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1685229667/ecommerce/c08012248_thyevv.png"
   ],
   price: 85000,
   categoryId: 70,
@@ -62,10 +62,10 @@ const adminBadProduct = {
 const badProduct = {
   name: `product${makeid(10)}`,
   image: [
-    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687473516/ecommerce/hero-1_j41qfu.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1685021867/ecommerce/nike-just-do-it_o3i0pz.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1684829244/ecommerce/homeImage_zcbm0y.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1685229667/ecommerce/c08012248_thyevv.png"
   ],
   price: 85000,
   condition: 'New',
@@ -94,10 +94,10 @@ const adminLogin = {
 const productoUpdate = {
   name: 'product test',
   image: [
-    "https://images.unsplash.com/photo-1639020715359-f03b05835829?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-    "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/1139556/pexels-photo-1139556.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687475545/ecommerce/photo-1543145223-1f9043516739_mklkna.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687460791/products/qpww5y9guwavcx29bl3p.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687460791/products/rbsfje0ufqchiwptioi0.jpg",
+    "https://res.cloudinary.com/nishimweprince/image/upload/v1687449713/products/dwmrjvdfx1lmnwdgjwd4.jpg"
   ],
   price: 85000,
   condition: 'New',
@@ -126,7 +126,7 @@ describe('Seller 2FA', () => {
   it('Confirm 2FA and return seller cookie', (done) => {
     chai
       .request(app)
-      .get(`/api/users/login/${twoFAToken}`)
+      .get(`/api/users/login/${twoFAToken}/?email=${sellerLogin.email}`)
       .end((err, res) => {
         sellerCookie = res.header['set-cookie'][0];
         expect(res).to.have.status(200);
@@ -325,14 +325,14 @@ describe('Add  product', () => {
     });
 
     describe('Buyer, Seller or Admin users', () => {
-      it('can search Products which have category Id of 70 ', (done) => {
+      it('can search Products which have category Id of 75', (done) => {
         chai
           .request(app)
           .post('/api/products/search')
           .send({
             name: null,
             price: null,
-            categoryIds: 70,
+            categoryIds: 75,
           })
           .end((err, res) => {
             expect(res).to.have.status(200);

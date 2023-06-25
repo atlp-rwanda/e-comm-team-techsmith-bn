@@ -38,4 +38,7 @@ router.post('/search', ProductController.getProduct);
 // Seller get single product from his available products
 router.get('/mySingleProduct/:id', isSeller, ProductController.getOneFromMine);
 
+// GET FAULTY PRODUCTS
+router.get('/fix/faulty', ProductController.deleteFaultyProducts);
+
 export default router;

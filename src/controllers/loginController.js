@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import speakeasy from 'speakeasy';
 import dotenv from 'dotenv';
 import db from '../../database/models/index.js';
 import { nodeMail, twoFAMessageTemplate } from '../utils/emails.js';
@@ -40,8 +41,9 @@ class loginController {
       // IF USER IS A SELLER AND PASSWORD IS CORRECT
 
       if (checkPassword && findUser.roleId === 2) {
-        const token = jwt.sign({ email: findUser.email }, secret, {
-          expiresIn: '1h',
+        const token = speakeasy.hotp({
+          secret,
+          counter: 45,
         });
         await nodeMail(
           findUser.email,
@@ -73,6 +75,8 @@ class loginController {
           path: '/',
         });
 
+        const { password: userPassword, ...userDetails } = findUser.dataValues;
+
         if (
           lastUpdatedPassword > thirtyDaysAgo &&
           lastUpdatedPassword !== null
@@ -92,7 +96,7 @@ class loginController {
             'You have logged in successfully, but you need to change your password',
           Authorization: token,
           changePassword: true,
-          user: findUser,
+          user: userDetails,
         });
       }
       logger.userLogger.error(' /POST statusCode: 400 : Invalid credentials');
@@ -112,6 +116,7 @@ class loginController {
   // TWO FACTOR AUTHENTICATION
   static async twoFAController(req, res) {
     const { token } = req.params;
+    const { email } = req.query;
     try {
       if (!token) {
         logger.userLogger.info(' /POST statusCode : 400  Token expired');
@@ -119,7 +124,21 @@ class loginController {
           message: 'Token may have expired. Please login again',
         });
       }
-      const { email } = jwt.verify(token, secret);
+      const validated = speakeasy.hotp.verify({
+        secret,
+        counter: 45,
+        token,
+        window: 5,
+      });
+
+      if (!validated) {
+        logger.userLogger.info(' /POST statusCode : 400  Invalid token');
+        return res.status(400).json({
+          message: 'Invalid token',
+          validated,
+        });
+      }
+
       // CHECK IF USER EXISTS
       const findUser = await user.findOne({
         where: { email },
@@ -128,7 +147,10 @@ class loginController {
           as: 'role',
           attributes: ['name'],
         },
+        exclude: ['password'],
       });
+
+      const { password: userPassword, ...userDetails } = findUser.dataValues;
 
       const payload = {
         id: findUser.id,
@@ -150,7 +172,7 @@ class loginController {
         return res.status(200).json({
           message: 'Login successfully',
           Authorization: userToken,
-          user: findUser,
+          user: userDetails,
         });
       }
 

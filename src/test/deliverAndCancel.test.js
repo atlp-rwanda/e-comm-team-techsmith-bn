@@ -66,7 +66,7 @@ describe('Login to change order Status', () => {
           describe('Confirm two factor authentication', () => {
             it('should return a 200 status code', (done) => {
               chai.request(app)
-                .get(`/api/users/login/${twoFAToken}`)
+                .get(`/api/users/login/${twoFAToken}/?email=${seller.email}`)
                 .end((err, res) => {
                   expect(res).to.have.status(200);
                   sellerCookie = res.header['set-cookie'][0]

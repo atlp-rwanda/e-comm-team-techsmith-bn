@@ -28,6 +28,11 @@ const orderUser={
   password:'Kevine@123'
 }
 
+const allOrdersuser = {
+  email: 'Kevine440@gmail.com',
+  password: 'Testing@123',
+}
+
 const order1= {
   productId:568,
   userId:394, 
@@ -49,8 +54,37 @@ const update={
 const orderId = 518;
 const singleOrderId = 518; 
 
+let cookie="",
+userCookie="";
 
-let cookie=""
+// USER LOGIN
+describe("User login",()=>{
+  it("should login a user",(done)=>{
+    chai.request(app)
+    .post('/api/users/login')
+    .send(orderUser)
+    .end((err,res)=>{
+      expect(res).to.have.status(200)
+      userCookie = res.header['set-cookie'][0];
+      done()
+    })
+  })
+})
+
+// USER GET ALL ORDERS
+describe("User get all orders",()=>{
+  it("should get all orders",(done)=>{
+    chai.request(app)
+    .get('/api/orders/user')
+    .set('cookie',userCookie)
+    .end((err,res)=>{
+      expect(res).to.have.status(200)
+      done()
+    })
+  })
+})
+
+
 // ADMIN CAN GET ALL ORDERS
 describe('Admin user', () => {
   it('can get all orders ', (done) => {

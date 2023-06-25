@@ -21,8 +21,7 @@ class PaymentsController {
     // RETRIEVE VALUES RETURNED BY THE MIDDLEWARE
     const { findUser, findOrder, findProduct } = res.locals;
     const { card } = req.body;
-    // eslint-disable-next-line no-console
-    console.log(card);
+
     try {
       // CREATE STRIPE TOKEN
       const stripeToken = await stripePayment.tokens.create({
@@ -40,7 +39,7 @@ class PaymentsController {
       });
       // CREATE STRIPE CHARGE
       const stripeCharge = await stripePayment.charges.create({
-        amount: findOrder.amount,
+        amount: findOrder.amount * 100,
         currency: 'usd',
         customer: stripeCustomer.id,
         description: `Charge for ${findProduct.name}`,
@@ -84,6 +83,85 @@ class PaymentsController {
       }
     } catch (error) {
       logger.orderLogger.error('/POST statusCode: 500 :Payment failed');
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  // CREATE BULK PAYMENT
+  static async createBulkPayment(req, res) {
+    const { id } = res.locals;
+    const { ordersCheckout, card } = req.body;
+
+    try {
+      // CREATE STRIPE TOKEN
+      const stripeToken = await stripePayment.tokens.create({
+        card,
+      });
+
+      // CREATE STRIPE PAYMENT
+      const stripeCustomer = await stripePayment.customers.create({
+        email: ordersCheckout.user.email,
+        source: stripeToken.id,
+        name: ordersCheckout.user.name,
+        description: `Customer for ${ordersCheckout.user.email}`,
+      });
+
+      // CREATE STRIPE CHARGE
+      const stripeCharge = await stripePayment.charges.create({
+        amount: ordersCheckout.amount * 100,
+        currency: 'usd',
+        customer: stripeCustomer.id,
+        description: `Charge for ${ordersCheckout.user.name}'s bulk puchase of ${ordersCheckout.ids.length} items`,
+      });
+
+      // CREATE PAYMENT RECORD
+      const createPayment = await payment.create({
+        orderId: ordersCheckout.ids.join(''),
+        userId: id,
+        receiptUrl: stripeCharge.receipt_url,
+        attributes: { exclude: ['updatedAt', 'createdAt', 'userId'] },
+      });
+      const { userId, orderId, ...rest } = createPayment.dataValues;
+
+      // UPDATE ORDERS STATUS
+      const updateOrders = Promise.all(
+        ordersCheckout.ids.map(async (orderPurchase) => {
+          const findOrder = await order.findOne({
+            where: { id: orderPurchase },
+          });
+          const updateOrder = await findOrder.update(
+            {
+              status: 'Paid',
+            },
+            { returning: true }
+          );
+          return updateOrder;
+        })
+      );
+
+      updateOrders
+        .then(({ data: orders }) => orders)
+        .catch((error) => {
+          logger.orderLogger.error('/POST statusCode: 500 :Payment failed');
+          return res.status(500).json({
+            message: error.message,
+          });
+        });
+
+      const { name, email } = ordersCheckout.user;
+
+      return res.status(201).json({
+        ok: true,
+        message: 'Payment successfully added and order statuses updated',
+        data: rest,
+        user: {
+          name,
+          email,
+        },
+      });
+    } catch (error) {
       return res.status(500).json({
         message: error.message,
       });
@@ -188,4 +266,5 @@ class PaymentsController {
     }
   }
 }
+
 export default PaymentsController;
