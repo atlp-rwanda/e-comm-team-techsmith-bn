@@ -167,7 +167,7 @@ class loginController {
       // RETURN USER DETAILS
       const lastUpdatedPassword = findUser.passcodeModifiedAt;
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-      if (lastUpdatedPassword > thirtyDaysAgo && lastUpdatedPassword !== null) {
+      if (lastUpdatedPassword < thirtyDaysAgo && lastUpdatedPassword !== null) {
         logger.userLogger.info(' /GET statusCode: 200 : log in successfully');
         return res.status(200).json({
           message: 'Login successfully',
