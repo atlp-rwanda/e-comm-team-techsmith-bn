@@ -342,13 +342,14 @@ class OrderController {
       const { id: userId } = res.locals;
       const { page, size } = req.query;
 
-      const { limit } = getPagination(page, size);
+      const { limit, offset } = getPagination(page, size);
 
       const userOrders = await order.findAndCountAll({
         where: {
           userId,
         },
         limit,
+        offset,
         include: [
           {
             model: user,

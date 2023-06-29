@@ -28,7 +28,7 @@ class CategoryController {
   static async getCategoryById(req, res) {
     const { page, size } = req.query;
 
-    const { limit } = getPagination(page, size);
+    const { limit, offset } = getPagination(page, size);
 
     const { id } = req.params;
 
@@ -37,6 +37,7 @@ class CategoryController {
       const products = await product.findAndCountAll({
         where: { categoryId: id },
         limit,
+        offset,
         include: [
           {
             model: category,

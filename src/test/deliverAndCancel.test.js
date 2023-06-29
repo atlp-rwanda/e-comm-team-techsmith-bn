@@ -9,8 +9,8 @@ const {expect} = chai
 // LOGIN THE ADMIN INORDER TO CONFIRM THE ORDER
 
 const buyerUser = {
-    "email": "ikevine@gmail.com",
-    "password": "Kevine@123"
+    "email": "Kevine440@gmail.com",
+    "password": "Testing@123"
 }
 
 // REGULAR USER
@@ -26,7 +26,8 @@ const orderOnWayId = 519;
 
 
 // ORDERS TO BE DELIVERD AND UNKNOWN ORDERS
-const knownOrder = 562;
+const knownOrder = 572;
+const knownOrderId = 573;
 const unknownOrder = 10093;
 
 // TOKENS
@@ -83,7 +84,7 @@ describe('Login to change order Status', () => {
 describe('Order cancelled successfully', () => {
     it('Should cancel the order', (done) => {
         chai.request(app)
-        .put(`/api/orders/cancelled/${knownOrder}`)
+        .put(`/api/orders/cancelled/${knownOrderId}`)
         .set('Cookie', buyerCookie)
         .end((err, res) => {
             expect(res).to.have.status(200);
