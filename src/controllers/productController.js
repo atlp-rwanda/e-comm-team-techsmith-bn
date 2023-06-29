@@ -684,7 +684,7 @@ class ProductController {
           {
             model: user,
             as: 'user',
-            attributes: ['name', 'email'],
+            attributes: ['name', 'email', 'id'],
           },
         ],
       });
