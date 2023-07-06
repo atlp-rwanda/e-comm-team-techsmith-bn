@@ -1,2 +1,0 @@
-This file helps us to view the order changes in real time as the story description says.
-it is a simple simulation of the frontend and it will be very hand for the person who will work with my routes in frontend.

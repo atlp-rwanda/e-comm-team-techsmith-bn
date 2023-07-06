@@ -53,7 +53,6 @@ describe('Regular user login', () => {
         expect(res).to.have.status(202);
         regularCookie = res.header['set-cookie'][0];
         regularToken = res.body.Authorization;
-        console.log(regularCookie);
         done();
       });
   });

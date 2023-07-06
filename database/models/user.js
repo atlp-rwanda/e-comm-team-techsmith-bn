@@ -24,12 +24,17 @@ module.exports = (sequelize, DataTypes) => {
       });
       user.hasMany(models.chat, {
         onDelete: 'CASCADE',
+        foreignKey: 'userId'
       });
       user.hasMany(models.review,{
         onDelete:'CASCADE'
       });
       user.hasMany(models.notification, {
         onDelete: 'CASCADE',
+      });
+      user.hasMany(models.participant, {
+        onDelete: 'CASCADE',
+        foreignKey: 'userId'
       });
     }
   }

@@ -15,6 +15,7 @@ import sellerStatisticsRouter from './sellerStatisticsRoute.js';
 import notificationRouter from './notificationRoute.js';
 import categoryRoute from './categoryRoute.js';
 import sellerRoute from './sellerRoute.js';
+import chatRoutes from './chatRoutes.js';
 
 // SETUP ROUTER
 const router = express.Router();
@@ -35,5 +36,6 @@ router.use('/statistics', sellerStatisticsRouter);
 router.use('/notify', notificationRouter);
 router.use('/category', categoryRoute);
 router.use('/sellers', sellerRoute);
+router.use('/chat', chatRoutes);
 
 export default router;

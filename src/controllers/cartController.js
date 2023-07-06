@@ -254,7 +254,6 @@ class cartController {
         totalPrice: item.totalPrice,
         image: item.product.image,
       }));
-      // console.log(updatedCartItem.desiredQuantity)
       logger.cartLogger.info(
         '/PUT statusCode: 200 : Cart item updated succesfully'
       );

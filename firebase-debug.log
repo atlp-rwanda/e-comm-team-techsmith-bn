@@ -1,0 +1,22 @@
+[debug] [2023-07-13T23:46:54.640Z] ----------------------------------------------------------------------
+[debug] [2023-07-13T23:46:54.642Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2023-07-13T23:46:54.642Z] CLI Version:   11.28.0
+[debug] [2023-07-13T23:46:54.642Z] Platform:      darwin
+[debug] [2023-07-13T23:46:54.642Z] Node Version:  v18.14.2
+[debug] [2023-07-13T23:46:54.644Z] Time:          Fri Jul 14 2023 01:46:54 GMT+0200 (Central Africa Time)
+[debug] [2023-07-13T23:46:54.644Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-07-13T23:46:54.647Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-07-13T23:46:54.699Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-07-13T23:46:54.699Z] > authorizing via signed-in user (princeelysee@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/nishimweprince/Documents/ATLP/Team Project/e-comm-team-techsmith-bn
+

@@ -168,10 +168,10 @@ const nodeMail = async (email, name, heading, messageTemplate, token) => {
     await transporter
       .sendMail(mailOptions)
       // eslint-disable-next-line no-console
-      .then((result) => console.log(result));
+      .then((result) => result);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error, typeof paymentSuccessfulMessage);
+    return error;
   }
 };
 

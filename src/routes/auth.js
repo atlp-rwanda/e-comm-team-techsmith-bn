@@ -18,7 +18,6 @@ passport.serializeUser((user, done) => {
 });
 /* eslint-disable */
 passport.deserializeUser(async (id, done) => {
-  console.log('Deserializing user with ID:', id);
   try {
     const currentUser = await user.findOne({ where: { id } });
     done(null, currentUser);
