@@ -35,6 +35,11 @@ class loginController {
           message: 'User not found',
         });
       }
+      if (findUser.isActive === false){
+        return res.status(403).json({
+          message:'Account has been blocked !!!'
+        })
+      }
 
       const checkPassword = await bcrypt.compare(password, findUser.password);
 

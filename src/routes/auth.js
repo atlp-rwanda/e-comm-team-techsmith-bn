@@ -11,7 +11,7 @@ const { user } = db;
 const temp = [];
 dotenv.config();
 
-const { CLIENTID, CLIENTSECRET, CALLBACKURL, FRONTENDURL } = process.env;
+const { CLIENTID, CLIENTSECRET, FRONTENDURL } = process.env;
 /* eslint-disable */
 passport.serializeUser((user, done) => {
   done(null, user.googleId);
@@ -31,7 +31,7 @@ passport.use(
   new googleStrategy(
     {
       // options for google authentifications
-      callbackURL: `${CALLBACKURL}/api/auth/google/redirect`,
+      callbackURL: `/api/auth/google/redirect`,
       clientID: CLIENTID,
       clientSecret: CLIENTSECRET,
     },
