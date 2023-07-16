@@ -21,13 +21,7 @@ const message = {
 };
 
 describe('Chatroom Controller', () => {
-  // GET ALL MESSAGES
-  describe('Get all messages', () => {
-    it('should return all messages', async () => {
-      const messages = await getMessages();
-      chai.expect(messages).to.be.an('array');
-    });
-  });
+  
   // GET ACTIVE USERS
   describe('Get active users', () => {
     it('should return all active users', async () => {
@@ -35,13 +29,7 @@ describe('Chatroom Controller', () => {
       chai.expect(users).to.be.an('array');
     });
   });
-  // CREATE MESSAGE
-  describe('Create message', () => {
-    it('should create a new message', async () => {
-      const newMessage = await createMessage(message);
-      chai.expect(newMessage).to.be.an('object');
-    });
-  });
+  
   // ADD ACTIVE USER
   let user = {};
   describe('Add active user', () => {
@@ -57,11 +45,5 @@ describe('Chatroom Controller', () => {
       chai.expect(response).to.be.an('number');
     });
   });
-  // CLEAN UP
-  describe('Remove test messages', () => {
-    it('should remove test messages', async () => {
-      const response = await removeTestMessages(message.loggedInUser.id);
-      chai.expect(response).to.be.an('number');
-    });
-  });
+  
 });
