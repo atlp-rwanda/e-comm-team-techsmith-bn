@@ -17,7 +17,7 @@ const { Op } = Sequelize;
 dotenv.config();
 
 // IMPORT MODEL PRODUCT
-const { product, user, category } = db;
+const { product, user, category, review } = db;
 
 class ProductController {
   // CREATE NEW PRODUCT
@@ -156,6 +156,11 @@ class ProductController {
             as: 'categories',
             attributes: ['name'],
           },
+          {
+            model: review,
+            as: 'reviews',
+            attributes: ['rating'],
+          },
         ],
         limit: size,
         offset,
@@ -185,7 +190,7 @@ class ProductController {
       logger.productLogger.info('/GET statusCode: 200 : All Products fetched ');
       return res.status(200).json({
         ok: true,
-        message: ` ${products.count} products found`,
+        message: `${products.count} products found`,
         data: {
           totalItems: products.count,
           totalPages,
@@ -307,6 +312,11 @@ class ProductController {
             as: 'user',
             attributes: ['name'],
           },
+          {
+            model: review,
+            as: 'reviews',
+            attributes: ['rating'],
+          },
         ],
         limit: size,
         offset,
@@ -364,6 +374,13 @@ class ProductController {
     try {
       const availableProduct = await product.findOne({
         where: { isAvailable: true, id },
+        include: [
+          {
+            model: review,
+            as: 'reviews',
+            attributes: ['rating'],
+          },
+        ],
       });
       if (availableProduct) {
         logger.productLogger.info(
@@ -405,6 +422,11 @@ class ProductController {
             model: user,
             as: 'user',
             attributes: ['name'],
+          },
+          {
+            model: review,
+            as: 'reviews',
+            attributes: ['rating'],
           },
         ],
       });
@@ -493,6 +515,13 @@ class ProductController {
       // CHECK IF PRODUCT EXISTS
       const productExist = await product.findOne({
         where: { id: pId, userId: loggedInUserId },
+        include: [
+          {
+            model: review,
+            as: 'reviews',
+            attributes: ['rating'],
+          },
+        ],
       });
 
       if (!productExist) {
@@ -515,7 +544,7 @@ class ProductController {
     }
   }
 
-  // DELETE A SEPCIFIC PRODUCT
+  // DELETE A SEPCIFIC PRODUCT22
   static async deleteProduct(req, res) {
     try {
       const { pId } = req.params;
@@ -686,7 +715,39 @@ class ProductController {
             as: 'user',
             attributes: ['name', 'email', 'id'],
           },
+          {
+            model: category,
+            as: 'categories',
+            attributes: ['name'],
+          },
+          {
+            model: review,
+            as: 'reviews',
+            attributes: [],
+          },
         ],
+        attributes: [
+          'id',
+          'name',
+          'price',
+          'condition',
+          'description',
+          'image',
+          [
+            Sequelize.fn('AVG', Sequelize.col('reviews.rating')),
+            'averageRating',
+          ],
+        ],
+        group: [
+          'product.id',
+          'product.name',
+          'user.name',
+          'user.email',
+          'user.id',
+          'categories.name',
+          'categories.id',
+        ],
+        raw: true,
       });
       if (!productExist) {
         return res.status(404).json({
