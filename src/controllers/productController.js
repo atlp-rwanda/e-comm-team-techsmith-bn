@@ -16,7 +16,7 @@ const { Op } = Sequelize;
 // CONFIG DOTENV
 dotenv.config();
 
-// IMPORT MODEL PRODUCT
+// IMPORT Model PRODUCT
 const { product, user, category, review } = db;
 
 class ProductController {
@@ -212,7 +212,7 @@ class ProductController {
     }
   }
 
-  // A SELLER SEE ALL HIS PRODUCTS
+  // A SELLER SEE ALL HIS PRODUCTS ADDING WEBSOCKET
   static async myCollectionProducts(req, res) {
     const pageAsNumber = Number.parseInt(req.query.page, 10);
     const sizeAsNumber = Number.parseInt(req.query.size, 10);

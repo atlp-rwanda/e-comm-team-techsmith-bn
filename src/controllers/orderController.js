@@ -148,7 +148,7 @@ class OrderController {
     const { id: userId } = res.locals;
 
     try {
-      // Checking if the order exists
+      // Checking if the order are exists
       const orderExists = await order.findOne({
         where: {
           [Op.and]: [
