@@ -43,3 +43,4 @@ module.exports = {
         await queryInterface.dropTable('order');
     }
 };
+
