@@ -4,7 +4,6 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class cart extends Model {
-   
     static associate(models) {
       // define association here
       cart.belongsTo(models.user,{
@@ -49,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'cart',
     tableName: 'cart',
   });
- 
+  
   return cart;
 };
 

@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class payment extends Model {
-   
+
     static associate(models) {
       // define association here
       payment.belongsTo(models.order,{
