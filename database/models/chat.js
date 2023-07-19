@@ -5,7 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
         chat.belongsTo(models.user, {
           foreignKey: 'userId',
-          as: 'user',
+          as: 'sender',
+          onDelete: 'CASCADE',
+        });
+        chat.belongsTo(models.room, {
+          foreignKey: 'roomId',
+          as: 'room',
           onDelete: 'CASCADE',
         });
       };
@@ -24,12 +29,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
+      },
+      roomId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
     {
       sequelize,
       modelName: 'chat',
+      tableName: 'chat',
     }
   );
   return chat;

@@ -896,7 +896,6 @@ class ProductController {
       products.forEach(async (singleProduct) => {
         if (singleProduct.image.join().includes('pexels')) {
           await singleProduct.destroy();
-          console.log('deleted', singleProduct);
         }
       });
 

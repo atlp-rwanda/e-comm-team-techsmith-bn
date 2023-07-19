@@ -1,187 +1,281 @@
-import moment from 'moment';
+import dotenv from 'dotenv';
+import { Op } from 'sequelize';
 import db from '../../database/models/index.js';
+import { getPagination, getPagingData } from '../utils/pagination.js';
 
-// CONFIGURE MOMENT
-moment().format();
+// CONFIG DOTENV
+dotenv.config();
 
-// LOAD MODELS FROM DB
-const { chat, user, activity } = db;
+// IMPORT MODELS
+const { chat, room, user, participant } = db;
 
-const createMessage = async (message) => {
-  try {
-    // GET MESSAGE DETAILS
-    const { loggedInUser, message: messageBody } = message;
-    // DEFINE RESPONSE
-    let response = {};
-    // CREATE MESSAGE
-    await chat
-      .create({
-        messageBody,
-        userId: loggedInUser.id,
-      })
-      .then((messageResponse) => {
-        const {
-          dataValues: { messageBody: body, createdAt, updatedAt },
-        } = messageResponse;
-        response = {
-          user: {
-            id: loggedInUser.id,
-            name: loggedInUser.name,
-            email: loggedInUser.email,
-          },
-          messageBody: body,
-          createdAt: moment(createdAt).format('MMM D, h:mm A'),
-          updatedAt: moment(updatedAt).format('MMM D, h:mm A'),
-        };
-        return response;
+class chatController {
+  static async createRoom(req, res) {
+    const { name } = req.body;
+    try {
+      const roomExists = await room.findOne({
+        where: {
+          name,
+        },
       });
-    // RETURN RESPONSE
-    return response;
-  } catch (error) {
-    // eslint-disable-next-line
-    console.log(error);
-  }
-};
-
-const getMessages = async () => {
-  try {
-    const messages = await chat.findAll({
-      order: [['createdAt', 'ASC']],
-      attributes: ['id', 'messageBody', 'createdAt', 'updatedAt'],
-      include: [
-        {
-          model: user,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-        },
-      ],
-    });
-    const returnMessages = messages.map((message) => {
-      const {
-        dataValues: {
-          id,
-          messageBody,
-          createdAt,
-          updatedAt,
-          user: { id: userId, name, email },
-        },
-      } = message;
-      return {
-        id,
-        messageBody,
-        createdAt: moment(createdAt).format('MMM D, h:mm A'),
-        updatedAt: moment(updatedAt).format('MMM D, h:mm A'),
-        user: {
-          id: userId,
+      if (!roomExists) {
+        const createRoom = await room.create({
           name,
-          email,
-        },
-      };
-    });
-    return returnMessages;
-  } catch (error) {
-    return error;
-  }
-};
-
-const getActiveUsers = async () => {
-  try {
-    const activeUsers = await activity.findAll({
-      attributes: ['id', 'room'],
-      include: {
-        model: user,
-        as: 'user',
-        attributes: ['id', 'name', 'email'],
-      },
-    });
-    const returnUsers = activeUsers.map((activeUser) => {
-      const {
-        dataValues: {
-          id,
-          room,
-          user: { id: userId, name, email },
-        },
-      } = activeUser;
-      return {
-        id,
-        room,
-        user: {
-          id: userId,
-          name,
-          email,
-        },
-      };
-    });
-    return returnUsers;
-  } catch (error) {
-    return error;
-  }
-};
-
-const removeActiveUser = async (userDisconnected) => {
-  try {
-    const deleteUser = await activity.destroy({
-      where: { userId: userDisconnected.id },
-      returning: true,
-    });
-    return deleteUser;
-  } catch (error) {
-    return error;
-  }
-};
-
-const addActiveUser = async (loggedInUser) => {
-  try {
-    const { id, name, email } = loggedInUser;
-    const userExists = await activity.findOne({
-      where: { userId: id },
-    });
-    if (!userExists) {
-      await activity.create({
-        userId: id,
+        });
+        return res.status(201).json({
+          message: 'Room created',
+          data: createRoom,
+        });
+      }
+      return res.status(200).json({
+        message: 'Room already exists',
+        data: roomExists,
       });
-      const returnUser = {
-        id,
-        room: 'Techsmiths',
-        user: {
-          id,
-          name,
-          email,
-        },
-      };
-      return returnUser;
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
     }
-    const returnUser = {
-      id: userExists.id,
-      room: userExists.room,
-      user: {
-        id,
-        name,
-        email,
-      },
-    };
-    return returnUser;
-  } catch (error) {
-    return error;
   }
-};
 
-const removeTestMessages = async (userId) => {
-  try {
-    const response = await chat.destroy({
-      where: { userId },
-    });
-    return response;
-  } catch (error) {
-    return error;
+  static async createChat(messageBody, roomId, userId) {
+    try {
+      const createChat = await chat.create(
+        {
+          messageBody,
+          roomId,
+          userId,
+        },
+        {
+          include: [
+            {
+              model: room,
+              as: 'room',
+              attributes: ['id', 'name'],
+            },
+            {
+              model: user,
+              as: 'sender',
+              attributes: ['id', 'name'],
+            },
+          ],
+        }
+      );
+      return createChat;
+    } catch (error) {
+      return error;
+    }
   }
-};
 
-export {
-  createMessage,
-  getMessages,
-  getActiveUsers,
-  removeActiveUser,
-  addActiveUser,
-  removeTestMessages,
-};
+  static async getChat(roomId) {
+    try {
+      const getChat = await chat.findAll({
+        where: {
+          roomId,
+        },
+        include: [
+          {
+            model: room,
+            as: 'room',
+          },
+          {
+            model: user,
+            as: 'sender',
+            attributes: ['id', 'name'],
+          },
+        ],
+      });
+      return getChat;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async getRoomsList(req, res) {
+    const { userId } = req.params;
+    const { page, size } = req.query;
+
+    const { limit, offset } = getPagination(page, size);
+
+    try {
+      const getRooms = await participant.findAndCountAll({
+        where: { userId },
+        limit,
+        offset,
+        include: [
+          {
+            model: room,
+            as: 'room',
+            attributes: ['id', 'name'],
+            include: [
+              {
+                model: participant,
+                as: 'participants',
+                attributes: ['id', 'userId', 'roomId'],
+                include: [
+                  {
+                    model: user,
+                    as: 'user',
+                    attributes: ['id', 'name'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: user,
+            as: 'user',
+            attributes: ['id', 'name'],
+          },
+        ],
+      });
+      if (!getRooms) {
+        return res.status(404).json({
+          message: 'No rooms found',
+        });
+      }
+      return res.status(200).json({
+        message: 'Rooms retrieved successfully',
+        data: getPagingData(getRooms, page, limit),
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  static async createParticipant(req, res) {
+    const { userId, roomId } = req.body;
+    try {
+      const createParticipant = await participant.create({
+        userId,
+        roomId,
+      });
+      return res.status(201).json({
+        message: 'Participant created',
+        data: createParticipant,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  static async searchRoom(name, page, size) {
+    const { limit, offset } = getPagination(page, size);
+
+    try {
+      let searchResults = [];
+      let totalCount = 0;
+
+      const searchRooms = await room.findAndCountAll({
+        where: {
+          name: {
+            [Op.like]: `%${name}%`,
+          },
+        },
+        include: [
+          {
+            model: participant,
+            as: 'participants',
+            attributes: ['id', 'userId', 'roomId'],
+          },
+        ],
+        limit,
+        offset,
+      });
+
+      if (!searchRooms.rows || searchRooms.rows.length === 0) {
+        const searchUsers = await user.findAndCountAll({
+          where: {
+            name: {
+              [Op.like]: `%${name}%`,
+            },
+          },
+          limit,
+          offset,
+          attributes: ['id', 'name', 'email'],
+        });
+        totalCount += searchUsers.count;
+        searchResults = [...searchResults, ...searchUsers.rows];
+      }
+
+      searchResults = [...searchResults, ...searchRooms.rows];
+      totalCount += searchRooms.count;
+      return { searchResults, totalPages: Math.ceil(totalCount / limit) };
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async createRoomWithParticipants(req, res) {
+    const { name } = req.body;
+    const { creatorId, recipientId } = req.query;
+
+    try {
+      const t = await db.sequelize.transaction();
+      const roomExists = await room.findOne({
+        where: {
+          name,
+        },
+      });
+
+      if (roomExists) {
+        const createSender = await participant.create({
+          roomId: roomExists.id,
+          userId: creatorId,
+        });
+        return res.status(200).json({
+          message: 'Room already exists',
+          data: {
+            room: roomExists,
+            sender: createSender,
+          },
+        });
+      }
+
+      if (!roomExists) {
+        const createRoom = await room.create(
+          {
+            name,
+          },
+          { transaction: t }
+        );
+        const createSender = await participant.create(
+          {
+            roomId: createRoom.id,
+            userId: creatorId,
+          },
+          { transaction: t }
+        );
+
+        const createRecipient = await participant.create(
+          {
+            roomId: createRoom.id,
+            userId: recipientId,
+          },
+          {
+            transaction: t,
+          }
+        );
+        await t.commit();
+        return res.status(201).json({
+          message: 'Room and participant created',
+          data: {
+            room: createRoom,
+            sender: createSender,
+            recipient: createRecipient,
+          },
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+}
+
+export default chatController;

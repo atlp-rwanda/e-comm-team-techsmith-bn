@@ -3,20 +3,13 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
-import moment from 'moment';
 import passport from 'passport';
 import session from 'express-session';
 import socketio from 'socket.io';
 import allRoutes from './routes/allRoutes.js';
 import db from '../database/models/index.js';
 import './utils/shedulerController.js';
-import {
-  addActiveUser,
-  createMessage,
-  getActiveUsers,
-  getMessages,
-  removeActiveUser,
-} from './controllers/chatroomController.js';
+import chatController from './controllers/chatroomController.js';
 
 // CONFIGURE DOTENV
 dotenv.config();
@@ -54,58 +47,6 @@ const server = app.listen(PORT);
 // INITIALIZE SOCKET.IO
 const io = socketio(server);
 
-// eslint-disable-next-line
-io.on('connection', async (socket) => {
-  // ALTER USER CONNECTION MESSAGE
-  const userConnected = {
-    message: 'A user has joined the chat',
-    time: moment().format('MMM D, h:mm A'),
-  };
-  // ADD LOGGED IN USER TO ACTIVE USERS
-  socket.on('userLogin', async (user) => {
-    const newUser = await addActiveUser(user);
-    io.emit('newUser', newUser);
-  });
-  socket.on('joinChat', async (user) => {
-    // GET ACTIVE USERS
-    const activeUsers = await getActiveUsers();
-    // BROADCAST ACTIVE USERS
-    io.emit('activeUsers', activeUsers);
-    console.log(`User ${user.name} has joined the chat`);
-  });
-  // BROADCAST WHEN USER CONNECTS
-  socket.emit('message', userConnected);
-  // GET MESSAGES FROM DB
-  const messages = await getMessages();
-  // SEND MESSAGES TO CLIENT
-  socket.emit('serverMessages', messages);
-  // CREATE NEW MESSAGE IN DB
-  socket.on('createMessage', async (message) => {
-    try {
-      createMessage(message)
-        .then((newMessage) => {
-          // eslint-disable-next-line
-          console.log(newMessage);
-          io.emit('newMessage', newMessage);
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error, message);
-    }
-  });
-  socket.on('leave', async (user) => {
-    const response = await removeActiveUser(user);
-    console.log(typeof response);
-  });
-
-  socket.on('disconnect', async () => {
-    console.log('user disconnected', socket.id);
-  });
-});
-
 const dbCon = async () => {
   try {
     await db.sequelize.authenticate();
@@ -118,6 +59,26 @@ Promise.all([dbCon(), server]).then(() => {
   console.log(`Server listening on port:${PORT}`);
   console.log('DB connection successful');
 });
+
+// eslint-disable-next-line
+io.on('connection', async (socket) => {
+  socket.on('createMessage', async (message) => {
+    const newMessage = await chatController.createChat(message.messageBody, message.roomId, message.user.id);
+    const payload = {...newMessage.dataValues, user: message.user}
+    io.emit('newMessage', payload);
+  })
+  socket.on('getChat', async (roomId) => {
+    const getChat = await chatController.getChat(roomId);
+    io.emit('roomMessages', getChat);
+  });
+
+  socket.on('searchRoom', async (searchData) => {
+    const searchRoom = await chatController.searchRoom(searchData.name, searchData.page, searchData.size);
+    console.log(searchRoom)
+    io.emit('searchResults', searchRoom);
+  });
+});
+
 
 export { io };
 export default app;
