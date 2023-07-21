@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import db from '../../database/models/index.js';
 import { getPagination, getPagingData } from '../utils/pagination.js';
 
@@ -147,6 +147,21 @@ class chatController {
 
   static async createParticipant(req, res) {
     const { userId, roomId } = req.body;
+
+    const participantExists = await participant.findOne({
+      where: {
+        userId,
+        roomId,
+      },
+    });
+
+    if (participantExists) {
+      return res.status(200).json({
+        message: 'Participant already exists',
+        data: participantExists,
+      });
+    }
+
     try {
       const createParticipant = await participant.create({
         userId,
@@ -167,44 +182,18 @@ class chatController {
     const { limit, offset } = getPagination(page, size);
 
     try {
-      let searchResults = [];
-      let totalCount = 0;
-
-      const searchRooms = await room.findAndCountAll({
+      const searchUsers = await user.findAndCountAll({
         where: {
           name: {
             [Op.like]: `%${name}%`,
           },
         },
-        include: [
-          {
-            model: participant,
-            as: 'participants',
-            attributes: ['id', 'userId', 'roomId'],
-          },
-        ],
         limit,
         offset,
+        attributes: ['id', 'name', 'email'],
       });
 
-      if (!searchRooms.rows || searchRooms.rows.length === 0) {
-        const searchUsers = await user.findAndCountAll({
-          where: {
-            name: {
-              [Op.like]: `%${name}%`,
-            },
-          },
-          limit,
-          offset,
-          attributes: ['id', 'name', 'email'],
-        });
-        totalCount += searchUsers.count;
-        searchResults = [...searchResults, ...searchUsers.rows];
-      }
-
-      searchResults = [...searchResults, ...searchRooms.rows];
-      totalCount += searchRooms.count;
-      return { searchResults, totalPages: Math.ceil(totalCount / limit) };
+      return getPagingData(searchUsers, page, limit);
     } catch (error) {
       return error;
     }
@@ -222,7 +211,7 @@ class chatController {
         },
       });
 
-      if (roomExists) {
+      if (roomExists && name.length > 0) {
         const createSender = await participant.create({
           roomId: roomExists.id,
           userId: creatorId,
@@ -232,6 +221,41 @@ class chatController {
           data: {
             room: roomExists,
             sender: createSender,
+          },
+        });
+      }
+
+      if (roomExists && name.length === 0) {
+        const createRoom = await room.create(
+          {
+            name,
+          },
+          { transaction: t }
+        );
+        const createSender = await participant.create(
+          {
+            roomId: createRoom.id,
+            userId: creatorId,
+          },
+          { transaction: t }
+        );
+
+        const createRecipient = await participant.create(
+          {
+            roomId: createRoom.id,
+            userId: recipientId,
+          },
+          {
+            transaction: t,
+          }
+        );
+        await t.commit();
+        return res.status(201).json({
+          message: 'Room and participant created',
+          data: {
+            room: createRoom,
+            sender: createSender,
+            recipient: createRecipient,
           },
         });
       }
@@ -270,6 +294,137 @@ class chatController {
           },
         });
       }
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  static async searchGroup(name, page, size) {
+    const { limit, offset } = getPagination(page, size);
+
+    try {
+      const searchGroups = await room.findAndCountAll({
+        where: {
+          name: {
+            [Op.like]: `%${name}%`,
+          },
+        },
+        include: [
+          {
+            model: participant,
+            as: 'participants',
+            attributes: ['id', 'userId', 'roomId'],
+          },
+        ],
+        limit,
+        offset,
+      });
+
+      const payload = searchGroups.rows.filter(
+        (group) => group.participants.length > 2
+      );
+
+      return payload;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async getGroupsList(req, res) {
+    const { page, size } = req.query;
+
+    const { limit, offset } = getPagination(page, size);
+
+    try {
+      const getGroups = await room.findAndCountAll({
+        where: {
+          [Op.and]: [
+            {
+              name: {
+                [Op.ne]: null,
+              },
+            },
+            Sequelize.where(
+              Sequelize.fn('char_length', Sequelize.col('room.name')),
+              '>',
+              0
+            ),
+          ],
+        },
+        limit,
+        offset,
+        include: [
+          {
+            model: participant,
+            as: 'participants',
+            attributes: ['id', 'userId', 'roomId'],
+            include: [
+              {
+                model: user,
+                as: 'user',
+                attributes: ['id', 'name'],
+              },
+            ],
+          },
+        ],
+      });
+
+      if (!getGroups) {
+        return res.status(200).json({
+          data: [],
+          message: 'No groups found',
+        });
+      }
+      return res.status(200).json({
+        message: 'Groups retrieved successfully',
+        data: getPagingData(getGroups, page, limit),
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  static async createGroup(req, res) {
+    const { name, participants } = req.body;
+
+    try {
+      const t = await db.sequelize.transaction();
+
+      const createGroup = await room.create(
+        {
+          name,
+        },
+        { transaction: t }
+      );
+      const payload = participants.map((groupParticipant) => ({
+        roomId: createGroup.id,
+        userId: groupParticipant,
+      }));
+
+      const createParticipants = await Promise.all(
+        payload.map(async (groupParticipant) => {
+          const newParticipant = await participant.create(groupParticipant, {
+            transaction: t,
+          });
+          return newParticipant;
+        })
+      );
+
+      await t.commit();
+
+      console.log(createGroup, createParticipants);
+
+      return res.status(201).json({
+        message: 'Group created',
+        data: {
+          group: createGroup,
+          participants: createParticipants,
+        },
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

@@ -77,6 +77,11 @@ io.on('connection', async (socket) => {
     console.log(searchRoom)
     io.emit('searchResults', searchRoom);
   });
+
+  socket.on('searchGroups', async (searchData) => {
+    const searchGroup = await chatController.searchGroup(searchData.name, searchData.page, searchData.size);
+    io.emit('searchGroupsResults', searchGroup);
+  });
 });
 
 

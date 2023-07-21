@@ -1,11 +1,7 @@
 import db from '../../database/models/index.js';
 import { getPagination, getPagingData } from '../utils/pagination.js';
 
-const Sequelize = require('sequelize');
-
-const { Op } = Sequelize;
-
-const { review, order, product, payment, user } = db;
+const { review, order, product, user } = db;
 const logger = require('./logger');
 
 class feedbackController {
@@ -28,27 +24,13 @@ class feedbackController {
           message: 'First make a order!',
         });
       }
-      const orderId = orderPlacement.id;
 
-      // CHECKING IF THE USER HAS MADE A PAYMENT
-      const paymentConfirmation = await payment.findOne({
-        where: {
-          [Op.and]: [{ userId: id }, { orderId }],
-        },
-        include: [
-          {
-            model: order,
-            as: 'order',
-            attributes: ['id'],
-          },
-        ],
-      });
-      if (!paymentConfirmation) {
+      if (orderPlacement.userId !== id) {
         logger.feedbackLogger.error(
-          '/POST statusCode: 404 : No feedback made, user need to make payment'
+          '/POST statusCode: 404 : No feedback made, user need to make order'
         );
         return res.status(404).json({
-          message: 'First complete payment process!',
+          message: 'First make a order!',
         });
       }
 
@@ -136,6 +118,7 @@ class feedbackController {
         return res.status(200).json({
           ok: true,
           message: 'We have no feedback from our customer yet!',
+          data: orders,
         });
       }
       logger.feedbackLogger.info(

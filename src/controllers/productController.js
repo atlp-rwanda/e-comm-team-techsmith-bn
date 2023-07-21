@@ -55,8 +55,8 @@ class ProductController {
       });
       if (!categoryExists) {
         try {
-          const newCategory = await category.create({
-            name: 'New Category',
+          const newCategory = await category.findOne({
+            name: 'Others',
           });
           categoryId = newCategory.id;
           // CATCH ERROR IF ANY

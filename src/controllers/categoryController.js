@@ -28,7 +28,7 @@ class CategoryController {
   static async getCategoryById(req, res) {
     const { page, size } = req.query;
 
-    const { limit, offset } = getPagination(page, size);
+    const { limit, offset } = getPagination(page, size > 10 ? size : 10);
 
     const { id } = req.params;
 
@@ -58,6 +58,27 @@ class CategoryController {
       return res.status(200).json({
         message: 'Category retrieved successfully',
         data: getPagingData(products, page, limit),
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  // CREATE NEW CATEGORY
+  static async addCategory(req, res) {
+    const { name, quantity } = req.body;
+
+    try {
+      const createCategory = await category.create({
+        name,
+        quantity,
+      });
+
+      return res.status(201).json({
+        message: 'Category created successfully',
+        data: createCategory,
       });
     } catch (error) {
       return res.status(500).json({
