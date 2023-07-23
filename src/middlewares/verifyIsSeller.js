@@ -37,7 +37,7 @@ const isSeller = async (req, res, next) => {
     logger.userLogger.error(
       `/POST statusCode: 500 : Login failed ${error.message} `
     );
-    res.status(500).json({
+    res.status(401).json({
       message: error.message,
     });
   }

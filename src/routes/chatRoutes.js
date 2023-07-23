@@ -9,5 +9,7 @@ router.get('/chats/:roomId', chatController.getChat);
 router.post('/rooms', chatController.createRoom);
 router.post('/participants', chatController.createParticipant);
 router.post('/rooms/participants', chatController.createRoomWithParticipants);
+router.get('/groups', chatController.getGroupsList);
+router.post('/groups', chatController.createGroup);
 
 export default router;
