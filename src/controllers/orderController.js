@@ -1,3 +1,4 @@
+import { io } from '../server.js';
 import db from '../../database/models/index.js';
 import { getPagination, getPagingData } from '../utils/pagination.js';
 import validateQuantity from '../utils/validateQuantity.js';
@@ -78,7 +79,7 @@ class OrderController {
     }
   }
 
-  // Create order
+  // Create order (CRUD)
 
   static async createOrder(req, res) {
     const { productId, desiredQuantity, amount } = req.body;
@@ -120,10 +121,13 @@ class OrderController {
         quantity: desiredQuantity,
         amount,
       });
-      await product.update(
+      // UPDATE QUANTITY IN REALTIME
+      const prodUpdate = await product.update(
         { quantity: validateQty - desiredQuantity },
         { where: { id: productId } }
       );
+      io.emit('QuantityUpdated', prodUpdate);
+
       logger.orderLogger.info('/POST statusCode: 404 : Product not found');
       return res.status(201).json({
         ok: true,
@@ -207,7 +211,7 @@ class OrderController {
         const updateQty = desiredQuantity - previousQty;
 
         await product.update(
-          { quantity: validateQty - updateQty },
+          { quantity: updateQty },
           { where: { id: productId } }
         );
       } else {

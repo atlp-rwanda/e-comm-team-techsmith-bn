@@ -10,7 +10,6 @@ const { USER_SECRET: secret } = process.env;
 const logger = require('./logger');
 
 const { user, role } = db;
-
 class loginController {
   // NORMAL LOGIN
   static async userLogin(req, res) {
@@ -40,11 +39,9 @@ class loginController {
           message: 'Account has been blocked !!!',
         });
       }
-
       const checkPassword = await bcrypt.compare(password, findUser.password);
 
       // IF USER IS A SELLER AND PASSWORD IS CORRECT
-
       if (checkPassword && findUser.roleId === 2) {
         const token = speakeasy.hotp({
           secret,
@@ -79,9 +76,7 @@ class loginController {
           maxAge: 604800,
           path: '/',
         });
-
         const { password: userPassword, ...userDetails } = findUser.dataValues;
-
         if (
           lastUpdatedPassword > thirtyDaysAgo &&
           lastUpdatedPassword !== null
